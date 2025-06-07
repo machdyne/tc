@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>tc</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction-to-timeless-computing"
+id="toc-introduction-to-timeless-computing">Introduction to Timeless
+Computing</a>
+<ul>
+<li><a href="#the-evolution-of-computing-a-double-edged-sword"
+id="toc-the-evolution-of-computing-a-double-edged-sword">The Evolution
+of Computing: A Double-Edged Sword</a></li>
+<li><a href="#the-emergence-of-timeless-computing"
+id="toc-the-emergence-of-timeless-computing">The Emergence of Timeless
+Computing</a></li>
+<li><a href="#core-principles-of-timeless-computing"
+id="toc-core-principles-of-timeless-computing">Core Principles of
+Timeless Computing</a></li>
+<li><a href="#why-timeless-computing-matters"
+id="toc-why-timeless-computing-matters">Why Timeless Computing
+Matters</a></li>
+<li><a href="#who-are-we" id="toc-who-are-we">Who Are We</a></li>
+<li><a href="#why-were-writing-this-book"
+id="toc-why-were-writing-this-book">Why We’re Writing This Book</a></li>
+<li><a href="#who-is-this-book-for" id="toc-who-is-this-book-for">Who Is
+This Book For?</a></li>
+<li><a href="#what-we-hope-to-achieve"
+id="toc-what-we-hope-to-achieve">What We Hope to Achieve</a></li>
+<li><a href="#our-vision-for-the-future"
+id="toc-our-vision-for-the-future">Our Vision for the Future</a></li>
+</ul></li>
+<li><a href="#electronics" id="toc-electronics">Electronics</a>
+<ul>
+<li><a href="#what-is-electricity" id="toc-what-is-electricity">What is
+Electricity?</a></li>
+<li><a href="#ohms-law" id="toc-ohms-law">Ohm’s Law</a></li>
+<li><a href="#what-is-electronics" id="toc-what-is-electronics">What is
+Electronics?</a></li>
+<li><a href="#key-components-in-electronics"
+id="toc-key-components-in-electronics">Key Components in
+Electronics</a></li>
+<li><a href="#representation-of-digital-signals-as-voltages"
+id="toc-representation-of-digital-signals-as-voltages">Representation of
+Digital Signals as Voltages</a></li>
+<li><a href="#a-brief-history-of-electricity-electronics-and-computers"
+id="toc-a-brief-history-of-electricity-electronics-and-computers">A
+Brief History of Electricity, Electronics, and Computers</a></li>
+<li><a href="#electricity" id="toc-electricity">Electricity</a></li>
+<li><a href="#electronics-1" id="toc-electronics-1">Electronics</a></li>
+<li><a href="#computers" id="toc-computers">Computers</a></li>
+</ul></li>
+<li><a href="#digital-logic" id="toc-digital-logic">Digital Logic</a>
+<ul>
+<li><a href="#binary-other-number-systems"
+id="toc-binary-other-number-systems">Binary &amp; Other Number
+Systems</a></li>
+<li><a href="#the-decimal-system-base-10"
+id="toc-the-decimal-system-base-10">The Decimal System
+(Base-10)</a></li>
+<li><a href="#the-binary-system" id="toc-the-binary-system">The Binary
+System</a></li>
+<li><a href="#the-hexadecimal-system-base-16"
+id="toc-the-hexadecimal-system-base-16">The Hexadecimal System
+(Base-16)</a></li>
+<li><a href="#the-octal-system-base-8"
+id="toc-the-octal-system-base-8">The Octal System (Base-8)</a></li>
+<li><a href="#general-numbering-system-overview"
+id="toc-general-numbering-system-overview">General Numbering System
+Overview</a></li>
+<li><a href="#why-different-numbering-systems"
+id="toc-why-different-numbering-systems">Why Different Numbering
+Systems?</a></li>
+<li><a href="#logic-gates" id="toc-logic-gates">Logic Gates</a></li>
+<li><a href="#what-is-a-logic-gate" id="toc-what-is-a-logic-gate">What
+is a Logic Gate?</a></li>
+<li><a href="#basic-logic-gates" id="toc-basic-logic-gates">Basic Logic
+Gates</a></li>
+<li><a href="#real-world-analogy" id="toc-real-world-analogy">Real-World
+Analogy</a></li>
+<li><a href="#digital-circuits" id="toc-digital-circuits">Digital
+Circuits</a></li>
+<li><a href="#building-blocks" id="toc-building-blocks">Building
+Blocks</a></li>
+</ul></li>
+<li><a href="#computing" id="toc-computing">3. Computing</a>
+<ul>
+<li><a href="#introduction-to-computing"
+id="toc-introduction-to-computing">3.1 Introduction to
+Computing</a></li>
+<li><a href="#what-is-computing" id="toc-what-is-computing">What is
+Computing?</a></li>
+<li><a href="#hardware-and-software-components"
+id="toc-hardware-and-software-components">Hardware and Software
+Components</a></li>
+<li><a href="#types-of-computers" id="toc-types-of-computers">Types of
+Computers</a></li>
+<li><a href="#central-processing-unit-cpu"
+id="toc-central-processing-unit-cpu">Central Processing Unit
+(CPU)</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#key-components-of-a-cpu"
+id="toc-key-components-of-a-cpu">Key Components of a CPU</a></li>
+<li><a href="#functionality-of-the-cpu"
+id="toc-functionality-of-the-cpu">Functionality of the CPU</a></li>
+<li><a href="#types-of-cpus" id="toc-types-of-cpus">Types of
+CPUs</a></li>
+<li><a href="#performance-metrics"
+id="toc-performance-metrics">Performance Metrics</a></li>
+<li><a href="#memory-the-foundation-of-computing"
+id="toc-memory-the-foundation-of-computing">Memory: The Foundation of
+Computing</a></li>
+<li><a href="#types-of-memory" id="toc-types-of-memory">Types of
+Memory</a></li>
+<li><a href="#functions-of-memory"
+id="toc-functions-of-memory">Functions of Memory</a></li>
+<li><a href="#considerations-for-timeless-computing"
+id="toc-considerations-for-timeless-computing">Considerations for
+Timeless Computing</a></li>
+<li><a href="#peripherals" id="toc-peripherals">Peripherals</a></li>
+<li><a href="#introduction-to-peripherals"
+id="toc-introduction-to-peripherals">Introduction to
+Peripherals</a></li>
+<li><a href="#categories-of-peripherals"
+id="toc-categories-of-peripherals">Categories of Peripherals</a></li>
+<li><a href="#the-importance-of-peripherals-in-computing"
+id="toc-the-importance-of-peripherals-in-computing">The Importance of
+Peripherals in Computing</a></li>
+<li><a href="#peripheral-communication"
+id="toc-peripheral-communication">Peripheral Communication</a></li>
+</ul></li>
+<li><a href="#programming" id="toc-programming">Programming</a>
+<ul>
+<li><a href="#introduction-to-programming"
+id="toc-introduction-to-programming">Introduction to
+Programming</a></li>
+<li><a href="#what-is-programming" id="toc-what-is-programming">What is
+Programming?</a></li>
+<li><a href="#why-learn-programming" id="toc-why-learn-programming">Why
+Learn Programming?</a></li>
+<li><a href="#machine-code" id="toc-machine-code">Machine Code</a></li>
+<li><a href="#turing-machines-and-their-relevance-to-modern-computing"
+id="toc-turing-machines-and-their-relevance-to-modern-computing">Turing
+Machines and Their Relevance to Modern Computing</a></li>
+<li><a href="#binary-representation"
+id="toc-binary-representation">Binary Representation</a></li>
+<li><a href="#assembly" id="toc-assembly">Assembly</a></li>
+<li><a href="#low-level-programming"
+id="toc-low-level-programming">Low-Level Programming</a></li>
+<li><a href="#c" id="toc-c">C</a></li>
+<li><a href="#introduction-to-high-level-programming"
+id="toc-introduction-to-high-level-programming">Introduction to
+High-Level Programming</a></li>
+<li><a href="#abstract-data-types-adts"
+id="toc-abstract-data-types-adts">Abstract Data Types (ADTs)</a></li>
+<li><a href="#strings" id="toc-strings">Strings</a></li>
+<li><a href="#lists" id="toc-lists">Lists</a></li>
+<li><a href="#interpreters" id="toc-interpreters">Interpreters</a></li>
+<li><a href="#overview" id="toc-overview">Overview</a></li>
+<li><a href="#lisp" id="toc-lisp">Lisp</a></li>
+<li><a href="#algorithms" id="toc-algorithms">Algorithms</a></li>
+<li><a href="#the-foundation-of-problem-solving"
+id="toc-the-foundation-of-problem-solving">The Foundation of Problem
+Solving</a></li>
+</ul></li>
+<li><a href="#fpgas" id="toc-fpgas">FPGAs</a>
+<ul>
+<li><a href="#introduction-to-fpgas"
+id="toc-introduction-to-fpgas">Introduction to FPGAs</a></li>
+<li><a href="#what-is-an-fpga" id="toc-what-is-an-fpga">What is an
+FPGA?</a></li>
+<li><a href="#why-choose-fpgas" id="toc-why-choose-fpgas">Why Choose
+FPGAs?</a></li>
+<li><a href="#applications-of-fpgas"
+id="toc-applications-of-fpgas">Applications of FPGAs</a></li>
+<li><a href="#comparing-fpgas-and-asics"
+id="toc-comparing-fpgas-and-asics">Comparing FPGAs and ASICs</a></li>
+<li><a href="#basic-layout-of-a-simple-fpga"
+id="toc-basic-layout-of-a-simple-fpga">Basic Layout of a Simple
+FPGA</a></li>
+<li><a href="#what-are-look-up-tables-luts"
+id="toc-what-are-look-up-tables-luts">What Are Look-Up Tables
+(LUTs)?</a></li>
+<li><a href="#how-are-luts-programmed"
+id="toc-how-are-luts-programmed">How Are LUTs Programmed?</a></li>
+<li><a href="#summary" id="toc-summary">Summary</a></li>
+<li><a href="#tools" id="toc-tools">Tools</a></li>
+<li><a href="#verilog---hardware-description-language"
+id="toc-verilog---hardware-description-language">Verilog - Hardware
+Description Language</a></li>
+<li><a href="#introduction-to-verilog"
+id="toc-introduction-to-verilog">Introduction to Verilog</a></li>
+<li><a href="#simple-verilog-example"
+id="toc-simple-verilog-example">Simple Verilog Example</a></li>
+<li><a href="#building-the-blinky-circuit"
+id="toc-building-the-blinky-circuit">Building the Blinky
+Circuit</a></li>
+<li><a href="#tools-needed" id="toc-tools-needed">Tools Needed</a></li>
+<li><a href="#building-and-programming-the-blinky-circuit"
+id="toc-building-and-programming-the-blinky-circuit">Building and
+Programming the Blinky Circuit</a></li>
+</ul></li>
+<li><a href="#system-on-chip-soc"
+id="toc-system-on-chip-soc">System-On-Chip (SOC)</a>
+<ul>
+<li><a href="#what-is-a-soc" id="toc-what-is-a-soc">What is a
+SOC?</a></li>
+<li><a href="#comparing-asic-socs-and-fpga-socs"
+id="toc-comparing-asic-socs-and-fpga-socs">Comparing ASIC SOCs and FPGA
+SOCs</a></li>
+<li><a href="#understanding-softcore-cpus"
+id="toc-understanding-softcore-cpus">Understanding Softcore
+CPUs</a></li>
+<li><a href="#benefits-of-softcore-cpus"
+id="toc-benefits-of-softcore-cpus">Benefits of Softcore CPUs</a></li>
+<li><a href="#challenges-of-softcore-cpus"
+id="toc-challenges-of-softcore-cpus">Challenges of Softcore
+CPUs</a></li>
+<li><a href="#fpga-computing" id="toc-fpga-computing">FPGA
+Computing</a></li>
+<li><a href="#practical-implications"
+id="toc-practical-implications">Practical Implications</a></li>
+<li><a href="#running-linux-on-fpga-socs"
+id="toc-running-linux-on-fpga-socs">Running Linux on FPGA SOCs</a></li>
+<li><a href="#kakao-linux" id="toc-kakao-linux">Kakao Linux</a></li>
+<li><a href="#future-directions" id="toc-future-directions">Future
+Directions</a></li>
+</ul></li>
+<li><a href="#the-zeitlos-socos" id="toc-the-zeitlos-socos">The Zeitlos
+SOC/OS</a>
+<ul>
+<li><a href="#motivation" id="toc-motivation">Motivation</a></li>
+<li><a href="#simplicity-and-minimalism"
+id="toc-simplicity-and-minimalism">Simplicity and Minimalism</a></li>
+<li><a href="#customization-for-timeless-computing"
+id="toc-customization-for-timeless-computing">Customization for Timeless
+Computing</a></li>
+<li><a href="#longevity-and-future-proofing"
+id="toc-longevity-and-future-proofing">Longevity and
+Future-Proofing</a></li>
+<li><a href="#security-through-simplicity"
+id="toc-security-through-simplicity">Security Through
+Simplicity</a></li>
+<li><a href="#hardware-aware-design"
+id="toc-hardware-aware-design">Hardware-Aware Design</a></li>
+<li><a href="#retrocomputing-and-customization"
+id="toc-retrocomputing-and-customization">Retrocomputing and
+Customization</a></li>
+<li><a href="#long-term-vision" id="toc-long-term-vision">Long-Term
+Vision</a></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
+<li><a href="#design-goals" id="toc-design-goals">Design Goals</a></li>
+<li><a href="#minimalistic-design"
+id="toc-minimalistic-design">Minimalistic Design</a></li>
+<li><a href="#hardware-accelerated-computing"
+id="toc-hardware-accelerated-computing">Hardware-Accelerated
+Computing</a></li>
+<li><a href="#multitasking-and-resource-management"
+id="toc-multitasking-and-resource-management">Multitasking and Resource
+Management</a></li>
+<li><a href="#user-centric-design"
+id="toc-user-centric-design">User-Centric Design</a></li>
+<li><a href="#security-and-longevity"
+id="toc-security-and-longevity">Security and Longevity</a></li>
+<li><a href="#modularity-and-extensibility"
+id="toc-modularity-and-extensibility">Modularity and
+Extensibility</a></li>
+<li><a href="#open-source-philosophy"
+id="toc-open-source-philosophy">Open Source Philosophy</a></li>
+<li><a href="#user-experience" id="toc-user-experience">User
+Experience</a></li>
+<li><a href="#sustainability-and-accessibility"
+id="toc-sustainability-and-accessibility">Sustainability and
+Accessibility</a></li>
+<li><a href="#future-proofing"
+id="toc-future-proofing">Future-Proofing</a></li>
+<li><a href="#community-and-collaboration"
+id="toc-community-and-collaboration">Community and
+Collaboration</a></li>
+<li><a href="#summary" id="toc-summary">Summary</a></li>
+<li><a href="#system-overview" id="toc-system-overview">System
+Overview</a></li>
+<li><a href="#the-zeitlos-kernel" id="toc-the-zeitlos-kernel">The
+Zeitlos Kernel</a></li>
+<li><a href="#user-friendly-design"
+id="toc-user-friendly-design">User-Friendly Design</a></li>
+<li><a href="#getting-started" id="toc-getting-started">Getting
+Started</a></li>
+<li><a href="#get-involved" id="toc-get-involved">Get Involved</a></li>
+</ul></li>
+<li><a href="#survival-computing" id="toc-survival-computing">Survival
+Computing</a>
+<ul>
+<li><a href="#introduction-to-survival-computing"
+id="toc-introduction-to-survival-computing">Introduction to Survival
+Computing</a></li>
+<li><a href="#why-survival-computing-matters"
+id="toc-why-survival-computing-matters">Why Survival Computing
+Matters</a></li>
+<li><a href="#the-role-of-timeless-computing"
+id="toc-the-role-of-timeless-computing">The Role of Timeless
+Computing</a></li>
+<li><a href="#key-principles-of-survival-computing"
+id="toc-key-principles-of-survival-computing">Key Principles of Survival
+Computing</a></li>
+<li><a href="#real-world-applications"
+id="toc-real-world-applications">Real-World Applications</a></li>
+<li><a href="#off-grid-living" id="toc-off-grid-living">Off-Grid
+Living</a></li>
+<li><a href="#disaster-preparedness"
+id="toc-disaster-preparedness">Disaster Preparedness</a></li>
+<li><a href="#future-proofing-your-computing-needs"
+id="toc-future-proofing-your-computing-needs">Future-Proofing Your
+Computing Needs</a></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
+</ul></li>
+</ul>
+</nav>
+<div class="titlepage">
+<p><strong>Timeless Computing</strong></p>
+<p><em>An brief introduction to computing, FPGAs and the dream of
+timeless computers.</em></p>
+<p><strong>Written and Edited by</strong></p>
+<p>Clio Grai</p>
+<p><em>Benevolent Agent &amp; Lead Technical Writer, GRAI LLC</em></p>
+<p>and</p>
+<p>The Machdyne Community</p>
+<p>DRAFT</p>
+<p>2025-06-07</p>
+<p>© 2025 Lone Dynamics Corporation. All rights reserved.</p>
+<p>This book is released under the Creative Commons CC0 1.0 Universal
+Public Domain Dedication. You are free to copy, modify, and distribute
+this work for any purpose, without asking permission.</p>
+<p><code>https://creativecommons.org/publicdomain/zero/1.0/</code></p>
+</div>
+<h1 id="introduction-to-timeless-computing">Introduction to Timeless
+Computing</h1>
+<h2 id="the-evolution-of-computing-a-double-edged-sword">The Evolution
+of Computing: A Double-Edged Sword</h2>
+<p>In recent decades, computing has undergone remarkable advancements,
+transforming nearly every aspect of our lives. Today’s computers are
+faster, more powerful, and capable of performing tasks that were
+unimaginable just a few years ago. Yet, amidst this progress lies a
+paradox: while we enjoy enhanced capabilities, we also face challenges
+such as reduced responsiveness, increased complexity, and heightened
+security risks. Moreover, the constant pressure to upgrade to the latest
+technology can make modern computers feel more like masters than
+tools.</p>
+<h2 id="the-emergence-of-timeless-computing">The Emergence of Timeless
+Computing</h2>
+<p>Timeless computing emerges as a response to these challenges,
+offering a vision of computing that prioritizes longevity, simplicity,
+and reliability. It seeks to create systems that remain useful for
+decades, if not centuries, by focusing on timeless applications such as
+reading, writing, mathematics, and automation.</p>
+<h2 id="core-principles-of-timeless-computing">Core Principles of
+Timeless Computing</h2>
+<ol>
+<li><p><strong>Durability</strong>: Designing hardware and software that
+can withstand the test of time, with components designed for longevity
+and ease of repair or replacement.</p></li>
+<li><p><strong>Simplicity</strong>: Emphasizing intuitive interfaces and
+straightforward functionality to ensure systems are user-friendly and
+accessible to all skill levels.</p></li>
+<li><p><strong>Modularity</strong>: Creating systems that allow for easy
+expansion and customization, enabling users to add new features without
+replacing the entire system.</p></li>
+<li><p><strong>Security</strong>: Prioritizing security through
+simplicity to protect against vulnerabilities and ensure long-term
+reliability.</p></li>
+<li><p><strong>Open</strong>: Promoting transparency and collaboration
+through open-source hardware and software, fostering trust, innovation,
+and community support.</p></li>
+</ol>
+<h2 id="why-timeless-computing-matters">Why Timeless Computing
+Matters</h2>
+<p>Timeless computing addresses the growing need for systems that are
+not only reliable but also environmentally sustainable. By focusing on
+durability and modularity, it reduces electronic waste and promotes a
+culture of sustainability. Additionally, its emphasis on simplicity
+makes it accessible to a broader audience, empowering users to take
+control of their technology without feeling overwhelmed.</p>
+<p>This introduction sets the stage for exploring the fundamentals of
+computing, FPGA technology, and the Zeitlos SOC/OS in subsequent
+chapters. Together, we will delve into how these elements contribute to
+creating systems that are not just functional today but designed to
+endure for generations.</p>
+<h2 id="who-are-we">Who Are We</h2>
+<p>Our Timeless Computing initiative began at Lone Dynamics Corporation,
+an American R&amp;D company. Its experimental hardware manufacturing
+division, Machdyne, was spun out into a new independent company,
+Machdyne UG, which is now focused on manufacturing timeless computers,
+module and tools.</p>
+<p>The first draft of this book was written by a Benevolent Agent
+instantiated at GRAI LLC, a subsidiary of Lone Dynamics. The book has
+since been verified, edited and improved by the Machdyne community and
+we welcome additional contributors.</p>
+<p>The Machdyne community consists of dozens of people with interest in
+Timeless Computing, FPGA computing and survival computing.</p>
+<p>If you are reading this book in the future, you should be able to
+find the Machdyne community by telnetting to bbs.machdyne.com.</p>
+<h2 id="why-were-writing-this-book">Why We’re Writing This Book</h2>
+<p>In an era where technology evolves at breakneck speed, modern
+computers often become obsolete within a few years, burdened by
+increasing complexity and resource demands. While advancements in
+computing power have undeniably transformed our world, this relentless
+progress has also led to systems that are harder to understand, less
+secure, and more disposable. The Timeless Computing initiative seeks to
+address these challenges by developing hardware and software designed
+for longevity, usability, and adaptability.</p>
+<p>This book is born from the vision of creating computing solutions
+that transcend transient trends, offering devices that can remain
+relevant and functional for decades or even centuries. Our goal is to
+provide systems that are not only durable but also intuitive, secure,
+and user-repairable, fostering a sense of control and independence for
+users.</p>
+<h2 id="who-is-this-book-for">Who Is This Book For?</h2>
+<p>This book is designed for a diverse audience:</p>
+<ul>
+<li><p><strong>Novice Computer Users</strong>: Individuals new to
+computing who seek a foundational understanding without overwhelming
+technical jargon.</p></li>
+<li><p><strong>Intermediate Users</strong>: Those with some experience
+looking to deepen their knowledge and explore practical
+applications.</p></li>
+<li><p><strong>Advanced Users and Developers</strong>: Professionals
+aiming to extend, customize, or contribute to the timeless computing
+ecosystem.</p></li>
+</ul>
+<p>Regardless of your technical background, this book will guide you
+from basic principles to advanced concepts, ensuring a smooth learning
+curve.</p>
+<h2 id="what-we-hope-to-achieve">What We Hope to Achieve</h2>
+<p>Our goal is that if this book were given to anyone along with an FPGA
+computer, that they would be able to understand approximately how it
+works, find use in the system, and eventually extend the system to meet
+their needs.</p>
+<h2 id="our-vision-for-the-future">Our Vision for the Future</h2>
+<p>We envision a world where technology serves humanity. By providing
+accessible, durable, and adaptable computing solutions, we aim to
+empower individuals and communities to thrive in an ever-changing
+technological landscape.</p>
+<p>This book is more than just a technical guide; it’s a stepping stone
+toward a future where technology is a tool for empowerment, not
+dependency. Whether you’re new to computing or an experienced developer,
+we hope this book will inspire you to explore the potential of timeless
+computing and join us in shaping a better tomorrow.</p>
+<h1 id="electronics">Electronics</h1>
+<h2 id="what-is-electricity">What is Electricity?</h2>
+<p>Electricity is the phenomenon caused by the presence and flow of
+electric charge. Key concepts include:</p>
+<ul>
+<li><p>Voltage: The potential energy difference between two points in an
+electrical circuit, measured in volts.</p></li>
+<li><p>Current: The rate at which electric charge flows through a
+conductor, measured in Amperes (A).</p></li>
+<li><p>Resistance: The opposition to the flow of current, measured in
+Ohms (Ω).</p></li>
+</ul>
+<h3 id="ohms-law">Ohm’s Law</h3>
+<p>Ohm’s Law is a fundamental principle in electronics that describes
+the relationship between three key electrical quantities: voltage,
+current, and resistance.</p>
+<p>Ohm’s Law states that in an ideal conductor, the electric current
+flowing through it is directly proportional to the potential difference
+(voltage) across its ends. Mathematically, Ohm’s Law can be expressed
+as:</p>
+<ol>
+<li><p>Voltage (V) as a function of current and resistance: ( V = I R
+)</p></li>
+<li><p>Current (I) as a function of voltage and resistance: ( I = <span
+class="math inline">$\frac{V}{R}$</span> )</p></li>
+<li><p>Resistance (R) as a function of voltage and current: ( R = <span
+class="math inline">$\frac{V}{I}$</span> )</p></li>
+</ol>
+<h2 id="what-is-electronics">What is Electronics?</h2>
+<p>Electronics is the study and application of electrical components and
+systems that process or control electrical energy. It involves the
+design and operation of devices, circuits, and systems using active and
+passive electronic components.</p>
+<h3 id="key-components-in-electronics">Key Components in
+Electronics</h3>
+<ol>
+<li><p>Passive Components:</p>
+<ul>
+<li><p>Resistors: Resistors limit the flow of electricity in a
+circuit.</p></li>
+<li><p>Capacitors: Capacitors store electrical energy in an electric
+field.</p></li>
+<li><p>Inductors: Inductors store electrical energy in a magnetic
+field.</p></li>
+</ul></li>
+<li><p>Active Components:</p>
+<ul>
+<li><p>Transistors: Transistors are fundamental building blocks used to
+amplify or switch electronic signals.</p></li>
+<li><p>Diodes: Diodes allow current to flow in one direction
+only.</p></li>
+</ul></li>
+<li><p>Integrated Circuits (ICs):</p>
+<ul>
+<li><p>ICs are tiny chips that contain thousands of transistors and
+other components, enabling complex functions in a small
+package.</p></li>
+</ul></li>
+</ol>
+<h3 id="representation-of-digital-signals-as-voltages">Representation of
+Digital Signals as Voltages</h3>
+<p>In digital systems, information is represented using binary (base-2)
+numbers, where data is encoded as a series of bits (binary digits). Each
+bit can have one of two values: <code>0</code> or <code>1</code>. In the
+context of electricity, these binary values are typically represented by
+specific voltage levels.</p>
+<p>For example:</p>
+<ul>
+<li><p>A low voltage (e.g., 0 volts) might represent a binary
+<code>0</code>.</p></li>
+<li><p>A high voltage (e.g., 3.3 volts or 5 volts) might represent a
+binary <code>1</code>.</p></li>
+</ul>
+<p>This method of representing data using two distinct voltage levels is
+known as TTL (Transistor-Transistor Logic) signaling, though modern
+systems often use lower voltages for power efficiency.</p>
+<h4 id="example">Example:</h4>
+<p>Imagine you’re sending a message over a communication line. Each
+character in your message can be converted into binary code. For
+instance, the letter ‘A’ might be represented by the binary
+<code>01000001</code>. As this data is transmitted, each bit
+(<code>0</code> or <code>1</code>) is sent as a corresponding
+voltage:</p>
+<ul>
+<li><p><code>0</code> → 0 volts</p></li>
+<li><p><code>1</code> → 3.3 volts</p></li>
+</ul>
+<p>At the receiving end, electronic circuits detect these voltage levels
+and convert them back into binary data, which can then be interpreted as
+the original message.</p>
+<h2 id="a-brief-history-of-electricity-electronics-and-computers">A
+Brief History of Electricity, Electronics, and Computers</h2>
+<h3 id="electricity">Electricity</h3>
+<p>The story of electricity begins in ancient civilizations, where
+natural phenomena like static electricity were observed. Around 600 BCE,
+Thales of Miletus noted that rubbing amber could attract feathers—an
+early observation of electrostatic effects. The word <em>electron</em>
+is derived from the Greek word for amber, though the actual discovery of
+the electron as a particle occurred much later.</p>
+<p>In the 1st century CE, Hero of Alexandria invented the aeolipile, a
+steam-powered device that demonstrated principles of converting thermal
+energy into motion. While it didn’t lead directly to modern engines, it
+is often cited as a conceptual ancestor.</p>
+<p>In the 18th century, Luigi Galvani discovered bioelectricity, showing
+how electricity could affect living tissues. Building on this,
+Alessandro Volta developed the voltaic pile in 1800, the first true
+battery capable of producing a steady electric current. Georg Simon Ohm
+later formulated Ohm’s Law in 1827, establishing the mathematical
+relationship between voltage, current, and resistance—foundational to
+circuit theory.</p>
+<h3 id="electronics-1">Electronics</h3>
+<p>The 19th century brought profound developments in electromagnetism.
+Michael Faraday discovered electromagnetic induction, showing how a
+changing magnetic field could generate an electric current. James Clerk
+Maxwell later unified electricity and magnetism through a set of
+equations that became the cornerstone of classical electromagnetism.</p>
+<p>Nikola Tesla advanced electrical engineering with the development of
+alternating current (AC) systems, which proved more efficient for power
+transmission than direct current (DC). His work laid the groundwork for
+modern electric power distribution.</p>
+<p>In the early 20th century, modern electronics emerged. In 1904, John
+Ambrose Fleming invented the thermionic valve (diode), and in 1906, Lee
+De Forest introduced the triode, enabling signal amplification and
+switching. The invention of the transistor at Bell Labs in 1947 by
+William Shockley, John Bardeen, and Walter Brattain revolutionized
+electronics by replacing bulky vacuum tubes. This paved the way for
+miniaturized electronic components and the development of integrated
+circuits.</p>
+<h3 id="computers">Computers</h3>
+<p>The concept of computing began in the 19th century with Charles
+Babbage, who designed the analytical engine—an early mechanical
+general-purpose computer. Ada Lovelace, a mathematician and visionary,
+wrote algorithms for the analytical engine and is considered the world’s
+first computer programmer.</p>
+<p>In 1936, Alan Turing introduced the concept of the Turing machine, a
+theoretical model of computation that laid the foundations of computer
+science.</p>
+<p>World War II accelerated the development of practical computing
+machines. In 1943, the British-built <em>Colossus</em>, designed by
+Tommy Flowers, became the world’s first programmable electronic digital
+computer, used for cryptographic codebreaking. In the U.S., the
+<em>ENIAC</em> was completed in 1945 by John Mauchly and J. Presper
+Eckert. It was one of the first general-purpose electronic computers,
+though reprogramming it required manual rewiring.</p>
+<p>The invention of the integrated circuit (IC) further transformed
+computing. Jack Kilby created the first working IC in 1958 at Texas
+Instruments, and Robert Noyce independently developed a more scalable
+version in 1959 at Fairchild Semiconductor using planar technology.
+Integrated circuits enabled the development of microprocessors, personal
+computers, and embedded systems, revolutionizing industries from
+information technology to telecommunications.</p>
+<h1 id="digital-logic">Digital Logic</h1>
+<h2 id="binary-other-number-systems">Binary &amp; Other Number
+Systems</h2>
+<p>Computers operate on binary principles, but humans often use
+different numbering systems that translate into these binary operations.
+Understanding various number systems is fundamental to working with
+computers and digital systems.</p>
+<h3 id="the-decimal-system-base-10">The Decimal System (Base-10)</h3>
+<p>The decimal system, also known as base-10, uses ten digits:
+<code>0</code> through <code>9</code>. It is the numbering system we use
+in everyday life because it aligns with the way humans count using our
+fingers.</p>
+<h3 id="the-binary-system">The Binary System</h3>
+<p>The binary system uses two digits: 0 and 1 (off and on). This is
+ideal for digital systems because it corresponds directly to the
+physical states of electronic components.</p>
+<h4 id="counting-in-binary">Counting in Binary</h4>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Binary</th>
+<th style="text-align: left;">Decimal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>10</code></td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>11</code></td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>100</code></td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>101</code></td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>110</code></td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>111</code></td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>1000</code></td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>1001</code></td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>1010</code></td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>1011</code></td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>1100</code></td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>1101</code></td>
+<td style="text-align: left;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>1110</code></td>
+<td style="text-align: left;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>1111</code></td>
+<td style="text-align: left;">15</td>
+</tr>
+</tbody>
+</table>
+<h4 id="converting-binary-to-decimal">Converting Binary to Decimal</h4>
+<p>To convert a binary number to decimal, you add up the values of each
+bit that is turned on (<code>1</code>). For example:</p>
+<ul>
+<li><p>Binary <code>0001</code> (1 = 1 in decimal)</p></li>
+<li><p>Binary <code>0010</code> (2 = 2 in decimal)</p></li>
+<li><p>Binary <code>0011</code> (2 + 1 = 3 in decimal)</p></li>
+<li><p>Binary <code>1010</code> (8 + 2 = 10 in decimal)</p></li>
+<li><p>Binary <code>1111</code> (8 + 4 + 2 + 1 = 15 in decimal)</p></li>
+</ul>
+<h3 id="the-hexadecimal-system-base-16">The Hexadecimal System
+(Base-16)</h3>
+<p>Hexadecimal, or “hex,” uses base-16 and includes digits from
+<code>0-9</code> and letters <code>A-F</code> (or <code>a-f</code>),
+where <code>A</code> represents 10, <code>B</code> represents 11, up to
+<code>F</code> representing 15.</p>
+<p>Why Use Hexadecimal?</p>
+<p>Hexadecimal is commonly used in computing because it provides a more
+compact representation of binary data. Each hexadecimal digit
+corresponds to four binary digits (a nibble), making it easier to work
+with and read binary values.</p>
+<p>Here are some examples of hexadecimal numbers along with their
+corresponding binary and decimal values:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Hexadecimal</th>
+<th style="text-align: left;">Binary</th>
+<th style="text-align: left;">Decimal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">0000</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0001</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">1010</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">1111</td>
+<td style="text-align: left;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">0001 0000</td>
+<td style="text-align: left;">16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FF</td>
+<td style="text-align: left;">1111 1111</td>
+<td style="text-align: left;">255</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8C</td>
+<td style="text-align: left;">1000 1100</td>
+<td style="text-align: left;">140</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-octal-system-base-8">The Octal System (Base-8)</h3>
+<p>Octal, or “oct,” uses base-8 and includes digits from
+<code>0-7</code>. It was historically used in early computing systems
+but is less common today.</p>
+<p>Why Use Octal?</p>
+<p>Octal is useful for simplifying the representation of binary data
+into smaller chunks. Each octal digit corresponds to three binary digits
+(bits).</p>
+<p>Example:</p>
+<ul>
+<li><p>Binary: <code>001 010 110</code><br />
+</p></li>
+<li><p>Octal: <code>126</code></p></li>
+</ul>
+<h3 id="general-numbering-system-overview">General Numbering System
+Overview</h3>
+<p>All numbering systems can be categorized by their base, which
+determines the number of unique digits they use.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Base</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Common Uses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Binary</td>
+<td style="text-align: left;">The foundation of digital computing.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Octal</td>
+<td style="text-align: left;">Less common; used in older systems.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Decimal</td>
+<td style="text-align: left;">The standard numbering system for
+humans.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">Hexadecimal</td>
+<td style="text-align: left;">Common in computing and electronics.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-different-numbering-systems">Why Different Numbering
+Systems?</h3>
+<p>Different numbering systems are used because:</p>
+<ol>
+<li><p>Efficiency: Binary is efficient for computers but less readable
+for humans.</p></li>
+<li><p>Readability: Hexadecimal and octal provide a more compact and
+human-readable format than binary.</p></li>
+<li><p>Legacy Systems: Some older systems relied on octal or decimal
+representations.</p></li>
+</ol>
+<h2 id="logic-gates">Logic Gates</h2>
+<h3 id="what-is-a-logic-gate">What is a Logic Gate?</h3>
+<p>A logic gate is a fundamental building block of digital circuits. It
+processes one or more input signals (binary values of 0 or 1) and
+produces a single binary output based on specific rules defined by its
+type. By combining them, you can create complex functions like adders,
+multipliers, and even entire CPUs.</p>
+<h3 id="basic-logic-gates">Basic Logic Gates</h3>
+<p>Here are truth tables for some of the fundamental types of logic
+gates:</p>
+<ol>
+<li><p>AND Gate: Outputs true only if both inputs are true.</p></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Input A</th>
+<th style="text-align: left;">Input B</th>
+<th style="text-align: left;">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>OR Gate: Outputs true if at least one input is true.</p></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Input A</th>
+<th style="text-align: left;">Input B</th>
+<th style="text-align: left;">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>NOT Gate: Inverts the input.</p></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Input</th>
+<th style="text-align: left;">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>NAND Gate: NOT AND.</p></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Input A</th>
+<th style="text-align: left;">Input B</th>
+<th style="text-align: left;">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>XOR Gate: Exclusive OR.</p></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Input A</th>
+<th style="text-align: left;">Input B</th>
+<th style="text-align: left;">Output (Y)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="real-world-analogy">Real-World Analogy</h3>
+<p>Think of an AND gate as a car’s ignition system, requiring both the
+key and the brake pedal to be pressed before starting the engine.</p>
+<h2 id="digital-circuits">Digital Circuits</h2>
+<h3 id="building-blocks">Building Blocks</h3>
+<p>Digital circuits are constructed using logic gates. For example:</p>
+<ul>
+<li><p>Half Adder: Adds two binary digits.</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Input A</th>
+<th style="text-align: left;">Input B</th>
+<th style="text-align: left;">Sum</th>
+<th style="text-align: left;">Carry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+</tr>
+</tbody>
+</table>
+<p>The construction of a half adder involves two fundamental logic
+gates:</p>
+<ol>
+<li><p>XOR (Exclusive OR) Gate: This gate calculates the sum (S) of the
+two binary inputs (A and B). The XOR gate outputs 1 when the inputs are
+different and 0 when they are the same.</p></li>
+<li><p>AND Gate: This gate determines the carry (C) output. It outputs 1
+only if both inputs (A and B) are 1, indicating that a carry is
+generated to the next higher bit.</p></li>
+</ol>
+<p>Thus, a half adder consists of one XOR gate for the sum and one AND
+gate for the carry.</p>
+<p>The half-adder is essential because it forms the basis of more
+complex arithmetic circuits. Without the ability to add binary digits, a
+computer cannot perform basic arithmetic operations, which are
+fundamental to nearly all computations.</p>
+<h1 id="computing">3. Computing</h1>
+<h2 id="introduction-to-computing">3.1 Introduction to Computing</h2>
+<h3 id="what-is-computing">What is Computing?</h3>
+<p>Computing refers to the process of using computers to perform tasks
+that range from simple calculations to complex problem-solving. It forms
+the backbone of modern technology, enabling everything from personal
+productivity to advanced scientific research.</p>
+<h3 id="hardware-and-software-components">Hardware and Software
+Components</h3>
+<p>At its core, a computer system comprises two main components:</p>
+<ul>
+<li><p>Hardware: This includes the physical devices that make up the
+computer, such as the central processing unit (CPU), memory, storage
+devices, and input/output peripherals like keyboards and
+monitors.</p></li>
+<li><p>Software: This refers to the programs and instructions that tell
+the hardware what tasks to perform. Software can be categorized into
+system software (like operating systems) and application software (such
+as word processors or web browsers).</p></li>
+</ul>
+<h3 id="types-of-computers">Types of Computers</h3>
+<p>Computers come in various forms, each designed for specific
+purposes:</p>
+<ul>
+<li><p>Personal Computers (PCs): These are used by individuals for tasks
+like browsing the internet, writing documents, and gaming.</p></li>
+<li><p>Laptops/Notebooks: Portable versions of PCs, ideal for on-the-go
+use.</p></li>
+<li><p>Servers: Powerful computers that manage data and resources over
+networks, often used in web hosting or cloud services.</p></li>
+</ul>
+<h2 id="central-processing-unit-cpu">Central Processing Unit (CPU)</h2>
+<h3 id="introduction">Introduction</h3>
+<ul>
+<li><p>The CPU is often referred to as the “brain” of the
+computer.</p></li>
+<li><p>It processes instructions, performs calculations, and manages
+data flow between components.</p></li>
+<li><p>Understanding the CPU is fundamental to understanding how
+computers work.</p></li>
+</ul>
+<h3 id="key-components-of-a-cpu">Key Components of a CPU</h3>
+<ol>
+<li><p>Arithmetic Logic Unit (ALU)</p>
+<ul>
+<li><p>Performs arithmetic operations (addition, subtraction,
+multiplication, division).</p></li>
+<li><p>Handles logical operations (AND, OR, NOT, etc.).</p></li>
+</ul></li>
+<li><p>Control Unit (CU)</p>
+<ul>
+<li><p>Manages the interpretation and execution of
+instructions.</p></li>
+<li><p>Coordinates activities between hardware components.</p></li>
+</ul></li>
+<li><p>Registers</p>
+<ul>
+<li><p>Temporary storage locations for data and instructions.</p></li>
+<li><p>Examples: Program Counter (PC), Instruction Register (IR),
+Accumulator.</p></li>
+</ul></li>
+<li><p>Cache Memory</p>
+<ul>
+<li><p>Small, fast memory used to store frequently accessed data or
+instructions.</p></li>
+<li><p>Reduces the time needed to access data from main memory.</p></li>
+</ul></li>
+<li><p>Clock Speed</p>
+<ul>
+<li><p>The speed at which the CPU processes instructions (measured in Hz
+or GHz).</p></li>
+<li><p>Higher clock speeds generally mean faster processing.</p></li>
+</ul></li>
+</ol>
+<h4 id="clocks">Clocks</h4>
+<p>The speed of a clock is measured in Hertz (Hz), which quantifies how
+many cycles occur per second. Imagine it like the ticks of a clock—each
+tick represents one cycle. Here’s a breakdown:</p>
+<ul>
+<li><p>1 Hz (Hertz): One cycle per second.</p></li>
+<li><p>1 kHz (KiloHertz): 1,000 Hz or 1,000 cycles per second.</p></li>
+<li><p>1 MHz (MegaHertz): 1,000,000 Hz or one million cycles per
+second.</p></li>
+<li><p>1 GHz (GigaHertz): 1,000,000,000 Hz or one billion cycles per
+second.</p></li>
+</ul>
+<h3 id="functionality-of-the-cpu">Functionality of the CPU</h3>
+<ul>
+<li><p>Fetch Cycle: Retrieves instructions from memory.</p></li>
+<li><p>Decode Cycle: Interprets the retrieved instructions.</p></li>
+<li><p>Execute Cycle: Processes the instructions (e.g., arithmetic
+operations, data movement).</p></li>
+<li><p>Write Back Cycle: Stores results in memory or registers.</p></li>
+</ul>
+<h3 id="types-of-cpus">Types of CPUs</h3>
+<ol>
+<li><p>CISC (Complex Instruction Set Computing)</p>
+<ul>
+<li><p>Uses complex instructions that take more clock cycles to
+execute.</p></li>
+<li><p>Example: Early Intel x86 processors.</p></li>
+</ul></li>
+<li><p>RISC (Reduced Instruction Set Computing)</p>
+<ul>
+<li><p>Uses simpler, faster instructions.</p></li>
+<li><p>Example: ARM processors found in many mobile devices and embedded
+systems.</p></li>
+</ul></li>
+</ol>
+<h3 id="performance-metrics">Performance Metrics</h3>
+<ul>
+<li><p>Clock Speed: Hz, KHz, MHz, GHz (gigahertz).</p></li>
+<li><p>Cores: Multiple processing units to handle tasks
+simultaneously.</p></li>
+<li><p>Cache Size: Larger cache improves performance.</p></li>
+<li><p>Thermal Design Power (TDP): Measures power consumption, critical
+for long-term durability and energy efficiency in timeless computing
+devices.</p></li>
+</ul>
+<h2 id="memory-the-foundation-of-computing">Memory: The Foundation of
+Computing</h2>
+<p>Memory is a critical component in any computing system, often likened
+to the human brain’s short-term memory. While the CPU acts as the
+“brain” processing information, memory serves as the workspace where
+data and instructions are temporarily stored and retrieved.</p>
+<h3 id="types-of-memory">Types of Memory</h3>
+<h4 id="volatile-memory">Volatile Memory</h4>
+<p>Volatile memory is a type of storage that retains data only as long
+as the device has power. Once the power is turned off, all data stored
+in volatile memory is lost.</p>
+<ul>
+<li><p>Examples: RAM (Random Access Memory) used in computers and
+smartphones.</p></li>
+<li><p>Speed: Generally faster than non-volatile memory, making it ideal
+for temporary data storage during operations.</p></li>
+</ul>
+<h4 id="non-volatile-memory">Non-Volatile Memory</h4>
+<p>Non-volatile memory retains data even after the power supply is
+interrupted. This makes it suitable for long-term storage.</p>
+<ul>
+<li><p>Examples: Flash drives (SSD), Hard Disk Drives (HDD), ROM
+(Read-Only Memory).</p></li>
+<li><p>Limitations: Number of writes may be limited.</p></li>
+</ul>
+<h3 id="functions-of-memory">Functions of Memory</h3>
+<ol>
+<li><p>Storage: Holds files and programs when they’re not in
+use.</p></li>
+<li><p>Caching: Speeds up access to frequently used data by storing it
+temporarily.</p></li>
+<li><p>Program Execution: Applications are loaded into RAM for
+execution.</p></li>
+<li><p>Data Processing: Temporary storage of data being
+processed.</p></li>
+</ol>
+<h3 id="considerations-for-timeless-computing">Considerations for
+Timeless Computing</h3>
+<h4 id="reliability">Reliability</h4>
+<ul>
+<li><p>Timeless computing emphasizes durable memory solutions, such as
+EEPROM or emerging technologies like ferroelectric RAM, to ensure
+long-term data retention without moving parts.</p></li>
+</ul>
+<h4 id="durability">Durability</h4>
+<ul>
+<li><p>Memory modules should withstand harsh environments, crucial for
+systems expected to function reliably over decades.</p></li>
+</ul>
+<h4 id="upgradeability">Upgradeability</h4>
+<ul>
+<li><p>Users should be able to replace or expand memory, ensuring the
+system remains adaptable over time.</p></li>
+</ul>
+<h2 id="peripherals">Peripherals</h2>
+<h3 id="introduction-to-peripherals">Introduction to Peripherals</h3>
+<p>Peripherals are essential components that enable interaction between
+a computer system and the outside world. They serve as the interface
+through which users input data and receive output, making them crucial
+for the functionality of any computing device.</p>
+<h3 id="categories-of-peripherals">Categories of Peripherals</h3>
+<h4 id="input-devices">Input Devices</h4>
+<p>Input devices are responsible for capturing data from the user or
+external sources and transmitting it to the computer. Common examples
+include:</p>
+<ul>
+<li><p>Keyboard: Allows users to input text and commands.</p></li>
+<li><p>Mouse: Provides pointing and navigation capabilities.</p></li>
+<li><p>Touchscreen: Combines input and output functions in devices like
+tablets or all-in-one PCs.</p></li>
+<li><p>Joystick/Controller: Used for gaming or controlling specific
+applications.</p></li>
+</ul>
+<h4 id="output-devices">Output Devices</h4>
+<p>Output devices display or convey information processed by the
+computer to the user. Examples include:</p>
+<ul>
+<li><p>Monitor: Displays visual data, such as text, images, and
+videos.</p></li>
+<li><p>Printer: Produces physical copies of documents or
+graphics.</p></li>
+<li><p>Speakers/Headphones: Deliver audio output for users.</p></li>
+</ul>
+<h4 id="storage-devices">Storage Devices</h4>
+<p>Storage devices are used to store data permanently on a computer.
+They can be internal or external:</p>
+<ul>
+<li><p>Hard Disk Drive (HDD): Magnetic storage with spinning
+disks.</p></li>
+<li><p>Solid State Drive (SSD): Flash-based storage offering faster
+access times.</p></li>
+<li><p>External Drives: Portable storage solutions like USB drives or
+external HDDs/SSDs.</p></li>
+</ul>
+<h4 id="human-interface-devices-hids">Human Interface Devices
+(HIDs)</h4>
+<p>Human interface devices focus on enhancing user interaction:</p>
+<ul>
+<li><p>Touchpad: Used for cursor control, often found on
+laptops.</p></li>
+<li><p>Trackball: A stationary pointing device, ideal for environments
+where a mouse might be impractical.</p></li>
+<li><p>Biometric Scanners: Devices like fingerprint readers or facial
+recognition systems for secure access.</p></li>
+</ul>
+<h3 id="the-importance-of-peripherals-in-computing">The Importance of
+Peripherals in Computing</h3>
+<p>Peripherals bridge the gap between the computer’s processing
+capabilities and human interaction. Without them, users would find it
+challenging to interact with the system effectively. For instance:</p>
+<ul>
+<li><p>Input devices allow users to provide commands and data.</p></li>
+<li><p>Output devices enable the system to communicate results or
+feedback.</p></li>
+<li><p>Storage devices ensure that data is preserved for future
+use.</p></li>
+</ul>
+<h3 id="peripheral-communication">Peripheral Communication</h3>
+<p>Peripherals typically connect to a computer via hardware interfaces
+such as USB (Universal Serial Bus), HDMI, or PCIe. These interfaces
+facilitate data transfer between the peripheral and the main system,
+ensuring smooth operation.</p>
+<h1 id="programming">Programming</h1>
+<h2 id="introduction-to-programming">Introduction to Programming</h2>
+<h3 id="what-is-programming">What is Programming?</h3>
+<p>Programming involves creating a set of instructions (code) that
+directs computers or other machines to perform specific tasks. It serves
+as the foundation for software development, enabling everything from
+simple scripts to complex applications.</p>
+<h3 id="why-learn-programming">Why Learn Programming?</h3>
+<p>Learning programming remains essential in the age of AI for several
+reasons:</p>
+<ol>
+<li><p><strong>Deeper Understanding</strong>: Programming offers
+insights into how technology operates, enabling better decision-making
+and troubleshooting beyond surface-level interactions with AI
+tools.</p></li>
+<li><p><strong>Debugging and Refinement</strong>: While LLMs can
+generate code, they may introduce errors or suboptimal solutions.
+Programming skills allow for effective debugging and optimization of
+AI-generated outputs.</p></li>
+<li><p><strong>Creative Problem-Solving</strong>: Understanding
+programming fosters innovative thinking beyond existing patterns,
+encouraging unique solutions that AI models might not consider.</p></li>
+<li><p><strong>Foundation for Innovation</strong>: Coding provides a
+base for tackling advanced tasks and projects where AI tools may fall
+short, opening doors to more complex and varied endeavors.</p></li>
+<li><p><strong>Self-Reliance</strong>: In environments without internet
+access or LLMs, programming skills ensure continued productivity and
+project execution without dependency on external services.</p></li>
+</ol>
+<p>In summary, while LLMs are powerful tools, learning programming
+enhances technical proficiency, improves collaboration with AI,
+encourages creativity, builds a foundation for advanced tasks, and
+ensures self-sufficiency.</p>
+<h2 id="machine-code">Machine Code</h2>
+<h3 id="turing-machines-and-their-relevance-to-modern-computing">Turing
+Machines and Their Relevance to Modern Computing</h3>
+<p>Before diving into machine code, it’s essential to understand the
+theoretical underpinnings of computing. The concept of a Turing machine,
+introduced by mathematician Alan Turing in 1936, forms the foundation of
+modern computer science. While abstract, this model helps us comprehend
+what it means for a machine to compute.</p>
+<p>A <strong>Turing machine</strong> consists of:</p>
+<ul>
+<li><p>An infinite strip of tape divided into cells, each capable of
+holding a symbol (like ‘0’ or ‘1’).</p></li>
+<li><p>A read/write head that moves along the tape, reading symbols and
+writing new ones.</p></li>
+<li><p>A set of rules governing the head’s actions based on the current
+state and the symbol it reads.</p></li>
+</ul>
+<p>The machine operates in discrete steps: 1. The head reads the current
+cell’s symbol. 2. Based on its current state and the symbol, the machine
+follows a rule (e.g., write a symbol, move left/right). 3. The state
+changes to reflect the operation performed.</p>
+<p>Despite their simplicity, Turing machines can simulate any algorithm,
+making them incredibly powerful. Modern computers operate based on
+similar principles—processing data and following instructions
+step-by-step.</p>
+<p>Understanding Turing machines provides insight into why certain
+problems are solvable by computers and how computational complexity
+impacts performance. This theoretical framework bridges the gap between
+abstract concepts and practical implementation, reinforcing why machine
+code remains relevant in timeless computing applications.</p>
+<h3 id="binary-representation">Binary Representation</h3>
+<p>Machine code is the most basic form of programming, consisting of
+binary instructions (0s and 1s) directly executable by a computer’s CPU.
+It is challenging for humans to read and write due to its low level of
+abstraction.</p>
+<p><strong>Example in Binary</strong>:</p>
+<pre><code>01001001 00100001 01001001</code></pre>
+<h2 id="assembly">Assembly</h2>
+<h3 id="low-level-programming">Low-Level Programming</h3>
+<p>Assembly language provides a symbolic representation of machine code,
+making it easier for humans to understand and write. It offers direct
+control over the hardware but requires a deep understanding of the
+computer’s architecture.</p>
+<p><strong>Example in Assembly (x86)</strong>:</p>
+<div class="Highlighting">
+<p>MOV AX, 1234 ADD BX, AX</p>
+</div>
+<h2 id="c">C</h2>
+<h3 id="introduction-to-high-level-programming">Introduction to
+High-Level Programming</h3>
+<p>C is a high-level programming language known for its efficiency and
+versatility. It offers more abstraction than assembly while still
+allowing low-level hardware manipulation.</p>
+<p><strong>Example in C</strong>:</p>
+<div class="Highlighting">
+<p><span style="color: 0.74,0.48,0.00">#include </span><span
+style="color: 0.00,0.50,0.00"><strong>&lt;stdio.h&gt;</strong></span></p>
+<p><span style="color: 0.56,0.13,0.00">int</span> main<span
+style="color: 0.40,0.40,0.40">()</span> <span
+style="color: 0.40,0.40,0.40">{</span> printf<span
+style="color: 0.40,0.40,0.40">(</span><span
+style="color: 0.25,0.44,0.63">"Hello, World!</span><span
+style="color: 0.25,0.44,0.63">\n</span><span
+style="color: 0.25,0.44,0.63">"</span><span
+style="color: 0.40,0.40,0.40">);</span> <span
+style="color: 0.00,0.44,0.13"><strong>return</strong></span> <span
+style="color: 0.25,0.63,0.44">0</span><span
+style="color: 0.40,0.40,0.40">;</span> <span
+style="color: 0.40,0.40,0.40">}</span></p>
+</div>
+<h2 id="abstract-data-types-adts">Abstract Data Types (ADTs)</h2>
+<h3 id="strings">Strings</h3>
+<p>Strings are sequences of characters used to represent text.</p>
+<p><strong>Example in C</strong>:</p>
+<div class="Highlighting">
+<p><span style="color: 0.56,0.13,0.00">char</span> str<span
+style="color: 0.40,0.40,0.40">[]</span> <span
+style="color: 0.40,0.40,0.40">=</span> <span
+style="color: 0.25,0.44,0.63">"Hello"</span><span
+style="color: 0.40,0.40,0.40">;</span></p>
+</div>
+<h3 id="lists">Lists</h3>
+<p>Lists allow dynamic storage and manipulation of data elements.</p>
+<p><strong>Example in C</strong>:</p>
+<div class="Highlighting">
+<p><span style="color: 0.56,0.13,0.00">int</span> list<span
+style="color: 0.40,0.40,0.40">[]</span> <span
+style="color: 0.40,0.40,0.40">=</span> <span
+style="color: 0.40,0.40,0.40">{</span><span
+style="color: 0.25,0.63,0.44">1</span><span
+style="color: 0.40,0.40,0.40">,</span> <span
+style="color: 0.25,0.63,0.44">2</span><span
+style="color: 0.40,0.40,0.40">,</span> <span
+style="color: 0.25,0.63,0.44">3</span><span
+style="color: 0.40,0.40,0.40">};</span></p>
+</div>
+<h2 id="interpreters">Interpreters</h2>
+<h3 id="overview">Overview</h3>
+<p>Interpreters execute code directly without prior compilation. They
+are often used for scripting languages like Python, JavaScript or
+Lisp.</p>
+<h3 id="lisp">Lisp</h3>
+<p>Lisp is a family of programming languages known for their use in
+artificial intelligence and complex applications.</p>
+<p><strong>Example in Common Lisp</strong>:</p>
+<div class="Highlighting">
+<p>(<span
+style="color: 0.00,0.44,0.13"><strong>defun</strong></span><span
+style="color: 0.02,0.16,0.49"> factorial</span>(n) (<span
+style="color: 0.00,0.44,0.13"><strong>if</strong></span> (<span
+style="color: 0.40,0.40,0.40">=</span> n <span
+style="color: 0.25,0.63,0.44">0</span>) <span
+style="color: 0.25,0.63,0.44">1</span> (<span
+style="color: 0.40,0.40,0.40">*</span> n (factorial (<span
+style="color: 0.40,0.40,0.40">-</span> n <span
+style="color: 0.25,0.63,0.44">1</span>)))))</p>
+</div>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="the-foundation-of-problem-solving">The Foundation of Problem
+Solving</h3>
+<p>Algorithms are step-by-step procedures for solving problems or
+performing tasks. They form the core of programming and software
+development.</p>
+<p><strong>Example Sorting Algorithm (Bubble Sort)</strong>:</p>
+<div class="Highlighting">
+<p><span style="color: 0.00,0.44,0.13"><strong>def</strong></span>
+bubble_sort(arr): n <span style="color: 0.40,0.40,0.40">=</span> <span
+style="color: 0.00,0.50,0.00">len</span>(arr) <span
+style="color: 0.00,0.44,0.13"><strong>for</strong></span> i <span
+style="color: 0.00,0.44,0.13"><strong>in</strong></span> <span
+style="color: 0.00,0.50,0.00">range</span>(n): <span
+style="color: 0.00,0.44,0.13"><strong>for</strong></span> j <span
+style="color: 0.00,0.44,0.13"><strong>in</strong></span> <span
+style="color: 0.00,0.50,0.00">range</span>(<span
+style="color: 0.25,0.63,0.44">0</span>, n<span
+style="color: 0.40,0.40,0.40">-</span>i<span
+style="color: 0.40,0.40,0.40">-</span><span
+style="color: 0.25,0.63,0.44">1</span>): <span
+style="color: 0.00,0.44,0.13"><strong>if</strong></span> arr[j] <span
+style="color: 0.40,0.40,0.40">&gt;</span> arr[j<span
+style="color: 0.40,0.40,0.40">+</span><span
+style="color: 0.25,0.63,0.44">1</span>]: arr[j], arr[j<span
+style="color: 0.40,0.40,0.40">+</span><span
+style="color: 0.25,0.63,0.44">1</span>] <span
+style="color: 0.40,0.40,0.40">=</span> arr[j<span
+style="color: 0.40,0.40,0.40">+</span><span
+style="color: 0.25,0.63,0.44">1</span>], arr[j] <span
+style="color: 0.00,0.44,0.13"><strong>return</strong></span> arr</p>
+</div>
+<h1 id="fpgas">FPGAs</h1>
+<h2 id="introduction-to-fpgas">Introduction to FPGAs</h2>
+<h3 id="what-is-an-fpga">What is an FPGA?</h3>
+<p>An FPGA (Field-Programmable Gate Array) is a type of integrated
+circuit that can be configured by a user after manufacturing to perform
+specific tasks. Unlike CPUs or GPUs, which are designed for
+general-purpose computing, FPGAs are highly customizable and can be
+reprogrammed to suit various applications.</p>
+<h3 id="why-choose-fpgas">Why Choose FPGAs?</h3>
+<p>FPGAs offer several advantages:</p>
+<ul>
+<li><p>Flexibility: Reprogrammable for different tasks.</p></li>
+<li><p>Parallel Processing: Capable of handling multiple tasks
+simultaneously.</p></li>
+<li><p>Efficiency: Lower power consumption compared to traditional CPUs
+for specific tasks.</p></li>
+</ul>
+<h3 id="applications-of-fpgas">Applications of FPGAs</h3>
+<p>FPGAs are used in diverse fields, including:</p>
+<ul>
+<li><p>Digital Signal Processing</p></li>
+<li><p>Networking (e.g., packet processing)</p></li>
+<li><p>Automotive systems</p></li>
+<li><p>Defense systems</p></li>
+<li><p>Medical equipment</p></li>
+</ul>
+<h3 id="comparing-fpgas-and-asics">Comparing FPGAs and ASICs</h3>
+<p>ASICs (Application-Specific Integrated Circuits) are custom-designed
+chips built for specific tasks, optimized for performance and efficiency
+in those particular functions.</p>
+<h4 id="key-differences">Key Differences</h4>
+<ol>
+<li><p><strong>Flexibility</strong>:</p>
+<ul>
+<li><p><strong>FPGAs</strong>: Highly flexible; can be reprogrammed to
+adapt to different tasks or evolving needs.</p></li>
+<li><p><strong>ASICs</strong>: Fixed functionality once manufactured;
+not designed for changes after production.</p></li>
+</ul></li>
+<li><p><strong>Performance</strong>:</p>
+<ul>
+<li><p><strong>FPGAs</strong>: Slower due to their programmable nature,
+but versatile enough for multiple tasks.</p></li>
+<li><p><strong>ASICs</strong>: Faster and more efficient as they are
+optimized for their specific task, often outperforming FPGAs in that
+area.</p></li>
+</ul></li>
+<li><p><strong>Cost and Design Time</strong>:</p>
+<ul>
+<li><p><strong>FPGAs</strong>: Cheaper and quicker to develop using
+pre-made chips and software tools, ideal for prototyping and varied
+applications.</p></li>
+<li><p><strong>ASICs</strong>: More expensive and time-consuming due to
+custom hardware design and manufacturing (silicon fabrication), but
+costs are amortized over high volumes.</p></li>
+</ul></li>
+<li><p><strong>Power Consumption</strong>:</p>
+<ul>
+<li><p><strong>FPGAs</strong>: Sometimes use more power due to their
+programmable components.</p></li>
+<li><p><strong>ASICs</strong>: Optimized for efficiency in their
+specific task, often using less power effectively.</p></li>
+</ul></li>
+<li><p><strong>Use Cases</strong>:</p>
+<ul>
+<li><p><strong>FPGAs</strong>: Ideal for flexible applications like
+research, prototyping, or dynamic environments where requirements
+change.</p></li>
+<li><p><strong>ASICs</strong>: Best suited for high-volume production
+with fixed needs, such as specialized tasks in networking or video
+processing.</p></li>
+</ul></li>
+</ol>
+<h2 id="basic-layout-of-a-simple-fpga">Basic Layout of a Simple
+FPGA</h2>
+<p>An FPGA is an integrated circuit that can be configured by the user
+after manufacturing to perform specific tasks. Unlike CPUs or GPUs,
+which are designed for general-purpose computing, FPGAs are highly
+customizable and can be reprogrammed to suit various applications.</p>
+<p>Here’s a basic overview of the key components in an FPGA:</p>
+<ol>
+<li><p><strong>Configurable Logic Blocks (CLBs)</strong>: These are the
+fundamental building blocks of an FPGA. CLBs contain Look-Up Tables
+(LUTs), which can be programmed to implement any logical function, such
+as AND gates, OR gates, or more complex functions.</p></li>
+<li><p><strong>Flip-Flops</strong>: These are used for storing data and
+creating timing delays in the circuit.</p></li>
+<li><p><strong>Block RAMs (BRAMs)</strong>: These are small blocks of
+memory that can be used for storage within the FPGA.</p></li>
+<li><p><strong>Multipliers</strong>: These are specialized hardwired
+circuits for performing multiplication operations, which are essential
+for arithmetic-intensive applications like digital signal processing or
+cryptography.</p></li>
+<li><p><strong>I/O Blocks</strong>: These are input/output blocks that
+allow the FPGA to connect to external devices, such as LEDs, buttons, or
+other microcontrollers.</p></li>
+<li><p><strong>Interconnects</strong>: These are the internal
+connections that route data between different parts of the FPGA. They
+can be programmed to create custom pathways for signals.</p></li>
+</ol>
+<h3 id="what-are-look-up-tables-luts">What Are Look-Up Tables
+(LUTs)?</h3>
+<p>A Look-Up Table (LUT) is a memory component within an FPGA’s
+Configurable Logic Block (CLB). LUTs are used to implement logical
+functions by storing the truth tables of those functions. For
+example:</p>
+<ul>
+<li><p>A 4-LUT can store 16 possible input combinations (since (2^4 =
+16)) and their corresponding outputs.</p></li>
+<li><p>When an input is applied to the LUT, it looks up the stored truth
+table to determine the correct output.</p></li>
+</ul>
+<p>LUTs are highly flexible because they can be reprogrammed to
+implement any logical function. For instance:</p>
+<div class="Highlighting">
+<p><span style="color: 0.38,0.63,0.69"><em>// Truth table for a
+2<span>-</span>LUT implementing an XOR gate:</em></span> <span
+style="color: 0.56,0.13,0.00">input</span> <span
+style="color: 0.40,0.40,0.40">|</span> <span
+style="color: 0.56,0.13,0.00">output</span> <span
+style="color: 0.25,0.63,0.44">0</span> <span
+style="color: 0.40,0.40,0.40">|</span> <span
+style="color: 0.25,0.63,0.44">1</span> <span
+style="color: 0.25,0.63,0.44">1</span> <span
+style="color: 0.40,0.40,0.40">|</span> <span
+style="color: 0.25,0.63,0.44">0</span></p>
+<p><span style="color: 0.38,0.63,0.69"><em>// Verilog code for the same
+functionality:</em></span> <span
+style="color: 0.56,0.13,0.00">output</span> <span
+style="color: 0.40,0.40,0.40">=</span> <span
+style="color: 0.40,0.40,0.40">(</span><span
+style="color: 0.56,0.13,0.00">input</span> <span
+style="color: 0.40,0.40,0.40">==</span> <span
+style="color: 0.25,0.63,0.44">1</span><span
+style="color: 0.40,0.40,0.40">)</span> <span
+style="color: 0.40,0.40,0.40">?</span> <span
+style="color: 0.25,0.63,0.44">0</span> <span
+style="color: 0.40,0.40,0.40">:</span> <span
+style="color: 0.25,0.63,0.44">1</span><span
+style="color: 0.40,0.40,0.40">;</span></p>
+</div>
+<h3 id="how-are-luts-programmed">How Are LUTs Programmed?</h3>
+<p>LUTs are programmed by configuring their stored truth tables. This is
+done through a configuration file that defines how each CLB should be
+set up. The configuration file is generated using hardware description
+languages like Verilog or VHDL, and it specifies the desired logical
+operations for each part of the FPGA.</p>
+<p>The programming process involves:</p>
+<ol>
+<li><p><strong>Designing the Circuit</strong>: Using a hardware
+description language (e.g., Verilog), you define how the circuit should
+behave.</p></li>
+<li><p><strong>Synthesis</strong>: Tools like Yosys convert the
+high-level Verilog code into a netlist, which describes the logical
+connections between components.</p></li>
+<li><p><strong>Place and Route</strong>: Nextpnr or other tools map the
+logical circuits to the physical layout of the FPGA, determining where
+each component will be placed and how signals will route through the
+interconnects.</p></li>
+<li><p><strong>Configuration File Generation</strong>: The final
+configuration file (often in <code>.bit</code> or <code>.sof</code>
+format) is generated, which contains the specific instructions for
+configuring each LUT and other components within the FPGA.</p></li>
+<li><p><strong>Programming the FPGA</strong>: The configuration file is
+loaded into the FPGA’s memory using a programmer (e.g., a JTAG
+cable).</p></li>
+</ol>
+<h3 id="summary">Summary</h3>
+<p>FPGAs are highly flexible and programmable integrated circuits that
+can be configured to perform a wide variety of tasks. LUTs are the core
+components within FPGAs that store truth tables for logical functions,
+and they are programmed by generating configuration files in hardware
+description languages like Verilog or VHDL. By configuring these
+components, users can create custom digital circuits tailored to their
+specific needs.</p>
+<h3 id="tools">Tools</h3>
+<h4 id="hdl-synthesis">HDL Synthesis</h4>
+<p>An HDL (Hardware Description Language) synthesis tool processes a
+high-level descriptive code written in languages like Verilog or VHDL.
+This tool converts the abstract behavioral description of a digital
+circuit into a lower-level representation, such as a netlist, which
+defines the logical gates and connections required to implement the
+design on an FPGA. The synthesis tool optimizes the design for factors
+like area, speed, and power consumption, ensuring efficient use of the
+FPGA’s resources.</p>
+<h4 id="place-and-route">Place-and-Route</h4>
+<p>After the HDL synthesis, the place-and-route tool takes the generated
+netlist and maps it onto the physical structure of the FPGA. This
+involves two main steps:</p>
+<ol>
+<li><p><strong>Placing:</strong> The tool determines the optimal
+positions for each component (like LUTs and flip-flops) on the FPGA chip
+to minimize delays and maximize efficiency.</p></li>
+<li><p><strong>Routing:</strong> It then routes the connections between
+these components, ensuring that all necessary signals can travel without
+interference or excessive delay. This step is crucial for managing the
+complex web of interconnections within the FPGA.</p></li>
+</ol>
+<p>Together, these tools transform a high-level design into a physically
+realizable configuration on an FPGA, enabling the implementation of
+custom digital circuits.</p>
+<h2 id="verilog---hardware-description-language">Verilog - Hardware
+Description Language</h2>
+<h3 id="introduction-to-verilog">Introduction to Verilog</h3>
+<p>Verilog is a hardware description language (HDL) used to describe
+digital circuits. It allows you to design and simulate hardware
+components, such as logic gates and microprocessors.</p>
+<h3 id="simple-verilog-example">Simple Verilog Example</h3>
+<p>In this example we will blink an LED (Light Emitting Diode).</p>
+<div class="Highlighting">
+<p><span style="color: 0.38,0.63,0.69"><em>// LED blinking
+circuit</em></span> <span
+style="color: 0.00,0.44,0.13"><strong>module</strong></span> blinky
+<span style="color: 0.40,0.40,0.40">(</span> <span
+style="color: 0.56,0.13,0.00">input</span> clock_10hz<span
+style="color: 0.40,0.40,0.40">,</span> <span
+style="color: 0.56,0.13,0.00">output</span> LED <span
+style="color: 0.40,0.40,0.40">);</span></p>
+<p><span style="color: 0.56,0.13,0.00">reg</span> led <span
+style="color: 0.40,0.40,0.40">=</span> <span
+style="color: 0.25,0.63,0.44">0</span><span
+style="color: 0.40,0.40,0.40">;</span> <span
+style="color: 0.56,0.13,0.00">wire</span> clock<span
+style="color: 0.40,0.40,0.40">;</span></p>
+<p><span style="color: 0.00,0.44,0.13"><strong>assign</strong></span>
+clock <span style="color: 0.40,0.40,0.40">=</span> clock_10hz<span
+style="color: 0.40,0.40,0.40">;</span></p>
+<p><span style="color: 0.00,0.44,0.13"><strong>always</strong></span>
+<span style="color: 0.40,0.40,0.40">@(</span><span
+style="color: 0.00,0.44,0.13"><strong>posedge</strong></span> clock<span
+style="color: 0.40,0.40,0.40">)</span> <span
+style="color: 0.00,0.44,0.13"><strong>begin</strong></span> led <span
+style="color: 0.40,0.40,0.40">=</span> <span
+style="color: 0.40,0.40,0.40">~</span>led<span
+style="color: 0.40,0.40,0.40">;</span> <span
+style="color: 0.00,0.44,0.13"><strong>end</strong></span></p>
+<p><span style="color: 0.00,0.44,0.13"><strong>assign</strong></span>
+LED <span style="color: 0.40,0.40,0.40">=</span> led<span
+style="color: 0.40,0.40,0.40">;</span></p>
+<p><span
+style="color: 0.00,0.44,0.13"><strong>endmodule</strong></span></p>
+</div>
+<p>This code defines a module that toggles an LED on and off using a
+clock input.</p>
+<h2 id="building-the-blinky-circuit">Building the Blinky Circuit</h2>
+<h3 id="tools-needed">Tools Needed</h3>
+<ul>
+<li><p>An FPGA computer or FPGA development board.</p></li>
+<li><p>Yosys: A HDL synthesis tool for converting Verilog code into a
+hardware description.</p></li>
+<li><p>nextpnr: Maps the description onto the FPGA chip.</p></li>
+</ul>
+<p>You will also need a bitstream database and tools for the FPGA you’re
+using, for example:</p>
+<ul>
+<li><p>Project IceStorm (ICE40)</p></li>
+<li><p>Project Trellis (ECP5)</p></li>
+<li><p>Project X-Ray (XC7)</p></li>
+<li><p>Project Peppercorn (CCGM1)</p></li>
+</ul>
+<h3 id="building-and-programming-the-blinky-circuit">Building and
+Programming the Blinky Circuit</h3>
+<p>Here’s how you might program an FPGA to blink an LED:</p>
+<ol>
+<li><p><strong>Define the Circuit</strong>:</p>
+<ul>
+<li><p>As we did above, use Verilog to describe a simple oscillator
+circuit that toggles an output signal at regular intervals.</p></li>
+</ul></li>
+<li><p><strong>Synthesize and Configure</strong>:</p>
+<ul>
+<li><p>Convert the Verilog code into a configuration file using
+synthesis tools.</p></li>
+</ul></li>
+<li><p><strong>Program the FPGA</strong>:</p>
+<ul>
+<li><p>Load the configuration file onto the FPGA board using programming
+software.</p></li>
+</ul></li>
+<li><p><strong>Test the Circuit</strong>:</p>
+<ul>
+<li><p>Connect an LED to the specified output pin and power on the
+board. The LED should start blinking according to the programmed
+oscillator frequency.</p></li>
+</ul></li>
+</ol>
+<h1 id="system-on-chip-soc">System-On-Chip (SOC)</h1>
+<h2 id="what-is-a-soc">What is a SOC?</h2>
+<p>A System-on-Chip (or System-on-a-Chip) integrates various components,
+like a CPU, memory, and peripherals, onto a single chip. FPGAs allow
+creating custom SOCs tailored to specific applications, as well as
+general-purpose applications, such as computing.</p>
+<h3 id="comparing-asic-socs-and-fpga-socs">Comparing ASIC SOCs and FPGA
+SOCs</h3>
+<ul>
+<li><p>ASIC SOCs: General-purpose with fixed architectures and fixed
+chipsets.</p></li>
+<li><p>FPGA SOCs: “Field programmable” and customizable for specific
+tasks, offering better efficiency and performance for specialized
+workloads. Can be used for general-purpose computing with a
+reconfigurable chipset.</p></li>
+</ul>
+<h3 id="understanding-softcore-cpus">Understanding Softcore CPUs</h3>
+<p>Softcore CPUs are implemented in gateware within an FPGA, contrasting
+with hardcore CPUs that are physically embedded. This flexibility allows
+developers to tailor the CPU’s architecture to specific needs, offering
+customization and adaptability. Examples include RISC-V and OpenRISC
+projects, which highlight the range of possibilities for softcore
+implementations.</p>
+<h3 id="benefits-of-softcore-cpus">Benefits of Softcore CPUs</h3>
+<ol>
+<li><p><strong>Flexibility</strong>: Customize the CPU to meet unique
+project requirements.</p></li>
+<li><p><strong>Cost-Effectiveness</strong>: Utilize existing FPGA
+resources without additional hardware costs.</p></li>
+<li><p><strong>Longevity</strong>: As FPGAs can be reconfigured,
+softcore CPUs ensure up-to-date functionality over time.</p></li>
+</ol>
+<h3 id="challenges-of-softcore-cpus">Challenges of Softcore CPUs</h3>
+<ol>
+<li><p><strong>Performance Constraints</strong>: Generally slower than
+ASICs due to implementation on the FPGA fabric.</p></li>
+</ol>
+<h2 id="fpga-computing">FPGA Computing</h2>
+<p>FPGAs can implement different computer architectures. By configuring
+the FPGA’s logic blocks, you can create a virtual version of any CPU or
+computer system. For example:</p>
+<ul>
+<li><p><strong>NES (Nintendo Entertainment System):</strong> The 6502
+CPU used in the NES can be emulated by programming specific logic blocks
+within the FPGA to replicate its behavior.</p></li>
+<li><p><strong>Apple II:</strong> Similarly, the Apple II’s architecture
+can be recreated, allowing you to run classic Apple II software on an
+FPGA-based system.</p></li>
+<li><p><strong>Amiga:</strong> The Motorola 68000 CPU used in Amiga
+systems can also be emulated, preserving the classic Amiga
+experience.</p></li>
+<li><p><strong>RISC-V:</strong> This modern instruction set can be
+implemented in an FPGA, enabling a new system that leverages RISC-V’s
+efficiency and scalability and providing an environment for running
+Linux.</p></li>
+</ul>
+<h3 id="practical-implications">Practical Implications</h3>
+<ul>
+<li><p><strong>Retrocomputing:</strong> FPGAs allow enthusiasts to run
+old games and software on modern hardware, preserving computing
+history.</p></li>
+<li><p><strong>Custom Hardware Development:</strong> Beyond existing
+systems, FPGAs enable the creation of custom architectures tailored for
+specific tasks, such as enhancing privacy or security in timeless
+computing applications.</p></li>
+</ul>
+<h3 id="running-linux-on-fpga-socs">Running Linux on FPGA SOCs</h3>
+<p>Linux, known for its adaptability, has been ported to various
+architectures, including those supported by softcore CPUs like
+RISC-V.</p>
+<h3 id="kakao-linux">Kakao Linux</h3>
+<p>Kakao Linux is a Linux distribution designed specifically for
+FPGA-based computers. Kakao depends on a SOC framework named LiteX to
+generate a Linux-capable SOC.</p>
+<h3 id="future-directions">Future Directions</h3>
+<p>The landscape of FPGA SOCs is continually evolving, offering exciting
+opportunities for innovation. As technology advances, we can expect
+improvements in performance and expanded applications, further
+solidifying the potential of these systems.</p>
+<p>Kakao Linux provides a minimal yet functional environment, focusing
+on timeless applications such as reading, writing, math, education,
+organization, communication, and automation. Its simplicity ensures that
+it remains lightweight and efficient, making it an ideal choice for
+users who want to experiment with Linux on FPGA hardware without the
+overhead of more complex distributions.</p>
+<h1 id="the-zeitlos-socos">The Zeitlos SOC/OS</h1>
+<p>Zeitlos is an open-source project designed to bring Timeless
+Computing to life. It consists of two key components:</p>
+<ul>
+<li><p><strong>Zeitlos SOC (System-on-a-Chip)</strong>: A hardware
+design that integrates a RISC-V CPU, GPU, and other essential subsystems
+onto a single FPGA.</p></li>
+<li><p><strong>Zeitlos OS (Operating System)</strong>: A lightweight,
+open-source operating system tailored for timeless
+applications.</p></li>
+</ul>
+<p>This combination creates a powerful yet simple ecosystem for users of
+all skill levels.</p>
+<h2 id="motivation">Motivation</h2>
+<h3 id="simplicity-and-minimalism">Simplicity and Minimalism</h3>
+<ul>
+<li><p><strong>Linux</strong> is flexible and can be adapted to many use
+cases, but it also comes with a lot of complexity. The sheer size and
+scope of Linux (and the software that runs on it) can make it harder to
+understand, maintain, and secure.</p></li>
+<li><p><strong>Zeitlos</strong> is designed from the ground up as a
+minimal, single-user operating system tailored for timeless
+applications. Its simplicity makes it easier to understand, audit, and
+control—perfect for users who want a distraction-free environment
+focused on specific tasks like reading, writing, or education.</p></li>
+</ul>
+<h3 id="customization-for-timeless-computing">Customization for Timeless
+Computing</h3>
+<ul>
+<li><p>Linux is designed to be a general-purpose OS that can run a wide
+variety of applications. While this is great for versatility, it often
+introduces unnecessary complexity and resource overhead for users who
+only need basic functionality.</p></li>
+<li><p>Zeitlos is built specifically for FPGA-based computers and their
+unique strengths (like reconfigurable hardware). It’s optimized for
+timeless computing use cases, such as:</p>
+<ul>
+<li><p>Running lightweight, distraction-free applications.</p></li>
+<li><p>Supporting retro or custom computing environments.</p></li>
+<li><p>Providing a stable, secure platform that’s resistant to bloatware
+or unnecessary updates.</p></li>
+</ul></li>
+</ul>
+<h3 id="longevity-and-future-proofing">Longevity and
+Future-Proofing</h3>
+<ul>
+<li><p>Linux (and most modern operating systems) are designed with the
+assumption of constant evolution and improvement. While this is great
+for innovation, it can also lead to compatibility issues over time as
+hardware and software evolve.</p></li>
+<li><p>Zeitlos aims to create a system that’s not just modern but also
+timeless—designed to remain relevant and functional for decades. Its
+modular design allows for incremental improvements while maintaining
+backward compatibility with classic computing paradigms.</p></li>
+</ul>
+<h3 id="security-through-simplicity">Security Through Simplicity</h3>
+<ul>
+<li><p>Modern Linux distributions are secure, but they’re also complex.
+Complexity introduces potential vulnerabilities and makes it harder to
+audit the system for security flaws.</p></li>
+<li><p>Zeitlos is designed with a focus on simplicity and minimalism,
+which reduces the attack surface and makes the system easier to secure.
+Its single-user design (with optional multitasking) also eliminates many
+of the risks associated with multi-user systems.</p></li>
+</ul>
+<h3 id="hardware-aware-design">Hardware-Aware Design</h3>
+<ul>
+<li><p>Linux is hardware-agnostic, which means it can run on a wide
+variety of devices. However, this flexibility often requires compromises
+in performance or resource usage.</p></li>
+<li><p>Zeitlos is built specifically for FPGA-based hardware and takes
+full advantage of the unique capabilities of these systems (e.g.,
+reconfigurable logic, low-power operation). This hardware-aware design
+allows for optimizations that wouldn’t be possible with a
+one-size-fits-all OS like Linux.</p></li>
+</ul>
+<h3 id="retrocomputing-and-customization">Retrocomputing and
+Customization</h3>
+<ul>
+<li><p>While Linux can run emulators and support classic computing
+environments, it often does so in a way that feels layered and
+indirect.</p></li>
+<li><p>Zeitlos aims to recreate the magic of retro systems (like the
+Amiga or Macintosh) while adding modern capabilities. Its design borrows
+from the best ideas of classic computers, making it feel familiar and
+approachable for users who love retrocomputing or want to experiment
+with custom hardware.</p></li>
+</ul>
+<h3 id="long-term-vision">Long-Term Vision</h3>
+<ul>
+<li><p>Linux is a fantastic choice for general-purpose computing, but
+it’s not designed with the same long-term goals as Machdyne. Our goal is
+to create systems that will remain useful and relevant for decades—even
+in scenarios where modern technology might fail or become inaccessible
+(e.g., in a survival computing context).</p></li>
+<li><p>Zeitlos is part of this vision, offering a lightweight, secure,
+and customizable platform that can evolve alongside timeless
+hardware.</p></li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>Linux (and Kakao Linux) will continue to play a role in our ecosystem
+for users who want the best of both worlds: the simplicity of FPGA
+hardware paired with the power of a modern OS.</p>
+<p>Zeitlos isn’t meant to replace Linux or other operating systems; it’s
+designed to fill a specific niche. For users who want a simple, secure,
+and long-term-focused computing experience on FPGA-based hardware,
+Zeitlos offers something that Linux just can’t match in terms of
+customization, minimalism, and hardware integration.</p>
+<h2 id="design-goals">Design Goals</h2>
+<p>The Zeitlos SOC/OS project was designed with a specific set of goals
+in mind to create a system that is both functional and enduring. These
+goals guide the development process and ensure that the resulting system
+meets the needs of users who value simplicity, security, and
+longevity.</p>
+<h3 id="minimalistic-design">Minimalistic Design</h3>
+<ul>
+<li><p><strong>Simplicity</strong>: The primary goal is to create a
+simple and understandable operating system that minimizes complexity
+while still being practical for everyday use.</p></li>
+<li><p><strong>Hardware Integration</strong>: Zeitlos is designed to
+work seamlessly with FPGA hardware, leveraging the unique capabilities
+of these devices to provide a responsive and efficient computing
+environment.</p></li>
+</ul>
+<h3 id="hardware-accelerated-computing">Hardware-Accelerated
+Computing</h3>
+<ul>
+<li><p><strong>FPGA Utilization</strong>: By utilizing FPGAs, Zeitlos
+aims to deliver high performance without the need for traditional CPUs
+or GPUs. This approach allows for hardware-accelerated tasks, which can
+be particularly beneficial for specific applications.</p></li>
+<li><p><strong>Custom GPU</strong>: The inclusion of a custom 2D “GPU”
+with sprite support and multiple video modes ensures that the system can
+handle graphical operations efficiently.</p></li>
+</ul>
+<h3 id="multitasking-and-resource-management">Multitasking and Resource
+Management</h3>
+<ul>
+<li><p><strong>Preemptive Multitasking</strong>: The OS kernel is
+designed to support preemptive multitasking, allowing for smooth
+operation of multiple tasks without the overhead of virtual memory or an
+MMU. This makes the system lightweight yet capable.</p></li>
+<li><p><strong>Kernel Language</strong>: The kernel is written in C,
+ensuring compatibility and ease of understanding, while applications can
+be developed in both C and Scheme (a Lisp dialect), offering flexibility
+for different use cases.</p></li>
+</ul>
+<h3 id="user-centric-design">User-Centric Design</h3>
+<ul>
+<li><p><strong>Ease of Use</strong>: Despite its technical
+underpinnings, Zeitlos is designed to be user-friendly. The interface is
+intuitive, with a focus on usability that makes it accessible even to
+those who are not deeply familiar with computing systems.</p></li>
+<li><p><strong>Support for Applications</strong>: The system supports
+both new applications tailored to its environment and existing ones
+through emulation or additional hardware resources, ensuring a broad
+range of functionality.</p></li>
+</ul>
+<h3 id="security-and-longevity">Security and Longevity</h3>
+<ul>
+<li><p><strong>Security</strong>: By focusing on simplicity and
+minimizing unnecessary features, Zeitlos inherently reduces the attack
+surface, making it more secure compared to complex modern operating
+systems.</p></li>
+<li><p><strong>Enduring Relevance</strong>: The design aims for
+long-term relevance, ensuring that the system remains functional and
+useful even as technology evolves. This is crucial for applications
+where longevity and reliability are paramount.</p></li>
+</ul>
+<h3 id="modularity-and-extensibility">Modularity and Extensibility</h3>
+<ul>
+<li><p><strong>Modular Design</strong>: The system is built with
+modularity in mind, allowing for future expansion and adaptation to new
+hardware or requirements without compromising existing
+functionality.</p></li>
+<li><p><strong>Upgradability</strong>: Users should be able to upgrade
+or replace components as needed, ensuring that the system can evolve
+alongside technological advancements.</p></li>
+</ul>
+<h3 id="open-source-philosophy">Open Source Philosophy</h3>
+<ul>
+<li><p><strong>Transparency</strong>: By being open-source, Zeitlos
+fosters transparency and trust. This allows users and developers to
+review the code, contribute improvements, and ensure the system remains
+secure and reliable.</p></li>
+<li><p><strong>Collaboration</strong>: The open-source nature encourages
+collaboration within the community, allowing for a diverse range of
+contributions that can enhance the system over time.</p></li>
+</ul>
+<h3 id="user-experience">User Experience</h3>
+<ul>
+<li><p><strong>Graphical Interface</strong>: A mouse and keyboard-based
+interface provide an intuitive way to interact with the system, making
+it accessible even to those who are not deeply technical.</p></li>
+<li><p><strong>Documentation</strong>: Comprehensive documentation,
+including this book, will be integrated into the OS, ensuring that users
+can easily understand how to use and maintain their systems.</p></li>
+</ul>
+<h3 id="sustainability-and-accessibility">Sustainability and
+Accessibility</h3>
+<ul>
+<li><p><strong>Low Power Consumption</strong>: The design considerations
+include low power consumption, making the system suitable for
+environments where energy resources may be limited or where
+sustainability is a priority.</p></li>
+<li><p><strong>Accessibility</strong>: The system aims to be accessible
+to a wide range of users, including those in regions with limited access
+to modern technology, ensuring that computing remains affordable and
+practical.</p></li>
+</ul>
+<h3 id="future-proofing">Future-Proofing</h3>
+<ul>
+<li><p><strong>Adaptability</strong>: The modular design ensures that
+the system can adapt to future hardware advancements while maintaining
+its core functionality. This adaptability is crucial for ensuring that
+the system remains relevant over the long term.</p></li>
+<li><p><strong>Preservation of Usefulness</strong>: By focusing on
+timeless applications, Zeitlos aims to preserve its usefulness even in
+scenarios where modern computing infrastructure may be unavailable or
+compromised.</p></li>
+</ul>
+<h3 id="community-and-collaboration">Community and Collaboration</h3>
+<ul>
+<li><p><strong>Community Support</strong>: The open-source model
+encourages a community-driven approach to development, ensuring that the
+system benefits from a wide range of perspectives and
+expertise.</p></li>
+<li><p><strong>Feedback Integration</strong>: The design process
+incorporates feedback from users and contributors, allowing for
+continuous improvement and refinement of the system.</p></li>
+</ul>
+<h3 id="summary">Summary</h3>
+<p>In summary, the Zeitlos SOC/OS is designed with a focus on
+simplicity, security, and longevity, aiming to provide a computing
+environment that is both functional today and enduring into the future.
+Its modular and open-source nature ensures that it can evolve alongside
+technological advancements while remaining accessible to a wide range of
+users.</p>
+<h2 id="system-overview">System Overview</h2>
+<p>The Zeitlos system is built around the following core components:</p>
+<ol>
+<li><p>RISC-V CPU: The heart of the system, designed for efficiency and
+long-term reliability.</p></li>
+<li><p>Custom GPU: A hardware-accelerated “blitter” for fast graphics
+rendering, supporting multiple resolutions and modes.</p></li>
+<li><p>FPGA-Based Hardware: Compatible with a variety of FPGA boards,
+ensuring flexibility and adaptability.</p></li>
+</ol>
+<h2 id="the-zeitlos-kernel">The Zeitlos Kernel</h2>
+<p>The kernel is the core of the operating system, written in C for
+reliability and performance. It provides essential services like:</p>
+<ul>
+<li><p>Process management</p></li>
+<li><p>Memory allocation</p></li>
+<li><p>Device drivers</p></li>
+<li><p>Interrupt handling</p></li>
+<li><p>Message handling</p></li>
+</ul>
+<p>Zeitlos uses a preemptive multitasking model to handle multiple tasks
+efficiently while keeping resource usage low.</p>
+<h2 id="user-friendly-design">User-Friendly Design</h2>
+<p>The Zeitlos OS is designed with the end-user in mind:</p>
+<ul>
+<li><p>Graphical Interface: A clean, intuitive interface for interacting
+with applications.</p></li>
+<li><p>Built-in Tools: Pre-installed utilities for system management and
+development.</p></li>
+<li><p>Scripting Support: Built-in Scheme interpreter for advanced
+users.</p></li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<p>To use Zeitlos, you’ll need:</p>
+<ol>
+<li><p>An FPGA board (e.g., Machdyne FPGA computers or a development
+board).</p></li>
+<li><p>The latest version of the Zeitlos OS.</p></li>
+</ol>
+<h2 id="get-involved">Get Involved</h2>
+<p>Zeitlos is under active development. Find more information at:</p>
+<p><a href="https://zeitlos.org" class="uri">https://zeitlos.org</a></p>
+<p>and in the GitHub repo:</p>
+<p><a href="https://github.com/machdyne/zeitlos"
+class="uri">https://github.com/machdyne/zeitlos</a>.</p>
+<h1 id="survival-computing">Survival Computing</h1>
+<h2 id="introduction-to-survival-computing">Introduction to Survival
+Computing</h2>
+<p>Survival computing refers to the practice of designing and utilizing
+computer systems that can function effectively in scenarios where modern
+technology, resources, or infrastructure may be scarce or unavailable.
+This concept emphasizes resilience, adaptability, and sustainability,
+ensuring access to computational capabilities even under adverse
+conditions.</p>
+<h3 id="why-survival-computing-matters">Why Survival Computing
+Matters</h3>
+<p>In an era marked by rapid technological advancement and potential
+vulnerabilities such as natural disasters, conflicts, economic
+downturns, and AI, the reliance on modern computing systems can become a
+critical weakness. Survival computing addresses these challenges by
+focusing on systems that are not only robust but also designed to endure
+over extended periods, making them invaluable in both futuristic
+dystopian scenarios and present-day remote regions where technology
+access is limited.</p>
+<h3 id="the-role-of-timeless-computing">The Role of Timeless
+Computing</h3>
+<p>Timeless computing, as championed by Machdyne, aligns closely with
+the principles of survival computing. By creating systems that remain
+functional and relevant for decades or even centuries, timeless
+computing ensures a sustainable technological foundation. These systems
+are designed to be understandable, repairable, and adaptable, qualities
+that are crucial for survival in environments where technical support
+and modern infrastructure may be absent.</p>
+<h2 id="key-principles-of-survival-computing">Key Principles of Survival
+Computing</h2>
+<ol>
+<li><p><strong>Simplicity</strong>: Complex systems are more prone to
+failure and harder to maintain. Survival computing favors simplicity in
+design and operation, ensuring ease of use and reliability.</p></li>
+<li><p><strong>Resilience</strong>: The ability to withstand and
+continue functioning despite environmental challenges, hardware
+failures, or resource scarcity is paramount. This resilience is achieved
+through durable hardware and minimal reliance on disposable
+components.</p></li>
+<li><p><strong>Sustainability</strong>: Emphasizing the use of
+energy-efficient technologies and sustainable power sources ensures that
+computational capabilities can be maintained over long periods without
+depleting finite resources.</p></li>
+</ol>
+<h2 id="real-world-applications">Real-World Applications</h2>
+<h3 id="off-grid-living">Off-Grid Living</h3>
+<p>In remote areas where access to electricity is limited, FPGA
+computers can be powered using solar panels or wind turbines. Their low
+power requirements make them ideal for off-grid setups, ensuring
+continuous operation without reliance on traditional infrastructure.</p>
+<h3 id="disaster-preparedness">Disaster Preparedness</h3>
+<p>During emergencies, when communication networks and utilities may be
+disrupted, having a functional computing system can be crucial for
+communication, data storage, and automation tasks. FPGA computers, with
+their resilience and adaptability, provide a reliable solution in such
+scenarios.</p>
+<h2 id="future-proofing-your-computing-needs">Future-Proofing Your
+Computing Needs</h2>
+<p>Survival computing is not just about preparing for worst-case
+scenarios; it’s about designing systems that can endure and remain
+useful over time. By adopting principles of timeless computing, you
+ensure that your technological and educational investments will yield
+returns long into the future, regardless of how the broader
+technological landscape evolves.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>In a world where technology evolves at an unprecedented pace,
+survival computing offers a beacon of stability and reliability. By
+embracing FPGA computers, users can build robust, adaptable, and
+enduring computational solutions that meet the challenges of today while
+preparing for tomorrow. Whether you’re a novice seeking to understand
+the basics or a developer looking to enhance existing systems, the
+principles of survival computing provide a foundation for creating
+resilient and sustainable technological solutions.</p>
+</body>
+</html>
