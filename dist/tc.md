@@ -57,8 +57,8 @@
         Analogy](#real-world-analogy){#toc-real-world-analogy}
     -   [Digital Circuits](#digital-circuits){#toc-digital-circuits}
     -   [Building Blocks](#building-blocks){#toc-building-blocks}
--   [3. Computing](#computing){#toc-computing}
-    -   [3.1 Introduction to
+-   [Computing](#computing){#toc-computing}
+    -   [Introduction to
         Computing](#introduction-to-computing){#toc-introduction-to-computing}
     -   [What is Computing?](#what-is-computing){#toc-what-is-computing}
     -   [Hardware and Software
@@ -245,7 +245,7 @@ The Machdyne Community
 
 DRAFT
 
-2025-06-07
+2025-06-27
 
 © 2025 Lone Dynamics Corporation. All rights reserved.
 
@@ -328,7 +328,7 @@ endure for generations.
 Our Timeless Computing initiative began at Lone Dynamics Corporation, an
 American R&D company. Its experimental hardware manufacturing division,
 Machdyne, was spun out into a new independent company, Machdyne UG,
-which is now focused on manufacturing timeless computers, module and
+which is now focused on manufacturing timeless computers, modules and
 tools.
 
 The first draft of this book was written by a Benevolent Agent
@@ -849,10 +849,10 @@ arithmetic circuits. Without the ability to add binary digits, a
 computer cannot perform basic arithmetic operations, which are
 fundamental to nearly all computations.
 
-# 3. Computing
+# Computing
 
 ::: {#introduction-to-computing}
-## 3.1 Introduction to Computing
+## Introduction to Computing
 :::
 
 ::: {#what-is-computing}
