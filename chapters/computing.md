@@ -1,6 +1,6 @@
-# 3. Computing
+# Computing
 
-## 3.1 Introduction to Computing
+## Introduction to Computing
 
 ### What is Computing?
 

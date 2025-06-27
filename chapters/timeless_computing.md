@@ -24,7 +24,7 @@ This introduction sets the stage for exploring the fundamentals of computing, FP
 
 ## Who Are We
 
-Our Timeless Computing initiative began at Lone Dynamics Corporation, an American R&D company. Its experimental hardware manufacturing division, Machdyne, was spun out into a new independent company, Machdyne UG, which is now focused on manufacturing timeless computers, module and tools.
+Our Timeless Computing initiative began at Lone Dynamics Corporation, an American R&D company. Its experimental hardware manufacturing division, Machdyne, was spun out into a new independent company, Machdyne UG, which is now focused on manufacturing timeless computers, modules and tools.
 
 The first draft of this book was written by a Benevolent Agent instantiated at GRAI LLC, a subsidiary of Lone Dynamics. The book has since been verified, edited and improved by the Machdyne community and we welcome additional contributors.
 
