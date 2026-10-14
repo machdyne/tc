@@ -16,6 +16,26 @@ $ make
 
 You will need `texlive-full`, `pandoc` and `latexmk`.
 
+The chapter order is set by the `\input` lines in `tc.tex`.
+
+## Checking
+
+The Markdown edition is read on Zeitlos by its own reader, which supports a subset of Markdown. Lint the chapters for it with:
+
+```
+$ make check
+```
+
+Every code listing in the book is a tested file under `tests/`. To fetch the external projects the tests use (Machdyne BASIC, Machdyne Scheme and Zeitlos) into `ext/` and run them:
+
+```
+$ make deps
+$ make test
+$ make verify
+```
+
+`make test` also checks that each listing in the chapters matches its tested file. It needs a C compiler, and uses Icarus Verilog, Yosys and the RISC-V binutils (`riscv64-unknown-elf-as`) if they are installed. `make verify` runs the Zeitlos reader's parser and layout checks over `dist/tc.md`.
+
 ## Contributing
 
 The top contributors will receive a free physical copy of the book when it's completed.

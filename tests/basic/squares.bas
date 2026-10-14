@@ -1,0 +1,3 @@
+10 FOR I = 1 TO 5
+20 PRINT I; " SQUARED IS "; I * I
+30 NEXT I

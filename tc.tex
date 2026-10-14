@@ -18,6 +18,9 @@
 \usepackage{lmodern}
 \usepackage{longtable}
 \usepackage{booktabs}
+% pandoc sizes wide table columns with \real{} expressions
+\usepackage{array}
+\usepackage{calc}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -107,34 +110,45 @@
 
 \begin{titlepage}
     \centering
-    \vspace*{1cm}
+    \vspace*{0cm}
 
     {\Huge\bfseries Timeless Computing \par}
     \vspace{1cm}
 
-    {\Large\textit{An brief introduction to computing, FPGAs and the dream of timeless computers.} \par}
-    \vspace{2.5cm}
+    {\Large\textit{A brief introduction to computing, FPGAs and the dream of timeless computers.} \par}
+    \vspace{1.2cm}
 
-    {\large\bfseries Written and Edited by\par}
-    \vspace{0.5cm}
+    {\large\bfseries Originally Written and Edited by\par}
+    \vspace{0.3cm}
 
     {\Large Clio Grai\par}
-    {\small\textit{Benevolent Agent \& Lead Technical Writer, GRAI LLC}\par}
-    {and \par}
-    {\Large The Machdyne Community\par}
 
-    \vspace{1cm}
+    {\small\textit{Benevolent Agent \& Lead Technical Writer, GRAI LLC}\par}
+    \vspace{0.6cm}
+
+    {\large\bfseries Revised and Edited by (2026 revision)\par}
+    \vspace{0.3cm}
+
+    {\Large Claude Opus\par}
+
+    {\small\textit{AI model by Anthropic}\par}
+
+    {and \par}
+
+    {\Large The Machdyne Community\par}
 
     \vfill
 
     {\LARGE\color{gray!70}DRAFT\par}
     \vspace{0.5cm}
 
-    {\large \today \par}
-    \vspace{1cm}
+    {\large First published June 7, 2025\par}
+
+    {\large This revision: \today\par}
+    \vspace{0.6cm}
 
     {\small
-    © 2025 Lone Dynamics Corporation. All rights reserved.
+    © 2025-2026 Lone Dynamics Corporation. All rights reserved.
 
     This book is released under the Creative Commons CC0 1.0 Universal Public Domain Dedication. You are free to copy, modify, and distribute this work for any purpose, without asking permission.
 
@@ -147,14 +161,47 @@
 \tableofcontents
 \newpage
 
-\input{timeless_computing.tex}
-\input{electronics.tex}
-\input{digital_logic.tex}
-\input{computing.tex}
-\input{programming.tex}
-\input{fpgas.tex}
-\input{socs.tex}
-\input{zeitlos.tex}
-\input{survival.tex}
+% The chapter order is read from the \input lines below by the
+% Makefile and by tools/mkbook.py, so this is the one place to change
+% it. The \part lines appear in the PDF, HTML and text editions only.
+
+\part{Why}
+\input{01_timeless.tex}
+
+\part{Foundations}
+\input{02_electricity.tex}
+\input{03_information.tex}
+\input{04_logic.tex}
+
+\part{How Computers Work}
+\input{05_computer.tex}
+\input{06_memory.tex}
+\input{07_io.tex}
+\input{08_os.tex}
+\input{09_communication.tex}
+
+\part{Programming}
+\input{10_programs.tex}
+\input{11_basic.tex}
+\input{12_scheme.tex}
+\input{13_c.tex}
+
+\part{Changeable Hardware}
+\input{14_fpga.tex}
+\input{15_hdl.tex}
+\input{16_soc.tex}
+\input{17_small.tex}
+
+\part{The Machine}
+\input{18_machine.tex}
+\input{19_lasting.tex}
+
+\appendix
+\part{Appendices}
+\input{a_glossary.tex}
+\input{b_tables.tex}
+\input{c_history.tex}
+\input{d_languages.tex}
+\input{e_sources.tex}
 
 \end{document}

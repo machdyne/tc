@@ -1,3 +1,12 @@
+# Timeless Computing
+#
+#   make deps      fetch the external projects the tests need into ext/
+#   make test      run every example in the book, and check that the
+#                  listings in the chapters match the tested files
+#   make check     lint the chapter sources for the Zeitlos reader
+#   make           build PDF, HTML, Markdown and plain text into dist/
+#   make verify    run the Zeitlos reader's own parser over dist/tc.md
+#
 # The Markdown target does NOT go through LaTeX.
 #
 # chapters/*.md -> pandoc -> *.tex -> pandoc -> tc.md was a round trip
@@ -12,6 +21,16 @@
 # LaTeX route is the right one.
 
 PYTHON ?= python3
+
+# The chapter list lives in one place: the \input{} lines of tc.tex.
+CHAPTERS := $(shell sed -n 's/^[ \t]*\\input{\(.*\)\.tex}.*/\1/p' tc.tex)
+
+# External projects, fetched by `make deps`. Nothing here is a
+# submodule: the book is rebuilt a few times a year, and a shallow
+# clone of the current version of each is all the tests need.
+EXT ?= ext
+GITHUB ?= https://github.com/machdyne
+DEPS = basic ms zeitlos
 
 all: pdf html markdown text
 
@@ -38,9 +57,7 @@ check:
 	$(PYTHON) tools/mkbook.py --check-only --strict
 
 # Run the reader's own parser tests and layout check over the output.
-# Point ZEITLOS at a checkout to enable it; skipped otherwise, so this
-# stays optional for anyone building only the book.
-ZEITLOS ?= ../zeitlos
+ZEITLOS ?= $(EXT)/zeitlos
 
 verify: markdown
 	@if [ -d "$(ZEITLOS)/sw/apps/read" ]; then \
@@ -48,19 +65,32 @@ verify: markdown
 		$(MAKE) -C $(ZEITLOS)/sw/apps/read render DOC=$(CURDIR)/dist/tc.md \
 			MODE=scroll; \
 	else \
-		echo "verify: no zeitlos checkout at $(ZEITLOS), skipping"; \
+		echo "verify: no zeitlos checkout at $(ZEITLOS) (make deps), skipping"; \
 	fi
 
+# Every code listing in the book is a tested file under tests/.
+test:
+	$(PYTHON) tests/listings.py chapters tests
+	EXT=$(CURDIR)/$(EXT) sh tests/run.sh
+
+deps:
+	mkdir -p $(EXT)
+	@for r in $(DEPS); do \
+		if [ -d $(EXT)/$$r/.git ]; then \
+			echo "deps: updating $$r"; git -C $(EXT)/$$r pull -q --ff-only; \
+		else \
+			echo "deps: fetching $$r"; \
+			git clone -q --depth 1 $(GITHUB)/$$r $(EXT)/$$r; \
+		fi; \
+	done
+	$(MAKE) -C $(EXT)/basic basic
+	$(MAKE) -C $(EXT)/ms ms
+
 gen: build
-	pandoc $(PANDOC_OPTS) chapters/timeless_computing.md -o build/timeless_computing.tex
-	pandoc $(PANDOC_OPTS) chapters/electronics.md -o build/electronics.tex
-	pandoc $(PANDOC_OPTS) chapters/digital_logic.md -o build/digital_logic.tex
-	pandoc $(PANDOC_OPTS) chapters/computing.md -o build/computing.tex
-	pandoc $(PANDOC_OPTS) chapters/programming.md -o build/programming.tex
-	pandoc $(PANDOC_OPTS) chapters/fpgas.md -o build/fpgas.tex
-	pandoc $(PANDOC_OPTS) chapters/socs.md -o build/socs.tex
-	pandoc $(PANDOC_OPTS) chapters/zeitlos.md -o build/zeitlos.tex
-	pandoc $(PANDOC_OPTS) chapters/survival.md -o build/survival.tex
+	@for c in $(CHAPTERS); do \
+		echo "pandoc chapters/$$c.md"; \
+		pandoc $(PANDOC_OPTS) chapters/$$c.md -o build/$$c.tex || exit 1; \
+	done
 
 view:
 	evince dist/tc.pdf
@@ -68,4 +98,4 @@ view:
 clean:
 	rm -f build/*
 
-.PHONY: all pdf html text markdown check verify gen view clean
+.PHONY: all pdf html text markdown check verify test deps gen view clean

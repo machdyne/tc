@@ -388,6 +388,10 @@ TRANSLIT = {
     '\u03a9': 'Ohm', '\u2126': 'Ohm',
     '\u00bd': '1/2', '\u00bc': '1/4', '\u00be': '3/4',
     '\u00a0': ' ', '\u2009': ' ', '\u202f': ' ', '\u200b': '',
+    # German names (Zwoelf, Koelsch): the usual two-letter spellings,
+    # which read correctly where the umlaut cannot be drawn.
+    '\u00e4': 'ae', '\u00f6': 'oe', '\u00fc': 'ue', '\u00df': 'ss',
+    '\u00c4': 'Ae', '\u00d6': 'Oe', '\u00dc': 'Ue',
     '\ufeff': '',
 }
 
