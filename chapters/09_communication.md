@@ -35,14 +35,14 @@ Wireless networks such as **Wi-Fi** perform the same function by radio. Low-powe
 
 ## IP: Addresses and Routing
 
-The **Internet Protocol** (IP) gives every machine on a network an **IP address**. The older and still most common form, IPv4, uses 32 bits, written as four bytes in decimal, such as `192.168.1.20`. The newer IPv6 uses 128 bits, enough for every device that will ever exist.
+The **Internet Protocol** (IP) gives every machine on a network an **IP address**. The older and still most common form, IPv4, uses 32 bits, written as four bytes in decimal, such as `192.168.1.20`. The newer IPv6 uses 128 bits, which allows about 3.4 x 10 to the 38th addresses, so that every device can have its own.
 
 Addresses are organized in networks. Machines on the same local network can reach each other directly. To reach anything else, a machine sends the packet to a **router**, its **gateway**, which forwards it to another router closer to the destination, and so on, hop by hop, until it arrives. No single router knows the whole route. Each knows only which way to send packets for each part of the address space. For this reason the Internet can grow without any one party managing all of it.
 
 Two services make IP easier to use:
 
 - **DHCP** assigns addresses automatically. A new machine asks the local network for an address, and a DHCP server assigns one and tells it which gateway to use.
-- **DNS**, the domain name system, translates names such as `machdyne.com` into IP addresses by querying a hierarchy of servers.
+- **DNS**, the domain name system, translates names such as `example.org` into IP addresses by querying a hierarchy of servers.
 
 ## Transport: TCP and UDP
 
@@ -73,25 +73,9 @@ Some common protocols:
 - **IRC** is a long-established protocol for text chat in shared channels.
 - **Email** is delivered by SMTP and collected by POP or IMAP.
 
-## Keeping Secrets
+## Secure Connections
 
-Packets pass through many machines on their way, and any of them could read or alter the data. **Cryptography** protects against this. It provides three properties:
-
-- **Confidentiality**: only the intended receiver can read the message.
-- **Integrity**: any change to the message is detected.
-- **Authentication**: the receiver can be certain who sent it.
-
-**Symmetric** encryption uses one secret key both to encrypt and to decrypt. It is fast, but both ends must already share the key, and delivering it to them securely is difficult.
-
-**Public-key** cryptography solves that problem with a pair of keys. The **public key** can be given to anyone, and the matching **private key** is kept secret. The pair makes two things possible. Two machines that have not communicated before can agree on a shared secret over an open network, even while others are listening. In addition, a message can carry a **digital signature**, made with the private key, which anyone with the public key can check and no one without the private key can forge.
-
-Secure protocols combine these methods. When a browser connects to an HTTPS site, or a terminal to an SSH server, the two ends use public-key cryptography to authenticate and to agree on a symmetric key. They then use that key and fast symmetric encryption for the rest of the session. The protocols are called **TLS** and **SSH**.
-
-Authentication raises a question of trust: how to know that a public key belongs to the intended site. The web relies on **certificates**, which are public keys signed by organizations that browsers are configured to trust. SSH usually asks the user to confirm a server's key the first time and remembers it afterwards.
-
-Cryptography also needs good **random numbers**, so that keys cannot be guessed. Computers are deterministic, so they gather randomness from physical noise. Some chips, including the FPGA designs in this book, contain a **true random number generator** that measures the jitter of free-running oscillators.
-
-All of this requires computation. On a small processor, the arithmetic of public-key cryptography can take seconds per connection. FPGA computers have an advantage here: the slow parts can be given their own circuits in the FPGA, which makes them many times faster.
+Packets pass through many machines on their way, and any of them could read or alter the data. Secure protocols protect against this with cryptography, described in the next chapter, [Security](#security). When a browser connects to an HTTPS site, or a terminal to an SSH server, the two ends confirm each other's identity, agree on a secret key over the open network, and use it to encrypt the rest of the session. The protocols are called **TLS** and **SSH**. Both are standard, open and in use on nearly every networked computer.
 
 ## Networks Without the Internet
 
@@ -104,4 +88,3 @@ The Internet is convenient, but it is not the only means of communication, and i
 
 A timeless computer should be useful with no network at all, and able to use whatever network is available when there is one. Plain text, simple protocols and open standards make both possible.
 
-This completes the description of the machine: a processor, memory, devices, an operating system and a network. The next part of the book is about programs.

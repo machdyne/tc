@@ -7,7 +7,7 @@ struct note {
     struct note *next;
 };
 
-/* Put a new note at the front of the list, and return the new front. */
+/* Add a note at the front of the list; return the new front. */
 struct note *add(struct note *list, const char *text)
 {
     struct note *n = malloc(sizeof *n);

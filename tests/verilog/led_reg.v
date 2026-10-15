@@ -1,9 +1,9 @@
-// A peripheral with one register: a byte the CPU can write and read
-// back, whose bits drive eight LEDs.
+// A peripheral with one register: a byte the CPU can write and
+// read back, whose bits drive eight LEDs.
 module led_reg (
     input  wire        clk,
     input  wire        reset,
-    input  wire        sel,        // the bus is addressing this device
+    input  wire        sel,        // the bus selects this device
     input  wire        we,         // and it is a write
     input  wire [31:0] wdata,      // the data the CPU is writing
     output wire [31:0] rdata,      // the data the CPU reads

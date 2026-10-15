@@ -18,7 +18,7 @@ int main(void)
     printf("x is now %d\n", x);
 
     int a[4] = { 10, 20, 30, 40 };
-    int *q = a;             /* an array name is its first address */
+    int *q = a;             /* the array's first address */
     printf("%d %d\n", *(q + 2), q[3]);
 
     printf("%d\n", length("timeless"));

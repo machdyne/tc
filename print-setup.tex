@@ -1,0 +1,93 @@
+% Layout of the print edition, loaded by tc.tex when \tcprint is
+% defined (see tc-print.tex).
+%
+% Trim size 13.5 x 21.5 cm, a standard BoD format. The text block is
+% 100 mm wide: wide enough for 10 pt body text at about 65 characters
+% a line, and for 67 columns of code at 8 pt, which is the limit that
+% `make check` enforces on code blocks.
+
+\usepackage[paperwidth=135mm,paperheight=215mm,
+            inner=20mm,outer=15mm,top=18mm,bottom=20mm,
+            headheight=12pt,headsep=5mm,footskip=9mm]{geometry}
+
+% Code and diagrams at 8 pt.
+\RecustomVerbatimEnvironment{Highlighting}{Verbatim}%
+  {commandchars=\\\{\},fontsize=\footnotesize}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\footnotesize}
+
+% Running heads: page number outside, chapter on the left page, section
+% on the right. Chapter openings show only a page number at the foot.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\thepage}
+\fancyhead[RE]{\small\nouppercase{\leftmark}}
+\fancyhead[LO]{\small\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\thepage}%
+  \renewcommand{\headrulewidth}{0pt}}
+
+% Blank pages left by chapters opening on the right carry no heading.
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside\ifodd\c@page\else
+  \hbox{}\thispagestyle{empty}\newpage\fi\fi}
+\makeatother
+
+% Tables at 9 pt with closer columns, so that the widest fit the
+% 100 mm text block.
+\AtBeginEnvironment{longtable}{\small}
+\setlength{\tabcolsep}{3pt}
+
+% Black only. The screen edition colours its code; in print, colour
+% would turn those pages into colour pages, which are printed and
+% priced separately. The highlighting macros set their colour with
+% \textcolor[model]{spec}{text}, so here it keeps the text and drops
+% the colour, with or without the optional colour model.
+\renewcommand{\textcolor}[3][]{#3}
+
+% A thread-sewn binding is made of folded sheets of four pages, so the
+% total page count must be a multiple of four. The printer's order also
+% fixes the exact count, \tcpages in tc-print.tex. Blank pages are added
+% at the end to reach it; a book that has grown past it is padded only
+% to a multiple of four, and the log says so (make print warns too).
+\makeatletter
+\newcommand{\tcpadto}[1]{%
+  \ifnum\ReadonlyShipoutCounter<#1\relax
+    \null\thispagestyle{empty}\newpage
+    \expandafter\tcpadto\expandafter{\number#1}%
+  \fi}
+\newcommand{\tcpadfour}{%
+  \count@=\ReadonlyShipoutCounter
+  \divide\count@ 4 \multiply\count@ 4
+  \ifnum\count@=\ReadonlyShipoutCounter\else
+    \null\thispagestyle{empty}\newpage
+    \expandafter\tcpadfour
+  \fi}
+\newcommand{\tcpad}{%
+  \ifdefined\tcpages
+    \ifnum\ReadonlyShipoutCounter>\tcpages\relax
+      \typeout{tc-print: \the\ReadonlyShipoutCounter\space pages, more
+        than the \tcpages\space ordered}%
+    \else
+      \tcpadto{\tcpages}%
+    \fi
+  \fi
+  \tcpadfour}
+\makeatother
+\AtEndDocument{\clearpage\tcpad}
+
+% Contents: room for two-digit section numbers such as 12.10, which
+% the book class's default widths run into the title.
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{3.0em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{4.5em}{3.8em}}
+\makeatother
+
+% Keep a heading with at least a few lines of what follows it, so that
+% a heading is never left alone at the foot of a page.
+\usepackage{needspace}
+\pretocmd{\section}{\needspace{8\baselineskip}}{}{}
+\pretocmd{\subsection}{\needspace{7\baselineskip}}{}{}
+\pretocmd{\subsubsection}{\needspace{6\baselineskip}}{}{}

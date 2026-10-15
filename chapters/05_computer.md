@@ -86,7 +86,7 @@ The program above is written in **assembly language**, which has one line per in
 
 ```text
   000000001010   00000   000    00101   0010011
-  immediate=10   rs1=x0  addi   rd=x5   opcode: arithmetic with a constant
+  immediate=10   rs1=x0  addi   rd=x5   opcode (arithmetic)
 ```
 
 `addi` means *add immediate*: one of its operands is a constant, the **immediate**, stored inside the instruction itself. The **opcode** identifies the kind of instruction, `rd` names the destination register, and `rs1` names the source register.
@@ -104,7 +104,7 @@ Memory is a long sequence of bytes, each identified by a number called its **add
 RISC-V is a **load-store** architecture. Arithmetic operates only on registers, and separate instructions move data between registers and memory:
 
 ```asm
-        lw   x7, 0(x10)      # load the word at the address in x10 into x7
+        lw   x7, 0(x10)      # load the word at address x10 into x7
         sw   x7, 4(x10)      # store x7 at that address plus 4
 ```
 
@@ -130,10 +130,11 @@ Every device on the bus is assigned a range of addresses. A decoder examines the
 | 0x1000_0000 | flash memory                    |
 | 0x2000_0000 | video memory: the screen        |
 | 0x4000_0000 | main memory (RAM)               |
+| 0x8000_0000 | the running program's memory    |
 | 0xE000_0000 | general-purpose pins            |
 | 0xF000_0000 | serial port                     |
 
-The address alone determines which device is used. A store to `0x4000_0000` changes memory; a store to `0x2000_0000` changes pixels on the screen.
+The range at `0x8000_0000` is not a separate device: it shows the memory of whichever program is running, as described under [Protecting Memory](#protecting-memory). The address alone determines which device is used. A store to `0x4000_0000` changes memory; a store to `0x2000_0000` changes pixels on the screen.
 
 The bus inside Zeitlos follows Wishbone, an open standard. Other systems use other buses, which perform the same function.
 
@@ -154,6 +155,8 @@ Suppose that storing a word at `0xE000_0000` sets a row of output pins to its lo
         sw   x6, 0(x7)       # send x6 to the pins
 ```
 
+The instruction `lui` (load upper immediate) places its 20-bit constant in the top 20 bits of a register and clears the lower 12, so `0xE0000` becomes `0xE000_0000`. A constant that needs all 32 bits is built with `lui` followed by `addi`. Because `addi` treats its 12-bit constant as signed, the upper part is increased by one whenever bit 11 of the lower part is set; assemblers do this automatically.
+
 Software therefore affects the physical world with a store to the appropriate address. The chapter [Systems on a Chip](#systems-on-a-chip) follows such a register from the hardware design to the program that uses it.
 
 ## Interrupts
@@ -162,7 +165,7 @@ A program can monitor a device by reading its status register repeatedly until i
 
 An **interrupt** allows the device to request attention instead. When a key is pressed, for example, the keyboard circuit raises an interrupt signal. The CPU finishes its current instruction, saves the program counter and jumps to a routine called an **interrupt handler**. The handler reads the key, stores it and returns, and the interrupted program continues as if it had not been interrupted.
 
-A **timer** is the most important source of interrupts. It counts clock cycles and raises an interrupt at regular intervals, for example a thousand times a second. These regular interrupts allow an operating system to share one processor between several programs, as described in [Operating Systems](#operating-systems).
+A **timer** is the most important source of interrupts. It counts clock cycles and raises an interrupt at regular intervals, for example several hundred times a second. These regular interrupts allow an operating system to share one processor between several programs, as described in [Operating Systems](#operating-systems).
 
 ## Direct Memory Access
 

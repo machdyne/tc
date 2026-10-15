@@ -1,0 +1,3 @@
+10 FOR C = 0 TO 100 STEP 20
+20 PRINT C, C * 9 / 5 + 32
+30 NEXT C

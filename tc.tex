@@ -2,8 +2,13 @@
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[
-]{article}
+% tc-print.tex defines \tcprint and inputs this file to build the
+% 13.5 x 21.5 cm print edition; everything below is shared.
+\ifdefined\tcprint
+  \documentclass[10pt,twoside,openright]{book}
+\else
+  \documentclass[]{article}
+\fi
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
@@ -98,7 +103,55 @@
   pdfcreator={LaTeX via pandoc}}
 
 \usepackage{etoolbox}
-\pretocmd{\section}{\clearpage}{}{}
+\ifdefined\tcprint\input{print-setup.tex}\else\pretocmd{\section}{\clearpage}{}{}\fi
+
+% Contents, screen edition: room for two-digit numbers such as 12.10,
+% which the article class's default widths run into the title.
+\ifdefined\tcprint\else
+  \makeatletter
+  \renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{3.0em}}
+  \renewcommand*\l@subsubsection{\@dottedtocline{3}{4.5em}{3.8em}}
+  \makeatother
+\fi
+
+% Pieces that differ between the screen and print editions:
+%
+%   \tccover       the front cover, as the first page of the screen PDF
+%                  (a printed book has its cover on the binding)
+%   \tchalftitle   in print, a half-title page and its blank back, so
+%                  that the title page is page 3
+%   \tcversobreak  in print, moves the notices to the back of the title
+%                  page, page 4, leaving its top clear: BoD prints its
+%                  FSC logo there
+%   \tcimprint     in print, the publisher's imprint (imprint.tex)
+%   \tcfront, \tcmain
+%                  in print, roman page numbers for the front matter
+%                  and arabic from the first part
+\ifdefined\tcprint
+  \newcommand{\tccover}{}
+  \newcommand{\tchalftitle}{%
+    \thispagestyle{empty}\null\vspace{0.25\textheight}%
+    \begin{center}{\LARGE\bfseries Timeless Computing\par}\end{center}%
+    \hypersetup{pageanchor=false}\cleardoublepage\hypersetup{pageanchor=true}}
+  \newcommand{\tcversobreak}{\newpage\thispagestyle{empty}\null\vfill}
+  \newcommand{\tcimprint}{\input{imprint.tex}}
+  \newcommand{\tcfront}{\frontmatter}
+  \newcommand{\tcmain}{\mainmatter}
+\else
+  \usepackage{pdfpages}
+  % The cover is a PDF 1.7 file; the screen PDF is written as 1.7 too.
+  \special{pdf:minorversion 7}
+  \newcommand{\tccover}{\hypersetup{pageanchor=false}%
+    \includepdf[fitpaper]{build/cover-front.pdf}%
+    \hypersetup{pageanchor=true}}
+  % The title page restarts the page count at 1; its page and the
+  % contents get no page anchors, so that page 1 is defined once.
+  \newcommand{\tchalftitle}{\hypersetup{pageanchor=false}}
+  \newcommand{\tcversobreak}{}
+  \newcommand{\tcimprint}{}
+  \newcommand{\tcfront}{}
+  \newcommand{\tcmain}{\hypersetup{pageanchor=true}}
+\fi
 
 \usepackage{tcolorbox}
 \usepackage{lmodern}
@@ -108,6 +161,10 @@
 
 \begin{document}
 
+\tccover
+\tcfront
+\tchalftitle
+
 \begin{titlepage}
     \centering
     \vspace*{0cm}
@@ -116,44 +173,30 @@
     \vspace{1cm}
 
     {\Large\textit{A brief introduction to computing, FPGAs and the dream of timeless computers.} \par}
-    \vspace{1.2cm}
-
-    {\large\bfseries Originally Written and Edited by\par}
-    \vspace{0.3cm}
+    \vspace{2cm}
 
     {\Large Clio Grai\par}
 
-    {\small\textit{Benevolent Agent \& Lead Technical Writer, GRAI LLC}\par}
-    \vspace{0.6cm}
-
-    {\large\bfseries Revised and Edited by (2026 revision)\par}
-    \vspace{0.3cm}
-
-    {\Large Claude Opus\par}
-
-    {\small\textit{AI model by Anthropic}\par}
-
-    {and \par}
-
-    {\Large The Machdyne Community\par}
-
     \vfill
 
-    {\LARGE\color{gray!70}DRAFT\par}
-    \vspace{0.5cm}
+    {\large 2026 Edition\par}
 
     {\large First published June 7, 2025\par}
-
-    {\large This revision: \today\par}
     \vspace{0.6cm}
 
+    \tcversobreak
+
     {\small
+    2026 Edition, revision 1 (October 2026).
+
     © 2025-2026 Lone Dynamics Corporation. All rights reserved.
 
     This book is released under the Creative Commons CC0 1.0 Universal Public Domain Dedication. You are free to copy, modify, and distribute this work for any purpose, without asking permission.
 
    \texttt{https://creativecommons.org/publicdomain/zero/1.0/}
    }
+
+    \tcimprint
 
 \end{titlepage}
 
@@ -165,6 +208,7 @@
 % Makefile and by tools/mkbook.py, so this is the one place to change
 % it. The \part lines appear in the PDF, HTML and text editions only.
 
+\tcmain
 \part{Why}
 \input{01_timeless.tex}
 
@@ -179,29 +223,33 @@
 \input{07_io.tex}
 \input{08_os.tex}
 \input{09_communication.tex}
+\input{10_security.tex}
 
 \part{Programming}
-\input{10_programs.tex}
-\input{11_basic.tex}
-\input{12_scheme.tex}
-\input{13_c.tex}
+\input{11_programs.tex}
+\input{12_basic.tex}
+\input{13_scheme.tex}
+\input{14_c.tex}
 
 \part{Changeable Hardware}
-\input{14_fpga.tex}
-\input{15_hdl.tex}
-\input{16_soc.tex}
-\input{17_small.tex}
+\input{15_fpga.tex}
+\input{16_hdl.tex}
+\input{17_soc.tex}
+\input{18_small.tex}
 
 \part{The Machine}
-\input{18_machine.tex}
-\input{19_lasting.tex}
+\input{19_machine.tex}
+\input{20_lasting.tex}
 
 \appendix
 \part{Appendices}
 \input{a_glossary.tex}
-\input{b_tables.tex}
-\input{c_history.tex}
+\input{b_history.tex}
+\input{c_tables.tex}
 \input{d_languages.tex}
-\input{e_sources.tex}
+\input{e_reference.tex}
+\input{f_riscv.tex}
+\input{g_pinouts.tex}
+\input{h_sources.tex}
 
 \end{document}

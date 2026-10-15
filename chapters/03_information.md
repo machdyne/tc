@@ -68,7 +68,7 @@ To convert binary to hex, the binary digits are split into groups of four from t
 
 Hex is used wherever the individual bits matter: memory addresses, hardware registers, colours and the contents of files. Decimal is used for quantities.
 
-**Octal**, base 8, uses one digit for every three bits. It was common on older machines and remains in use in a few places, such as Unix file permissions.
+**Octal**, base 8, uses one digit for every three bits. It was common on older machines and remains in use in a few places, such as the file permissions of **Unix**, an operating system first written in 1969 whose design lives on in Linux, the BSD systems and macOS.
 
 ## Negative Numbers
 
@@ -78,9 +78,9 @@ In an 8-bit two's complement number, the leftmost position is worth -128 instead
 
 ```text
 position value: -128  64  32  16   8   4   2   1
-                   1   1   1   1   1   1   1   1   = -128 + 127 = -1
-                   1   0   0   0   0   0   0   0   = -128
-                   0   1   1   1   1   1   1   1   = 127
+                   1   1   1   1   1   1   1   1  = -128 + 127 = -1
+                   1   0   0   0   0   0   0   0  = -128
+                   0   1   1   1   1   1   1   1  = 127
 ```
 
 So 8 bits hold -128 to 127 when treated as signed, or 0 to 255 when treated as unsigned. The bits are the same; only the interpretation differs.
@@ -91,7 +91,7 @@ A two's complement number is negated by inverting every bit and adding one. The 
 
 A group of bits has a fixed range. Adding 1 to the largest value does not produce a larger number; the result wraps around to the smallest value, as a car's odometer returns to zero after its highest reading.
 
-In Machdyne BASIC, every number is a 16-bit signed integer, so the range is -32768 to 32767. `32767 + 1` gives -32768, and `300 * 300` gives 24464, which is 90000 with the excess bits thrown away. Larger languages use more bits, which raises the limit but does not remove it. Overflow is a common source of errors, and a programmer should know how large the numbers in a program can become.
+In Machdyne BASIC, the language of the chapter [BASIC](#basic), every number is a 16-bit signed integer, so the range is -32768 to 32767. `32767 + 1` gives -32768, and `300 * 300` gives 24464, which is 90000 with the excess bits thrown away. Larger languages use more bits, which raises the limit but does not remove it. Overflow is a common source of errors, and a programmer should know how large the numbers in a program can become.
 
 ## Fractions
 
@@ -99,7 +99,22 @@ Many quantities are not whole numbers. There are two common ways to store fracti
 
 **Fixed point** stores whole numbers with an agreed, implied scale. Prices stored in cents are fixed point: 1999 means 19.99. It is exact and fast, and it is how small machines without fraction hardware usually work.
 
-**Floating point** stores a number as a set of significant digits and a separate exponent, like scientific notation in binary. It covers a wide range, from the size of an atom to the size of a galaxy, but most decimal fractions cannot be represented exactly. In binary, one tenth is a repeating fraction, as one third is in decimal, so `0.1 + 0.2` is not exactly `0.3`. Floating point is suited to measurements and science, and unsuitable for money.
+A fixed-point format can also give a fixed number of bits to the fraction. In a 32-bit number with 16 fraction bits, the integer 98,304 means 98,304 / 65,536 = 1.5. Addition is ordinary integer addition; a multiplication, with the product held in 64 bits, is followed by a shift right of 16 bits to restore the scale.
+
+**Floating point** stores a number as a set of significant digits and a separate exponent, like scientific notation in binary: a sign, a fraction and a power of two. Nearly every computer uses the formats of the standard IEEE 754:
+
+| Format | Bits | Sign, exponent, fraction | Decimal digits | Largest       |
+|--------|------|--------------------------|----------------|---------------|
+| single | 32   | 1, 8, 23                 | about 7        | about 3.4e38  |
+| double | 64   | 1, 11, 52                | about 16       | about 1.8e308 |
+
+Here 3.4e38 means 3.4 times 10 to the 38th. Floating point covers a wide range, from the size of an atom to the size of a galaxy, with the same relative precision throughout. It has three consequences that a programmer must keep in mind:
+
+- **Most decimal fractions are not exact.** In binary, one tenth is a repeating fraction, as one third is in decimal, so `0.1 + 0.2` is not exactly `0.3`. Two results that should be equal are compared by testing whether they differ by less than a small amount, not with `=`.
+- **Whole numbers are exact only up to a limit.** A double holds every integer up to 2 to the 53rd, about 9 x 10 to the 15th; beyond that, some integers cannot be stored. A single is exact only to about 16 million.
+- **Special values** stand for results that are not ordinary numbers: infinity, for a result too large to store, and NaN ("not a number"), for an undefined result such as zero divided by zero.
+
+A processor either has floating-point hardware or performs each operation in software, as a sequence of integer instructions. The processors in the FPGA computers of this book have none, so a floating-point operation takes tens to hundreds of times as long as an integer one. Fixed point is suited to money and to small machines; floating point to measurements and science.
 
 ## Text
 
@@ -109,9 +124,13 @@ The digit `7` is stored as 55, not 7. The text "42" and the number 42 are differ
 
 The first 32 ASCII codes are not printable. They control the device the text is sent to: code 10 (line feed) moves to a new line, code 13 (carriage return) moves to the start of the line, code 8 is backspace and code 27 is escape. Unix-like systems end each line of a text file with a line feed alone; MS-DOS, Windows and some network protocols use carriage return followed by line feed. This difference still causes problems when files are moved between systems.
 
+A character's number is not its appearance. A **font** gives each character a **glyph**, the shape that is drawn, so the same text can be shown in many fonts. A computer that has no glyph for a character shows a substitute, often a box or a question mark.
+
 ASCII covers only English. Extensions such as **ISO 8859-15** (Latin-9) use the upper codes, 160 to 255, for accented letters and the euro sign, which is enough for most Western European languages. **Unicode** gives a number to every character in every writing system, with more than a million possible codes.
 
 Unicode text is usually stored as **UTF-8**, an encoding in which ASCII characters stay single bytes with their old values, and every other character takes two to four bytes, each with its top bit set. As a result, a program that handles only ASCII can pass UTF-8 text through without damaging it. UTF-8 is the current standard for text and the appropriate choice unless there is a specific reason to use another encoding.
+
+Text read with the wrong encoding is garbled. The letter "e" with an acute accent is the two bytes `0xC3 0xA9` in UTF-8; read as ISO 8859-15, those bytes appear as two different characters, an "A" with a tilde followed by a copyright sign. The bytes are not damaged, and the text reads correctly again when the right encoding is used. A plain text file does not record its encoding, so it is kept with the file's description, or the file is kept in UTF-8.
 
 ## Pictures and Sound
 

@@ -1,6 +1,6 @@
 # Digital Logic
 
-Digital logic builds decisions, arithmetic and memory out of switches. This chapter starts with single gates and ends with the parts from which every processor is made. It also describes closely what an FPGA contains and what a hardware designer writes.
+Digital logic builds decisions, arithmetic and memory out of switches. This chapter starts with single gates and ends with the parts from which every processor is made. The same parts reappear later as the contents of an FPGA and as the things a hardware designer describes.
 
 ## Logic Gates
 
@@ -31,13 +31,13 @@ Logic can be written as algebra, named after George Boole, who described it in 1
 These rules simplify and rearrange logic:
 
 ```text
-A & 1 = A           A | 0 = A          anything AND 1, OR 0, is itself
-A & 0 = 0           A | 1 = 1          AND 0 is always 0, OR 1 always 1
-A & A = A           A | A = A
-A & ~A = 0          A | ~A = 1         a value and its opposite
-~~A = A                                double inversion cancels
-~(A & B) = ~A | ~B                     De Morgan's laws:
-~(A | B) = ~A & ~B                     invert, swap AND and OR
+A & 1 = A         A | 0 = A        AND with 1, OR with 0: unchanged
+A & 0 = 0         A | 1 = 1        AND with 0 is 0; OR with 1 is 1
+A & A = A         A | A = A
+A & ~A = 0        A | ~A = 1       a value and its opposite
+~~A = A                            double inversion cancels
+~(A & B) = ~A | ~B                 De Morgan's laws:
+~(A | B) = ~A & ~B                 invert, swap AND and OR
 ```
 
 De Morgan's laws are the most useful. They say that NOT-AND is the same as OR-ing the inverted inputs, so any circuit can be rearranged between ANDs and ORs. Hardware tools apply rules like these automatically to find the smallest circuit for a given job.
@@ -128,7 +128,15 @@ Memory comes from **feedback**: an output connected back to an input. Two NOR ga
    S ---+-----+
 ```
 
-A high pulse on S (set) sets Q to 1. A high pulse on R (reset) sets Q to 0. With both inputs low, the loop holds its last state, so it stores one bit. S and R must never be high at the same time.
+The upper gate computes `Q = NOR(R, ~Q)`, and the lower one `~Q = NOR(S, Q)`. A NOR gate outputs 1 only when both its inputs are 0. Setting and then resetting the latch takes three steps:
+
+| Step             | S   | R   | ~Q  | Q   |
+|------------------|-----|-----|-----|-----|
+| S goes high      | 1   | 0   | 0   | 1   |
+| S goes low again | 0   | 0   | 0   | 1   |
+| R goes high      | 0   | 1   | 1   | 0   |
+
+In the first step, S is 1, so the lower gate gives 0; the upper gate then sees R and `~Q` both at 0, and gives 1. In the second step neither input is high, yet Q stays at 1, because each gate's output holds the other gate in place. In the third, R forces Q to 0, which lets the lower gate's output rise to 1. The latch has remembered that S was the last input to be high. A high pulse on S (set) therefore sets Q to 1, and a high pulse on R (reset) sets Q to 0. With both inputs low, the loop holds its last state, so it stores one bit. S and R must never be high at the same time, because both outputs would then be 0 and the state that followed would be unpredictable.
 
 ## The Clock and the Flip-Flop
 
@@ -152,7 +160,7 @@ The clock's speed is measured in **hertz** (Hz), cycles per second. One megahert
 
 Several flip-flops side by side on the same clock store a multi-bit number. This is a **register**. A 32-bit register is 32 flip-flops.
 
-A register whose output passes through an adder that adds one, and back into its input, is a **counter**: its value increases by one at every clock edge. Counters measure time, count events, step through memory and divide clocks. The top bit of a 24-bit counter on a 12 MHz clock changes about once every 0.7 seconds, which is the usual way to blink an LED from a fast clock, as shown in [Describing Hardware](#describing-hardware).
+A register whose output passes through an adder that adds one, and back into its input, is a **counter**: its value increases by one at every clock edge. Counters measure time, count events, step through memory and divide clocks. The top bit of a 24-bit counter on a 12 MHz clock changes about once every 0.7 seconds, so an LED driven by it is on for 0.7 seconds and off for 0.7 seconds. This is the usual way to blink an LED from a fast clock, as shown in [Describing Hardware](#describing-hardware).
 
 Flip-flops connected in a chain, each one's output feeding the next one's input, form a **shift register**: each clock edge moves every bit one place along. It converts between serial and parallel data: bits loaded one at a time can be read out together, or the reverse. Every serial connection in a computer, from a keyboard cable to a network, has shift registers at each end.
 
@@ -183,7 +191,7 @@ The three states fit in two bits of a register, and the table becomes a few gate
 
 ## Timing
 
-Synchronous design has one hard rule: the combinational logic between two flip-flops must settle before the next clock edge. More precisely, each flip-flop needs its input to be stable for a short **setup time** before the edge.
+Synchronous design has one hard rule: the combinational logic between two flip-flops must settle before the next clock edge. More precisely, each flip-flop needs its input to be stable for a short **setup time** before the edge, and to remain stable for a short **hold time** after it.
 
 The slowest path in the whole circuit, called the **critical path**, therefore sets the fastest usable clock. If the longest path takes 20 nanoseconds to settle, the clock can be at most 50 MHz. To use a faster clock, a designer must shorten that path, for example by splitting a long calculation over two clock cycles. Hardware tools report the critical path and the maximum clock frequency of every design, and FPGA designers check this figure routinely.
 

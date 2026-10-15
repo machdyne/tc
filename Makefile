@@ -5,6 +5,11 @@
 #                  listings in the chapters match the tested files
 #   make check     lint the chapter sources for the Zeitlos reader
 #   make           build PDF, HTML, Markdown and plain text into dist/
+#   make print     build the 13.5 x 21.5 cm print edition, dist/tc-print.pdf
+#   make cover     build the front cover at print size, dist/tc-cover-front.pdf
+#   make cover-wrap
+#                  build the whole printed cover, dist/tc-cover-wrap.pdf, to
+#                  the dimensions below, from the printer's cover calculator
 #   make verify    run the Zeitlos reader's own parser over dist/tc.md
 #
 # The Markdown target does NOT go through LaTeX.
@@ -37,15 +42,89 @@ all: pdf html markdown text
 build:
 	mkdir -p build dist
 
-pdf: gen
+pdf: gen build/cover-front.pdf
 	latexmk -pdf -xelatex -output-directory=build tc.tex
 	mv build/tc.pdf dist
 
+# The print edition shares tc.tex; tc-print.tex switches it to the book
+# layout in print-setup.tex. Its chapters are converted separately,
+# because in a book the top level is \chapter rather than \section.
+PRINT = build/print
+
+print: build
+	mkdir -p $(PRINT)
+	@for c in $(CHAPTERS); do \
+		echo "pandoc chapters/$$c.md (print)"; \
+		pandoc $(PANDOC_OPTS) -f markdown+autolink_bare_uris \
+			--top-level-division=chapter \
+			chapters/$$c.md -o $(PRINT)/$$c.tex || exit 1; \
+	done
+	latexmk -pdf -xelatex -output-directory=$(PRINT) tc-print.tex
+	mv $(PRINT)/tc-print.pdf dist
+	@if grep -q 'TODO' imprint.tex; then \
+		echo "print: warning: imprint.tex still has a TODO"; \
+	fi
+	@want=$$(sed -n 's/^\\def\\tcpages{\([0-9]*\)}.*/\1/p' tc-print.tex); \
+	got=$$(grep -a -c '/Type */Page[^s]' dist/tc-print.pdf); \
+	if command -v pdfinfo > /dev/null; then \
+		got=$$(pdfinfo dist/tc-print.pdf | sed -n 's/^Pages: *//p'); fi; \
+	echo "print: $$got pages ($$want ordered)"; \
+	if [ -n "$$want" ] && [ "$$got" != "$$want" ]; then \
+		echo "print: warning: the book has $$got pages, not $$want;"; \
+		echo "  trim it, or order $$got pages and recalculate the cover"; \
+	fi
+
+# Covers, from cover/cover.svg (needs rsvg-convert, Python's PIL and the
+# Lato font). See tools/mkcover.py.
+build/cover-front.pdf: cover/cover.svg tools/mkcover.py | build
+	$(PYTHON) tools/mkcover.py screen -o $@
+
+cover: build
+	$(PYTHON) tools/mkcover.py front -o dist/tc-cover-front.pdf
+
+# The printed cover, in mm, from BoD's cover calculator for this edition:
+# hardcover, thread-sewn, straight spine, 13.5 x 21.5 cm, white 90 g,
+# 256 pages (\tcpages in tc-print.tex). They change with the page count
+# and the paper: run the calculator again if either changes.
+#   WIDTH   total width including edge
+#   HEIGHT  height including edge
+#   SPINE   book spine width
+#   WRAP    top/bottom/outside impact edge
+#   HINGE   fold width within U1/U4
+WIDTH ?= 332.9
+HEIGHT ?= 255
+SPINE ?= 18.9
+WRAP ?= 17
+HINGE ?= 8
+
+# The ISBN barcode for the back cover, from the myBoD project.
+BARCODE ?= cover/barcode.png
+# The ground behind it: none (straight on the pale artwork), white,
+# or a pale colour. Scan the proof copy before approving it.
+BARCODE_BG ?= none
+BARCODE_RADIUS ?= 0
+
+cover-wrap: build
+	@if [ -z "$(WIDTH)" ] || [ -z "$(HEIGHT)" ] || [ -z "$(SPINE)" ] || \
+	    [ -z "$(WRAP)" ]; then \
+		echo "cover-wrap: set WIDTH, HEIGHT, SPINE and WRAP (mm) from the"; \
+		echo "printer's cover template, e.g. make cover-wrap WIDTH=330 \\"; \
+		echo "  HEIGHT=251 SPINE=18 WRAP=18"; \
+		exit 1; \
+	fi
+	$(PYTHON) tools/mkcover.py wrap -o dist/tc-cover-wrap.pdf \
+		--width $(WIDTH) --height $(HEIGHT) --spine $(SPINE) --wrap $(WRAP) \
+		--hinge $(HINGE) \
+		$(if $(BARCODE),--barcode $(BARCODE) --barcode-bg '$(BARCODE_BG)' \
+		  --barcode-radius $(BARCODE_RADIUS))
+
 html: gen
-	cd build && pandoc ../tc.tex -s --toc -t html -o ../dist/tc.html
+	$(PYTHON) tools/screentex.py tc.tex build/tc-screen.tex
+	cd build && pandoc tc-screen.tex -s --toc -t html --metadata pagetitle="Timeless Computing" -o ../dist/tc.html
 
 text: gen
-	cd build && pandoc ../tc.tex -s --toc -t plain -o ../dist/tc.txt
+	$(PYTHON) tools/screentex.py tc.tex build/tc-screen.tex
+	cd build && pandoc tc-screen.tex -s --toc -t plain -o ../dist/tc.txt
 
 # No `gen` dependency: this reads the chapter sources directly.
 markdown: build
@@ -96,6 +175,7 @@ view:
 	evince dist/tc.pdf
 
 clean:
-	rm -f build/*
+	rm -rf build/*
 
-.PHONY: all pdf html text markdown check verify test deps gen view clean
+.PHONY: all pdf print cover cover-wrap html text markdown check verify \
+	test deps gen view clean

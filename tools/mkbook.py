@@ -45,7 +45,8 @@ import re
 import sys
 
 MD_LINE_MAX = 1024          # md.h
-DEFAULT_COLS = 78           # advisory: code and tables do not wrap
+DEFAULT_COLS = 67           # code: what fits the 13.5 cm print edition
+TABLE_COLS = 78             # tables: what fits the reader window
 
 
 # ---------------------------------------------------------------------
@@ -438,7 +439,7 @@ def chapter_order(tex_path):
 # text instead of appearing raw in the output.
 TEX_DROP = re.compile(
     r'\\(?:vspace\*?|hspace\*?)\{[^}]*\}'
-    r'|\\(?:vfill|hfill|centering|newpage|clearpage|par|noindent|bigskip'
+    r'|\\(?:vfill|hfill|tcversobreak|tcimprint|centering|newpage|clearpage|par|noindent|bigskip'
     r'|medskip|smallskip)\b'
     r'|\\(?:Huge|huge|LARGE|Large|large|normalsize|small|footnotesize'
     r'|scriptsize|tiny|bfseries|itshape|rmfamily|sffamily|ttfamily)\b'
@@ -576,10 +577,13 @@ def lint(path, lines, cols, problems):
 
         # Code and tables are never wrapped by the reader, so an
         # over-wide one is cut off at the window edge rather than
-        # flowing. Prose is fine at any width.
-        if kind in (Block.CODE, Block.TABLE) and len(src.rstrip()) > cols:
+        # flowing. Prose is fine at any width. Code is held to the
+        # narrower budget because it does not wrap in the 13.5 cm print
+        # edition either; tables do, so they only need to fit the reader.
+        limit = cols if kind == Block.CODE else TABLE_COLS
+        if kind in (Block.CODE, Block.TABLE) and len(src.rstrip()) > limit:
             bad(i, '%s line is %d cols, over the %d-col budget'
-                % (kind, len(src.rstrip()), cols))
+                % (kind, len(src.rstrip()), limit))
 
         if kind in (Block.CODE, Block.FENCE, Block.FRONT):
             continue
@@ -641,7 +645,7 @@ def main():
                          'so line 0 is unreachable once you have scrolled '
                          'down. render_test MODE=scroll reports it.')
     ap.add_argument('--cols', type=int, default=DEFAULT_COLS,
-                    help='advisory width for code and table lines')
+                    help='width budget for code lines')
     ap.add_argument('--no-ascii', action='store_true',
                     help='keep non-ASCII characters (they will not render)')
     ap.add_argument('--check-only', action='store_true',

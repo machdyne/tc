@@ -24,7 +24,7 @@ Caches, and often a processor's register file, are made of SRAM, as is the **blo
 
 ## Dynamic RAM
 
-**Dynamic RAM** (DRAM) stores each bit as a small charge on a capacitor, with one transistor to reach it. This makes it dense and cheap, so it is used for main memory in nearly every computer. The charge leaks away within tens of milliseconds, however, so every row of the memory must be read and written back, or **refreshed**, typically every 64 milliseconds. DRAM also has a more complicated interface, organized in rows and columns that must be opened and closed in the correct order.
+**Dynamic RAM** (DRAM) stores each bit as a small charge on a capacitor, with one transistor to reach it. This makes it dense and cheap, so it is used for main memory in nearly every computer. The charge leaks away, however. To be certain that no bit is lost, every row of the memory is read and written back, or **refreshed**, at least every 64 milliseconds. DRAM also has a more complicated interface, organized in rows and columns that must be opened and closed in the correct order.
 
 A **memory controller**, a circuit between the bus and the memory chips, handles these tasks. In an FPGA computer, the memory controller is part of the design loaded into the FPGA. Common varieties are:
 

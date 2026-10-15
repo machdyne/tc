@@ -1,0 +1,6 @@
+10 N = 27: S = 0
+20 IF N = 1 THEN GOTO 60
+30 IF N MOD 2 = 0 THEN N = N / 2 ELSE N = 3 * N + 1
+40 S = S + 1
+50 GOTO 20
+60 PRINT S

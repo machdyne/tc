@@ -7,7 +7,8 @@
 #                      A line marked REM TEST is not in the book: it
 #                      stops a program that would otherwise run for ever
 #   scheme/NAME.scm    run by Machdyne Scheme after its standard library
-#                      and scheme/check.scm; a failed (check ...) exits 1
+#                      and scheme/check.scm; a failed (check ...) exits 1,
+#                      and if NAME.out exists the output must match it
 #   c/NAME.c           compiled as strict C99 and run; the output must
 #                      match NAME.out (no NAME.out: compiled only)
 #   asm/NAME.S         assembled as RV32I; if NAME.out exists, the machine
@@ -61,10 +62,13 @@ for src in "$here"/scheme/*.scm; do
 	[ "$(basename "$src")" = check.scm ] && continue
 	[ -x "$ms" ] || { note "$name: no $ms (make deps)"; continue; }
 	cat "$EXT/ms/ms_stdlib.l" "$here/scheme/check.scm" "$src" > "$work/t.scm"
-	if "$ms" "$work/t.scm" > "$work/out" 2>&1 && ! grep -q '\[error\]' "$work/out"; then
-		ok
-	else
+	if ! "$ms" "$work/t.scm" > "$work/out" 2>&1 || grep -q '\[error\]' "$work/out"; then
 		bad "$name" "$work/out"
+	elif [ -f "${src%.scm}.out" ] && \
+			! diff -u "${src%.scm}.out" "$work/out" > "$work/diff"; then
+		bad "$name" "$work/diff"
+	else
+		ok
 	fi
 done
 
