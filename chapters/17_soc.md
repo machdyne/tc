@@ -10,7 +10,7 @@ There are many open softcores for RISC-V. Some are small and simple, completing 
 
 A soft processor runs much more slowly than a hard one, typically at tens of megahertz. Its advantages are:
 
-- **It can be read.** Every gate of the processor is visible in its source, so it can be audited, studied and trusted to a degree that no commercial chip allows.
+- **It can be read.** Every part of the processor's logic is visible in its source, so it can be audited, studied and trusted to a degree that no commercial chip allows.
 - **It can be fixed.** A processor bug is corrected by changing the source and rebuilding the bitstream.
 - **It can be extended.** New instructions or features can be added for a particular need.
 - **It can be replaced.** A machine built with one instruction set can later be given another, by loading a different design into the same hardware.
@@ -40,7 +40,7 @@ A typical FPGA computer is organized as follows:
 - Other **bus masters**, such as the video circuit that reads the framebuffer and the DMA engines described in [The Computer](#the-computer), use the bus as well. An **arbiter** decides which master uses the bus when two request it at once.
 - An **address decoder** turns each address into a select signal for one device.
 - The **boot ROM** is a small program held in block RAM, built into the bitstream itself, so that the processor has a program to run as soon as the FPGA is configured. It is the system's firmware and its bootloader: it loads the operating system from flash.
-- The **memory controller** connects the bus to external SDRAM or DDR memory.
+- The **memory controller** connects the bus to external SRAM, SDRAM or DDR memory.
 - The **peripherals** each present a few registers on the bus.
 
 ## Adding a Device, End to End
@@ -97,7 +97,7 @@ A call to `led_on` proceeds as follows:
 4. The store puts the address and the new value on the bus with write enable set. At the next clock edge, `value` loads the new byte.
 5. The `leds` output changes, the pin goes to 3.3 V, current flows through the resistor and LED from [Electricity](#electricity), and the light comes on.
 
-These five steps involve every layer of this book. Larger peripherals, such as a serial port, a sound mixer or a USB controller, work in the same way, with more registers and more logic behind them.
+These five steps pass through most of the layers described in this book. Larger peripherals, such as a serial port, a sound mixer or a USB controller, work in the same way, with more registers and more logic behind them.
 
 ## Hardware and Software Together
 
@@ -111,7 +111,7 @@ Software is easier to write and change. Hardware can be much faster for some tas
 - the multiplications of large numbers on which public-key cryptography depends
 - hash functions such as SHA-256
 
-The Zeitlos SOC can include hardware for each of these, and each makes practical on a 48 MHz processor a task that would otherwise be too slow. The usual approach is to write everything in software first, measure where the time is spent, and move only the slowest part into hardware, behind a few registers.
+The Zeitlos SOC can include hardware for each of these, and each makes a task practical on a 48 MHz processor that would otherwise be too slow. The usual approach is to write everything in software first, measure where the time is spent, and move only the slowest part into hardware, behind a few registers.
 
 ## Moving a Design to Another Board
 

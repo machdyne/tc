@@ -81,7 +81,7 @@ int factorial(int n)
 
 ## A Conversion Table
 
-A table of temperatures from 0 to 100 degrees Celsius in steps of 20, with their equivalents in Fahrenheit: F = C x 9 / 5 + 32. Each version prints the same six rows, from `0 32` to `100 212`.
+A table of temperatures from 0 to 100 degrees Celsius in steps of 20, with their equivalents in Fahrenheit: F = C x 9 / 5 + 32. Each version prints six rows of two numbers, from 0 and 32 to 100 and 212; BASIC places the second number in the next print zone.
 
 BASIC, where `STEP` sets the increment and the comma moves to the next print zone:
 
@@ -117,7 +117,7 @@ In BASIC and C, the multiplication is done before the division, so the integer d
 
 ## The Collatz Sequence
 
-Start with a number. If it is even, halve it; if it is odd, multiply it by 3 and add 1. Repeat until the number is 1. Every starting number ever tried reaches 1 eventually, although no one has proved that all of them do. Starting from 27, it takes 111 steps, and the number rises as high as 9232 on the way.
+The sequence starts from a number. An even number is halved; an odd one is multiplied by 3 and increased by 1. This repeats until the number is 1. Every starting number ever tried reaches 1 eventually, although no one has proved that all of them do. Starting from 27, it takes 111 steps, and the number rises as high as 9232 on the way.
 
 BASIC, with a decision inside the loop:
 

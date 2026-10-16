@@ -106,6 +106,25 @@ Small resistors are marked with coloured bands. On a four-band resistor, the fir
 
 Red, violet, brown and gold is 2, 7 and one zero: 270 ohms, within 5%. A five-band resistor has three digits before the multiplier.
 
+## Surface-Mount Markings
+
+Surface-mount resistors are too small for colour bands and are marked with a short code:
+
+| Marking | Rule                                        | Value    |
+|---------|---------------------------------------------|----------|
+| 472     | two digits, then the number of zeros        | 4.7k     |
+| 103     |                                             | 10k      |
+| 100     |                                             | 10 ohms  |
+| 4701    | three digits, then the number of zeros (1%) | 4.7k     |
+| 4R7     | R marks the decimal point                   | 4.7 ohms |
+| R10     |                                             | 0.1 ohm  |
+| 01C     | EIA-96: an E96 value number and a letter    | 10k      |
+| 0, 000  | a zero-ohm link, used as a jumper           | 0        |
+
+In the EIA-96 code, used on the smallest 1% resistors, the two digits number the 96 values of the E96 series, from 01 for 100 to 96 for 976, and the letter is a multiplier: Z 0.001, Y or R 0.01, X or S 0.1, A 1, B or H 10, C 100, D 1,000, E 10,000 and F 100,000. A table of the E96 series is needed to decode the number; 01C is 100 x 100.
+
+Capacitors that are marked use three digits in picofarads, the third again the number of zeros: 104 is 100,000 pF, or 100 nF, and 105 is 1 uF. Small ceramic capacitors are usually not marked at all, and are measured or identified from the board's documentation. On a diode, the band marks the cathode; on a tantalum capacitor, the band marks the positive end. On a chip, a dot or notch marks pin 1, and the short code printed on top is explained in the marking section of its data sheet.
+
 ## Standard Resistor Values
 
 Resistors are made in series of values spaced so that each is a fixed ratio above the last. The E12 series, for 10% tolerance, has twelve values in each decade:

@@ -40,7 +40,7 @@ A & ~A = 0        A | ~A = 1       a value and its opposite
 ~(A | B) = ~A & ~B                 invert, swap AND and OR
 ```
 
-De Morgan's laws are the most useful. They say that NOT-AND is the same as OR-ing the inverted inputs, so any circuit can be rearranged between ANDs and ORs. Hardware tools apply rules like these automatically to find the smallest circuit for a given job.
+De Morgan's laws are the most useful. They say that NOT-AND is the same as OR-ing the inverted inputs, so any circuit can be rearranged between ANDs and ORs. Hardware tools apply rules like these automatically to reduce a circuit to a smaller equivalent.
 
 ## Everything From NAND
 
@@ -66,9 +66,9 @@ out = (A & ~S) | (B & S)
 
 With more select bits, a multiplexer can choose among 4, 8 or more inputs. A processor uses multiplexers to select which register feeds the arithmetic unit, and which result is written back.
 
-A **decoder** turns a binary number into one active line. A 2-to-4 decoder has two inputs and four outputs, and exactly one output is 1: the one whose number matches the input. A processor uses decoders to select one memory chip or one device out of many, based on an address.
+A **decoder** turns a binary number into one active line. A 2-to-4 decoder has two inputs and four outputs, and exactly one output is 1: the one whose number matches the input. A computer uses decoders to select one memory chip or one device out of many, based on an address.
 
-A **comparator** checks whether two numbers are equal. It applies XNOR to each pair of corresponding bits and combines all the results with AND.
+An equality **comparator** checks whether two numbers are equal. It applies XNOR to each pair of corresponding bits and combines all the results with AND.
 
 An **adder** adds binary numbers. When two single bits A and B are added, the sum bit is A XOR B, and there is a carry exactly when both are 1, which is A AND B. That circuit is a **half adder**:
 
@@ -98,7 +98,7 @@ Full adders chained together, each one's carry out feeding the next one's carry 
        S3          S2          S1          S0
 ```
 
-The same adder can subtract. As the chapter [Information](#information) explained, a two's complement number is negated by inverting its bits and adding one. To compute A - B, each bit of B is inverted with an XOR gate and the first carry in is set to 1. A single control bit therefore turns an adder into a subtracter.
+The same adder can subtract. As the chapter [Information](#information) explained, a two's complement number is negated by inverting its bits and adding one. To compute A - B, each bit of B is inverted with an XOR gate and the first carry in is set to 1. A single control bit therefore turns an adder into a subtractor.
 
 An adder that can also subtract, AND, OR and compare, with a multiplexer to choose which result comes out, is an **arithmetic logic unit** (ALU), the part of a processor that performs calculations.
 
@@ -154,7 +154,7 @@ Q       __/~~~~~\___________/~~~~~
 
 Between edges, the combinational logic is free to settle. At the edge, the flip-flops capture the settled results all at once. Then the logic settles again from the new values. This **synchronous** style divides the operation of a circuit into a sequence of discrete steps, one per clock cycle, and it is how processors, and almost everything built in an FPGA, are designed.
 
-The clock's speed is measured in **hertz** (Hz), cycles per second. One megahertz (MHz) is a million cycles per second, so a 48 MHz clock has an edge about every 21 nanoseconds.
+The clock's speed is measured in **hertz** (Hz), cycles per second. One megahertz (MHz) is a million cycles per second, so a 48 MHz clock has a rising edge about every 21 nanoseconds.
 
 ## Registers, Counters and Shift Registers
 
@@ -193,7 +193,7 @@ The three states fit in two bits of a register, and the table becomes a few gate
 
 Synchronous design has one hard rule: the combinational logic between two flip-flops must settle before the next clock edge. More precisely, each flip-flop needs its input to be stable for a short **setup time** before the edge, and to remain stable for a short **hold time** after it.
 
-The slowest path in the whole circuit, called the **critical path**, therefore sets the fastest usable clock. If the longest path takes 20 nanoseconds to settle, the clock can be at most 50 MHz. To use a faster clock, a designer must shorten that path, for example by splitting a long calculation over two clock cycles. Hardware tools report the critical path and the maximum clock frequency of every design, and FPGA designers check this figure routinely.
+The slowest path in the whole circuit, called the **critical path**, therefore sets the fastest usable clock. If the longest path, including the setup time, takes 20 nanoseconds to settle, the clock can be at most 50 MHz. To use a faster clock, a designer must shorten that path, for example by splitting a long calculation over two clock cycles. Hardware tools report the critical path and the maximum clock frequency of every design, and FPGA designers check this figure routinely.
 
 A second problem arises when a signal from outside, such as a button or a signal from a circuit on a different clock, changes at the moment a flip-flop samples it. The flip-flop can be caught between 0 and 1 for a moment, a condition called **metastability**. The standard remedy is to pass such signals through two flip-flops in a row before using them, giving any uncertainty a full clock cycle to resolve.
 

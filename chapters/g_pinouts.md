@@ -44,7 +44,7 @@ The carrier provides the pull-up resistors for A and B, of 2.2k to 10k; modules 
 
 ## Zwölf
 
-Zwölf modules, the predecessors of Sechs, have twelve contacts in two rows. Viewed from the top:
+Zwölf modules, which comply with Sechs when they run Sechs firmware such as Machdyne BASIC, have twelve contacts in two rows: the six of Sechs, four more for the module's own uses, a reset and a write protect. Viewed from the top:
 
 ```text
    1   2   3   4   5   6

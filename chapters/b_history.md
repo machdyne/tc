@@ -4,7 +4,7 @@ Computing builds on more than two thousand years of discovery. This appendix giv
 
 ## From Electricity to Electronics
 
-For most of history, electricity was a curiosity: a spark from rubbed amber, a twitch in a frog's leg. It became useful in the nineteenth century, once Alessandro Volta's battery provided a steady current and Georg Ohm, Michael Faraday and James Clerk Maxwell explained how current, magnetism and voltage are related. The first great application was communication. From the 1840s the electric telegraph carried messages across continents, coded as short and long pulses, and the telephone followed in the 1870s. Both are early examples of information carried as electrical signals, the subject of [Information](#information).
+For most of history, electricity was a curiosity: a spark from rubbed amber, a twitch in a frog's leg. It became useful in the nineteenth century, once Alessandro Volta's battery provided a steady current and Georg Ohm, Michael Faraday and James Clerk Maxwell explained how current, magnetism and voltage are related. The first great application was communication. From the 1840s the electric telegraph carried messages across countries, and from the 1860s across oceans, coded as short and long pulses, and the telephone followed in the 1870s. Both are early examples of information carried as electrical signals, the subject of [Information](#information).
 
 The vacuum tube, invented in the first decade of the twentieth century, made electronics possible. A small voltage on one part of a tube controls a larger current through it, so a tube can amplify a signal or act as a switch with no moving parts. Tubes made radio and television practical, and in the 1940s they made the first electronic computers possible.
 
@@ -77,7 +77,7 @@ The second was open hardware. FPGAs were introduced in 1985, but for thirty year
 - **1936.** Alan Turing describes a theoretical machine that can carry out any computation, laying the foundation of computer science.
 - **1937.** Claude Shannon shows that Boole's algebra can describe and design switching circuits.
 - **1941.** Konrad Zuse completes the Z3, an electromechanical programmable computer.
-- **1944.** Colossus, designed by Tommy Flowers, breaks codes at Bletchley Park, the first programmable electronic digital computer.
+- **1944.** Colossus, the first programmable electronic digital computer, designed by Tommy Flowers, breaks codes at Bletchley Park.
 - **1945.** ENIAC, built by John Mauchly and J. Presper Eckert, is completed. It is reprogrammed by rewiring.
 - **1948.** The Manchester Baby runs the first program stored in electronic memory.
 - **1958.** John McCarthy creates Lisp.
@@ -86,7 +86,7 @@ The second was open hardware. FPGAs were introduced in 1985, but for thirty year
 - **1971.** Intel's 4004 puts a whole processor on one chip.
 - **1972.** Dennis Ritchie creates C.
 - **1975.** Guy Steele and Gerald Sussman create Scheme. The Altair 8800 kit starts the personal computer era.
-- **1977 to 1985.** Home and personal computers spread: the Apple II, the TRS-80, the Commodore 64, the BBC Micro and the ZX Spectrum, all of which started up into BASIC, followed by the IBM PC, the Macintosh and the Amiga.
+- **1977 to 1985.** Home and personal computers spread: the Apple II, the TRS-80, the BBC Micro, the Commodore 64 and the ZX Spectrum, all of which started up into BASIC, alongside the IBM PC (1981), the Macintosh (1984) and the Amiga (1985).
 - **1978.** The first public bulletin board system goes online.
 - **1983.** The ARPANET switches to TCP/IP.
 - **1984.** Verilog is created.

@@ -8,7 +8,7 @@ Zeitlos changes quickly, and the system's own documentation describes it in exac
 
 With a keyboard, mouse, monitor and USB power supply connected, the machine starts to a graphical desktop. The screen is 640 by 480 pixels in a single colour, in the manner of early workstations: white, amber or green on black, or black on white like paper. A dock along the bottom starts programs, and windows can be moved, resized and stacked.
 
-The programs supplied with it cover the timeless applications listed in [Timeless Computing](#timeless-computing): a text editor, a file browser, a document reader, a spreadsheet, a calculator, a calendar and clock, a terminal, an image viewer, music and sound players, a web browser for simple pages, Gopher and Gemini, and a chat client, along with games and educational programs. This book is among the documents it carries.
+The programs supplied with it cover the timeless applications listed in [Timeless Computing](#timeless-computing): a text editor, a file browser, a document reader, a spreadsheet, a calculator, a calendar and clock, a terminal, an image viewer, music and sound players, a browser for simple web pages and for Gopher and Gemini, and a chat client, along with games and educational programs. This book is among the documents it carries.
 
 The core of the system, consisting of the kernel, the drivers, the window manager, the terminal, the editor, the file browser and the Scheme language, is stored in the computer's flash memory, so the machine works with no storage card at all. A microSD card adds further programs and space for files.
 
@@ -17,8 +17,8 @@ The core of the system, consisting of the kernel, the drivers, the window manage
 Machdyne makes several FPGA computers, and Zeitlos also runs on some boards from other manufacturers, so details vary. The common parts are:
 
 - an **FPGA**, usually a Lattice ECP5, which becomes the whole computer
-- **external RAM**, from 1 MB of SRAM to tens of megabytes of SDRAM, with larger DDR3 memory on boards still being brought up
-- **configuration flash**, often on a removable MMOD module, holding the FPGA's design and the core of the operating system
+- **external RAM**, from 1 MB of SRAM to tens of megabytes of SDRAM, or larger DDR3 memory on some boards
+- **configuration flash**, often on a removable MMOD, holding the FPGA's design and the core of the operating system
 - **USB host ports** for a keyboard, a mouse, storage sticks and network adapters
 - **video output**: DVI through an HDMI connector, VGA, or composite for a television
 - a **microSD** slot
@@ -56,17 +56,17 @@ The start-up sequence closely follows [Operating Systems](#operating-systems):
 3. The kernel starts the filesystem driver, then the USB driver, reads the configuration file, and starts the window manager, the network driver and any other services the configuration specifies.
 4. The desktop appears.
 
-A program is looked for first in the `/apps` folder of the SD card, then in flash; only the kernel and the filesystem driver always come from flash. As a result, a newer version of a program can be tried by copying it onto the card, and the original is restored as soon as the copy is deleted.
+A program is looked for first in the `/apps` folder of the SD card, then in flash; only the kernel and the filesystem driver always come from flash. As a result, a newer version of a program can be tried from the card, as described under [Getting Back to Safety](#getting-back-to-safety).
 
 ## The Operating System
 
 Zeitlos is a **microkernel**, as described in [Operating Systems](#operating-systems). The kernel schedules programs, manages memory, passes messages, routes interrupts and enforces protection. The filesystem, USB and network are driver programs that run like any other. If one crashes, the kernel restarts it a moment later, and most programs using it recover, although open files may need to be opened again.
 
-Scheduling is preemptive, driven by a timer several hundred times a second. When a program sends a message and waits for the answer, the processor switches directly to the program that will answer it. As a result, the desktop responds immediately on a 48 MHz processor: work passes directly to where it is needed, and programs waiting for an event use no time.
+Scheduling is preemptive, driven by a timer several hundred times a second. When a program sends a message and waits for the answer, the processor switches directly to the program that will answer it. As a result, the desktop responds without noticeable delay on a 48 MHz processor: work passes directly to where it is needed, and programs waiting for an event use no time.
 
 Programs communicate through messages and through **ports**: named services that other programs can connect to. A terminal window can connect in the same way to the Scheme interpreter, to a shell modelled on Unix (following POSIX, the standard that describes Unix-like systems), to the BASIC computer, to a serial line, or to another machine across the network.
 
-Files are arranged in one tree:
+Files are arranged in one tree. The main folders are:
 
 | Path  | Contents                                  |
 |-------|-------------------------------------------|
@@ -85,7 +85,7 @@ Settings are kept in a plain text configuration file, which can be read and edit
 
 All three languages from the programming chapters are on the machine.
 
-**Scheme** is always available, from flash, through a terminal window. Besides standard Scheme, it has procedures for files, windows and drawing, starting and stopping programs, simple network transfers, and the pins and buses on the expansion sockets, each with built-in help. It is the quickest way to automate a task or to explore the system.
+**Scheme** is always available, from flash, through a terminal window. Besides standard Scheme, it has procedures for files, windows and drawing, starting and stopping programs, simple network transfers, and the pins and buses on the expansion sockets, each with built-in help. It is a quick way to automate a task or to explore the system.
 
 **BASIC** runs as a separate small computer, in the tradition of the 1980s. It has a 320 by 240 screen, shown in a window or full screen, graphics statements and its own files in one folder, but no access to the rest of the system, which makes it a safe environment for learning. Programs for Machdyne's modules can be written and tried here, or on a virtual module that imitates the limits of a real one exactly, before being sent to a real module.
 
@@ -121,15 +121,15 @@ The machine can be adapted at several levels, each deeper than the one before.
 
 ## An Example Adaptation
 
-The levels above can be followed through one change: logging the temperature of a room every hour.
+This example adapts the machine to log the temperature of a room every hour. It uses two of the levels above: the hardware (level 4), and scripts and schedules (level 2).
 
 1. **The device.** A temperature sensor is connected to an I2C pin pair on a Pmod socket, following the steps in [Connecting a Device](#connecting-a-device). The data sheet gives its address, and a scan of the bus confirms that it answers.
-2. **A trial.** In the Scheme terminal, the I2C procedures, whose descriptions `help` shows, read one byte from the sensor. The result is checked against a thermometer.
+2. **A trial.** In the Scheme terminal, the I2C procedures (described by `help`) read one byte from the sensor. The result is checked against a thermometer.
 3. **A script.** A short Scheme file reads the sensor and appends a line with the date, the time and the temperature to a text file in `/home`. Run by hand, it adds one line to the file.
 4. **A schedule.** Run every hour, by the system's scheduler or by a loop in the script itself, it builds up a record of the temperature in plain text that any program can read.
 5. **A record.** The script, the schedule setting and a note of the sensor and its wiring are kept with the owner's other files, and copied with them.
 
-A deeper change follows the same pattern. A new peripheral in the gateware is first tested in simulation, then loaded from another computer directly into the FPGA's configuration memory, without writing the flash. It runs until the power is turned off, after which the FPGA loads its working design from flash again. Only when the new design works is it written to a spare MMOD. At each step the previous working state remains available.
+A deeper change follows the same pattern. A new peripheral in the gateware is first tested in simulation, then loaded directly into the FPGA's configuration memory, which keeps it only until the power is turned off. Only when the new design works is it written to a spare MMOD. At each step the previous working state remains available.
 
 ## Getting Back to Safety
 
@@ -139,7 +139,7 @@ The machine is designed so that a failed experiment can always be undone:
 - **Card copies override flash copies** for programs. Deleting the copy in `/apps` restores the original.
 - **A rescue console** appears if the desktop cannot start, and can be called up by holding Escape during start-up. From it, programs can be started by hand and problems investigated.
 - **Crashes are contained.** A faulty program is stopped and reported; a faulty driver is restarted, up to a few times a minute.
-- **A design loaded directly is not kept.** A design loaded from another computer into the FPGA's configuration memory, without writing the flash, lasts only until the power is turned off. The region of flash holding the bootloader is protected from any action Zeitlos can take.
+- **A design loaded directly is not kept.** A design loaded from another computer into the FPGA's configuration memory, without writing the flash, lasts only until the power is turned off; the FPGA then loads its working design from flash again. The region of flash holding the bootloader is protected from any action Zeitlos can take.
 - **A second MMOD** is the safest place to try a new design. It can be fitted for an experiment and the original refitted afterwards. The machine can also copy its own configuration module to a spare as a backup.
 - **Release images** restore the whole machine to its original state, and are written to the flash with the open tools from another computer.
 

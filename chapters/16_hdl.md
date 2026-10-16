@@ -4,7 +4,7 @@ Circuits were once designed by drawing them. Digital circuits of any size are no
 
 ## A Different Kind of Language
 
-Verilog resembles C, but it is not a programming language in the usual sense, and this is the most important point about it. A program is a list of steps carried out one after another. A Verilog description is a list of pieces of hardware that all exist, and all operate, at the same time.
+Verilog resembles C, but it is not a programming language in the usual sense. A program is a list of steps carried out one after another. A Verilog description is a list of pieces of hardware that all exist, and all operate, at the same time.
 
 The line `assign sum = a ^ b;` does not compute a value once. It places an XOR gate whose output is always the XOR of its inputs, for as long as the circuit has power. The order of such lines in the file does not matter, as the order of parts on a circuit diagram does not.
 
@@ -74,7 +74,7 @@ end
 
 In hardware, these lines describe two flip-flops with their connections crossed: the input of `a` is wired to the output of `b`, and the input of `b` to the output of `a`. At each edge both load at the same instant, so they exchange their values.
 
-The **blocking** assignment `=` takes effect immediately, so the next line sees the new value. Written with `=`, the second line above would read the new value of `a`, and both registers would end with the old value of `b`. It is used for combinational logic written inside `always @*` blocks, where `@*` means "whenever any input changes".
+The **blocking** assignment `=` takes effect immediately, so the next line sees the new value. Written with `=`, the second line above would read the new value of `a`, and both registers would end with the old value of `b`. The blocking assignment is used for combinational logic written inside `always @*` blocks, where `@*` means "whenever any input changes".
 
 The general rule is to use `<=` in clocked blocks and `=` in combinational ones, and not to mix them in one block.
 
@@ -111,15 +111,15 @@ module traffic (
 endmodule
 ```
 
-`localparam` gives names to the state numbers. The `always` block is the state register together with its next-state logic. On reset, the state becomes red; otherwise it advances when the timer is done and is unchanged when it is not. The `case` statement selects by the current state. The outputs are combinational, each true only in its own state. This module and the table in [Digital Logic](#digital-logic) describe the same behaviour.
+`localparam` gives names to the state numbers. The `always` block is the state register together with its next-state logic. On reset, the state becomes red; otherwise it advances when the timer is done and is unchanged when it is not. The `case` statement selects by the current state. The outputs are combinational, each true only in its own state. This module and the table in [Digital Logic](#digital-logic) describe the same transitions; the module adds a reset.
 
 Every state machine needs a **reset**, a defined state to start from. An FPGA gives its flip-flops known values when it is configured, but a custom chip does not. In addition, a simulator shows unknown values until something sets them, and a running circuit sometimes needs to start again without being reloaded.
 
 ## Simulation
 
-Hardware is difficult to debug once it is built, because a value inside a chip cannot be printed. Designs are therefore first tested by **simulation**, in which a program computes what the circuit would do, cycle by cycle, and every signal can be inspected.
+Hardware is difficult to debug once it is built, because a value inside a chip cannot be observed directly. Designs are therefore first tested by **simulation**, in which a program computes what the circuit would do, cycle by cycle, and every signal can be inspected.
 
-A simulation is driven by a **testbench**. This is a Verilog module that describes no hardware, but is a script that creates an instance of the design, supplies its inputs and checks its outputs. Testbenches may use features that cannot become hardware, such as delays, loops over test values and printed messages. The main part of the full adder's testbench tries all eight input combinations and compares each result with ordinary addition:
+A simulation is driven by a **testbench**. A testbench is a Verilog module that describes no hardware; it acts as a script that creates an instance of the design, supplies its inputs and checks its outputs. Testbenches may use features that cannot become hardware, such as delays, loops over test values and printed messages. The main part of the full adder's testbench tries all eight input combinations and compares each result with ordinary addition:
 
 ```verilog
         for (i = 0; i < 8; i = i + 1) begin
@@ -154,7 +154,7 @@ Converting a tested design into an FPGA configuration takes several steps, each 
 
 **Synthesis** reads the HDL, determines the logic it describes, simplifies it, and maps it onto the building blocks the FPGA provides. The result, a **netlist**, lists every LUT and flip-flop and how they connect. Yosys is a widely used open synthesis tool.
 
-**Place and route** decides which physical block on the chip each part of the netlist will use, then finds paths through the routing for every connection. It also analyses timing and reports the fastest clock the design can use. nextpnr is a widely used open place-and-route tool.
+**Place and route** decides which physical block on the chip each part of the netlist will use, then finds paths through the routing for every connection. It also analyses timing and reports the fastest clock the design can use. The open tool nextpnr is widely used for place and route.
 
 **Bitstream generation**, called packing by some of the open tools, converts the placed and routed design into the configuration format of the particular FPGA.
 
@@ -170,7 +170,7 @@ The tools report two numbers that matter on every build.
 
 **Utilization** states how much of the chip the design uses: the LUTs, block RAMs and other resources used, out of those available. As a chip fills, the placer has less room to work with and timing becomes harder to meet. Above about three quarters full, designs become noticeably harder to build.
 
-**Timing** gives the maximum frequency of each clock, based on the critical path described in [Digital Logic](#digital-logic). If it is below the frequency at which the design runs, the circuit may work on the bench and fail when warm, or fail in rare and confusing ways. A design that does not meet timing is not complete.
+**Timing** gives the maximum frequency of each clock, based on the critical path described in [Digital Logic](#digital-logic). If it is below the frequency at which the design runs, the circuit may work on the bench and fail when warm, or fail in rare and confusing ways. The remedies are described under [Clock Domains](#clock-domains).
 
 ## Debugging on the Board
 
@@ -190,9 +190,9 @@ A known good bitstream is kept, changes are made one at a time, and each new par
 - **Accidental latches.** In a combinational `always @*` block, every output must be assigned in every case. If an `if` has no `else`, the tool must keep the old value and so builds a latch, usually unintentionally.
 - **Two drivers.** A signal can be driven from only one place. Assigning the same register in two different `always` blocks fails in synthesis, even if the simulator accepts it.
 - **Missing reset.** Registers that must start in a known state need a reset or an initial value.
-- **Unsynchronized inputs.** A button or a signal from another clock must pass through two flip-flops before it is used, as described in [Digital Logic](#digital-logic).
+- **Unsynchronized inputs.** A button, or a single-bit signal from another clock domain, must pass through two flip-flops before it is used, as described in [Digital Logic](#digital-logic); multi-bit values need the methods in [Clock Domains](#clock-domains).
 - **Width mismatches.** Assigning a 32-bit value to an 8-bit register silently drops the top bits. Tools warn about this, and the warnings should be read.
 - **Simulation-only code.** Delays such as `#1`, printed messages and the scripted steps of a testbench cannot become hardware, and synthesis ignores or rejects them. A design that depends on them works only in the simulator.
-- **Making clocks with logic.** Dividing a clock with a counter and using the result as another clock causes timing problems. The alternatives are to use the PLL, or to keep one clock and use the counter as an enable.
+- **Making clocks with logic.** Dividing a clock with a counter and using the result as another clock causes timing problems. The alternatives are to use a PLL, or to keep one clock and use the counter as an enable.
 
 The blink module above follows the last rule. It does not create a slow clock; it uses the top bit of a counter that runs on the fast one.

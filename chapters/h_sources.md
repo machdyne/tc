@@ -1,6 +1,6 @@
 # Sources
 
-This book does not assume access to a network. For readers who have one, this appendix lists where to find the projects it describes, their source code and documentation, and further reading. Web addresses change over time; if one no longer works, search for the project's name.
+This book does not assume access to a network. For readers who have access, this appendix lists where to find the projects it describes, their source code and documentation, and further reading. Web addresses change over time; if one no longer works, search for the project's name.
 
 ## Machdyne
 
@@ -11,35 +11,43 @@ This book does not assume access to a network. For readers who have one, this ap
 | Community bulletin board    | telnet bbs.machdyne.com     |
 | Source code of all projects | https://github.com/machdyne |
 
-The source of each project mentioned in this book, under https://github.com/machdyne:
+The source of each project mentioned in this book is in a repository of the same name under:
+
+```text
+https://github.com/machdyne
+```
 
 | Repository | Contents                                                   |
 |------------|------------------------------------------------------------|
 | tc         | this book, with the tests for its examples                 |
 | zeitlos    | the Zeitlos SOC and operating system                       |
 | basic      | Machdyne BASIC, its language reference and module firmware |
-| ms         | Machdyne Scheme                                            |
+| ms         | Machdyne Scheme, before its integration into Zeitlos       |
 | sechs      | the Sechs module interface standard                        |
-| zwolf      | the Zwölf module platform, predecessor of Sechs           |
+| zwolf      | the Zwölf modules, which comply with Sechs                |
 | mmod       | the MMOD memory module standard                            |
 | kakao      | Kakao Linux for Machdyne computers                         |
 | ark        | an offline information collection                          |
 | blaustahl  | the Blaustahl F-RAM storage device                         |
 | kaltstahl  | the Kaltstahl F-RAM storage device                         |
+| ferrit     | the FERRIT F-RAM archival system                           |
+| einszeit   | the Einszeit one-time-pad security device                  |
 | werkzeug   | the Werkzeug multi-tool                                    |
 | zucker     | Zucker, the SOC that preceded Zeitlos                      |
 
 ## Open Hardware Tools
 
-- **Yosys**, synthesis: https://github.com/YosysHQ/yosys
-- **nextpnr**, place and route: https://github.com/YosysHQ/nextpnr
-- **Project IceStorm**, Lattice iCE40: https://github.com/YosysHQ/icestorm
-- **Project Trellis**, Lattice ECP5: https://github.com/YosysHQ/prjtrellis
-- **Project X-Ray**, Xilinx 7-series: https://github.com/f4pga/prjxray
-- **Project Peppercorn**, GateMate: https://github.com/YosysHQ/prjpeppercorn
-- **Icarus Verilog**, simulation: https://github.com/steveicarus/iverilog
-- **PicoRV32**, a RISC-V softcore: https://github.com/YosysHQ/picorv32
-- **LiteX**, SOC builder: https://github.com/enjoy-digital/litex
+| Tool                         | Source                                   |
+|------------------------------|------------------------------------------|
+| Yosys, synthesis             | https://github.com/YosysHQ/yosys         |
+| nextpnr, place and route     | https://github.com/YosysHQ/nextpnr       |
+| Project IceStorm, iCE40      | https://github.com/YosysHQ/icestorm      |
+| Project Trellis, ECP5        | https://github.com/YosysHQ/prjtrellis    |
+| Project X-Ray, Xilinx 7      | https://github.com/f4pga/prjxray         |
+| Project Peppercorn, GateMate | https://github.com/YosysHQ/prjpeppercorn |
+| Icarus Verilog, simulation   | https://github.com/steveicarus/iverilog  |
+| PicoRV32, a RISC-V softcore  | https://github.com/YosysHQ/picorv32      |
+| LiteX, SOC builder           | https://github.com/enjoy-digital/litex   |
 
 ## Standards
 

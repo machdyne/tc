@@ -6,11 +6,11 @@ Scheme programs are built from a few ideas combined freely: expressions, functio
 
 ## Machdyne Scheme
 
-The Scheme in this chapter is Machdyne Scheme, a small interpreter that runs inside Zeitlos and on ordinary computers. It implements most of R4RS, the Revised(4) Report on the Algorithmic Language Scheme of 1991, the standard version of the language at that time. It omits a few advanced features that are difficult to fit on a small machine, and the standard procedures for files, which each system provides in its own way. All its numbers are floating point. Everything in this chapter is standard Scheme and works in any implementation.
+The Scheme in this chapter is Machdyne Scheme, a small interpreter that runs inside Zeitlos and on ordinary computers. It implements most of R4RS, the Revised(4) Report on the Algorithmic Language Scheme of 1991, the standard version of the language at that time. It omits a few advanced features that are difficult to fit on a small machine, and the standard procedures for files, which each system provides in its own way. All its numbers are floating point. Everything in this chapter is standard Scheme and works in any implementation, although an implementation with exact fractions prints some results, such as that of `(/ 7 2)`, differently.
 
 ## Expressions
 
-Every part of a Scheme program is an **expression**, and every compound expression is written in the same way: in parentheses, with the operation first and its arguments after it.
+Every part of a Scheme program is an **expression**, and every compound expression is written in the same way: in parentheses, with the operation first and its arguments after it. In the examples below, each expression is followed by its value:
 
 ```text
 (+ 1 2)               3
@@ -52,7 +52,7 @@ The true and false values are written `#t` and `#f`. In Scheme only `#f` counts 
 
 ## Numbers
 
-Standard Scheme distinguishes exact numbers, such as integers and fractions, from inexact ones. In Machdyne Scheme every number is a floating-point double, as described in [Information](#information). Whole numbers are exact up to 2 to the 53rd, which is enough for counting and for most arithmetic on integers, but division produces fractions, and fractions are approximate:
+Standard Scheme distinguishes exact numbers, such as integers and fractions, from inexact ones. In Machdyne Scheme every number is a floating-point double, as described in [Information](#information). Whole numbers are exact up to 2 to the 53rd, which is enough for counting and for most arithmetic on integers, but division can produce results that are not whole numbers, and most of these are approximate:
 
 ```scheme
 (/ 7 2)                       ; => 3.5
@@ -68,7 +68,7 @@ Standard Scheme distinguishes exact numbers, such as integers and fractions, fro
 
 ## Recursion
 
-Scheme has no statement for loops. Repetition is written as **recursion**, in which a function calls itself:
+Scheme has no loop statement of the kind found in BASIC and C. It provides a `do` form, but repetition is usually written as **recursion**, in which a function calls itself:
 
 ```scheme
 (define (factorial n)
@@ -125,7 +125,7 @@ Three operations do most of the work:
 
 The names come from two parts of a machine word on the IBM 704, the computer on which Lisp was first implemented.
 
-Internally, a list is a chain of **pairs**. Each pair holds one item and a reference to the next pair, and the chain ends with the empty list `'()`. This is the linked list described in [Thinking in Programs](#thinking-in-programs):
+Internally, a list is a chain of **pairs**. Each pair holds one item and a reference to the next pair, and the chain ends with the empty list, written `'()` in a program. This is the linked list described in [Thinking in Programs](#thinking-in-programs):
 
 ```text
   days
@@ -148,7 +148,7 @@ Most functions on lists follow the same pattern: they handle the empty list, and
 (sum '(3 1 4 1 5))            ; => 14
 ```
 
-## Lookup Tables
+## Association Lists
 
 A list of pairs can serve as a lookup table, called an **association list**. `cons` makes a pair from any two values. When the second value is a list, the result is a longer list; when it is not, the pair is written with a dot between its two parts, so `(cons 'ben 2501)` is `(ben . 2501)`. Such **dotted pairs** suit a table of names and values:
 
@@ -205,7 +205,7 @@ Each call to `make-counter` creates a new variable `count` and returns a functio
 
 ## Memory
 
-Scheme programs create pairs, strings and closures freely and never release them. The interpreter releases them automatically: from time to time, a **garbage collector** finds every object the program can still reach, starting from its variables, and recycles the rest. Scheme programmers, like those of most modern languages, never free memory by hand, which eliminates a whole class of errors. The cost is some additional memory and an occasional pause while the collector runs.
+Scheme programs create pairs, strings and closures freely and never release them. The interpreter releases them automatically: from time to time, a **garbage collector** finds every object the program can still reach, starting from its variables, and recycles the rest. Scheme programmers, like those of most modern languages, never free memory by hand, which prevents the errors of freeing memory twice or too early. The cost is some additional memory and an occasional pause while the collector runs.
 
 ## Code Is Data
 
@@ -223,7 +223,7 @@ A Scheme program is written as lists, and lists are Scheme's main data structure
 
 `cadr` and `caddr` are shorthand for the second and third items of a list. The evaluator examines the expression. A number is its own value. A list starting with `+` or `*` is evaluated by evaluating its two arguments and combining the results.
 
-Interpreters work in this way. If `calc` is extended with variables, `if`, `lambda` and function calls, it becomes an interpreter for Scheme itself, which is known to require only a page or two of code. This shows that a programming language is itself a program, and that a small one can be complete.
+Interpreters work in this way. If `calc` is extended with variables, `if`, `lambda` and function calls, it becomes an interpreter for Scheme itself, and such an interpreter fits in a page or two of code. This shows that a programming language is itself a program, and that a small one can be complete.
 
 ## Scheme on a Machine
 

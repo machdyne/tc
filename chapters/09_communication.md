@@ -8,7 +8,7 @@ The simplest network is two computers joined by a serial cable, as described in 
 
 The first computer terminals were teleprinters, typewriters that sent each key press over a wire and printed whatever came back. Their screen-based successors added **escape sequences**: runs of characters, starting with the escape code, that move the cursor, clear the screen or change colours instead of printing. The sequences used by the DEC VT100 terminal of 1978 became a standard that nearly every terminal program still understands. A terminal program on a modern computer is in effect a simulated VT100.
 
-For decades, people connected computers over the telephone network with **modems**, which convert bits into sounds and back. A common use was the **bulletin board system** (BBS): a computer that others could dial into, one or a few callers at a time, to read and post messages, exchange files and play games. Many BBSes now run on the Internet and are reached with telnet or SSH, programs that open a terminal on another computer across a network. They remain a text-based way for a community to meet.
+For decades, people connected computers over the telephone network with **modems**, which convert bits into sounds and back. A common use was the **bulletin board system** (BBS): a computer that others could dial into, one or a few callers at a time, to read and post messages, exchange files and play games. Many BBSes now run on the Internet and are reached with Telnet or SSH, programs that open a terminal on another computer across a network. They remain a text-based way for a community to meet.
 
 ## Packets
 
@@ -25,7 +25,7 @@ Network software is organized in **layers**. Each layer uses the one below it an
 | transport         | deliver data to programs      | TCP, UDP               |
 | application       | provide a service to the user | SSH, HTTP, IRC, DNS    |
 
-A message from an application passes down through the layers, each adding its own header. It travels across the network as a **frame** (the link layer's name for a packet), and passes back up through the layers at the other end, each removing its header. As a result, each layer can change independently of the others. The same web page can travel over a cable, over Wi-Fi or over a radio link without any change to the application.
+A message from an application passes down through the layers, each adding its own header. It travels across the network as a **frame** (the link layer's name for a packet), and passes back up through the layers at the other end, each removing its header. As a result, each layer can change independently of the others. The same web page can travel over a cable, over Wi-Fi or over a long-distance radio link without any change to the application.
 
 ## The Link Layer
 
@@ -35,7 +35,7 @@ Wireless networks such as **Wi-Fi** perform the same function by radio. Low-powe
 
 ## IP: Addresses and Routing
 
-The **Internet Protocol** (IP) gives every machine on a network an **IP address**. The older and still most common form, IPv4, uses 32 bits, written as four bytes in decimal, such as `192.168.1.20`. The newer IPv6 uses 128 bits, which allows about 3.4 x 10 to the 38th addresses, so that every device can have its own.
+The **Internet Protocol** (IP) gives every machine on a network an **IP address**. The original form, IPv4, uses 32 bits, written as four bytes in decimal, such as `192.168.1.20`. The newer IPv6 uses 128 bits, which allows about 3.4 x 10 to the 38th addresses, so that every device can have its own.
 
 Addresses are organized in networks. Machines on the same local network can reach each other directly. To reach anything else, a machine sends the packet to a **router**, its **gateway**, which forwards it to another router closer to the destination, and so on, hop by hop, until it arrives. No single router knows the whole route. Each knows only which way to send packets for each part of the address space. For this reason the Internet can grow without any one party managing all of it.
 
@@ -50,7 +50,7 @@ IP delivers packets on a best-effort basis. They may arrive out of order, twice,
 
 **UDP** sends individual messages, called **datagrams**, with no guarantees. It is simple and quick, and it suits uses where a lost message does not matter or will be requested again, such as DNS lookups, time synchronization or live audio.
 
-**TCP** builds a reliable, ordered stream of bytes on top of unreliable packets. It numbers every byte it sends. The receiver acknowledges what it has received, and the sender resends anything not acknowledged in time. The receiver puts everything back in order before passing it to the program. To the program, a TCP connection behaves like a pipe: bytes go in at one end and come out at the other, all of them and in order.
+**TCP** builds a reliable, ordered stream of bytes on top of unreliable packets. It numbers every byte it sends. The receiver acknowledges what it has received, and the sender resends anything not acknowledged in time. The receiver puts everything back in order before passing it to the program. To the program, a TCP connection behaves like a pair of pipes, one in each direction: bytes go in at one end and come out at the other, all of them and in order.
 
 Both TCP and UDP use **port numbers** to distinguish programs on the same machine. A web server listens on port 80 or 443, and an SSH server on port 22. A connection is identified by four numbers: the two IP addresses and the two ports.
 
@@ -75,7 +75,7 @@ Some common protocols:
 
 ## Secure Connections
 
-Packets pass through many machines on their way, and any of them could read or alter the data. Secure protocols protect against this with cryptography, described in the next chapter, [Security](#security). When a browser connects to an HTTPS site, or a terminal to an SSH server, the two ends confirm each other's identity, agree on a secret key over the open network, and use it to encrypt the rest of the session. The protocols are called **TLS** and **SSH**. Both are standard, open and in use on nearly every networked computer.
+Packets pass through many machines on their way, and any of them could read or alter the data. Secure protocols protect against this with cryptography, described in the next chapter, [Security](#security). When a browser connects to an HTTPS site, or a terminal to an SSH server, the client confirms the server's identity, and sometimes the server the client's, agree on a secret key over the open network, and use it to encrypt the rest of the session. The protocols are called **TLS** and **SSH**. Both are standard, open and in use on nearly every networked computer.
 
 ## Networks Without the Internet
 

@@ -8,7 +8,7 @@ All matter is made of atoms. An atom has a small, heavy centre, the nucleus, whi
 
 In some materials, mostly metals, the outermost electrons are loosely held and can drift from atom to atom. These materials are **conductors**. In others, such as glass, plastic and dry air, the electrons are held tightly. These are **insulators**. A wire is a conductor wrapped in an insulator.
 
-When electrons drift along a conductor in one direction, charge flows. That flow is **current**, measured in **amperes** (A), usually shortened to amps. One amp is a large current in electronics. Most signals in a computer carry a few thousandths of an amp, written milliamps (mA).
+When electrons drift along a conductor in one direction, charge flows. That flow is **current**, measured in **amperes** (A), usually shortened to amps. One amp is a large current in electronics. An output pin of a chip can typically supply a few thousandths of an amp, written milliamps (mA).
 
 For historical reasons, current is described as flowing from positive to negative, although the electrons move the other way. Circuit diagrams and this book use this "conventional current". The difference does not matter for any circuit in this book.
 
@@ -48,7 +48,7 @@ Resistors are made in standard values, so the nearest value above is used, 270 o
      3.3 V                       LED
 ```
 
-Large resistances are written with prefixes: 1,000 ohms is 1 kilohm (1k), and 1,000,000 ohms is 1 megohm (1M). The same prefixes apply to every unit: a millivolt is a thousandth of a volt, and a microamp a millionth of an amp.
+Large resistances are written with prefixes: 1,000 ohms is 1 kilohm (1k), and 1,000,000 ohms is 1 megohm (1M). The same prefixes apply to every unit: a millivolt is a thousandth of a volt, a microamp a millionth of an amp, and a nanosecond a thousand-millionth of a second.
 
 ## Power
 
@@ -60,11 +60,11 @@ P = V x I      power = voltage x current
 
 A circuit drawing 0.5 A from a 5 V supply uses 2.5 W. Almost all of that power ends up as heat. For this reason a resistor carrying too much current becomes hot, and a processor needs cooling.
 
-Power matters for timeless computing because it determines what a computer can run from. A small FPGA computer typically uses a few watts, about what a USB phone charger can supply. A desktop computer can use a hundred times as much. A few watts can come from a modest battery or a small solar panel; a hundred watts requires a substantial installation.
+Power matters for timeless computing because it determines what a computer can run from. A small FPGA computer typically uses a few watts, about what a USB phone charger can supply. A desktop computer can use a hundred times as much. A few watts can come from a modest battery or a small solar panel; several hundred watts requires a substantial installation.
 
 ## Capacitors and Time
 
-A **capacitor** stores charge, in proportion to the voltage across it. Its size, the **capacitance**, is measured in **farads** (F); the capacitors on a circuit board range from a few picofarads (pF, millionths of a millionth) to a few thousand microfarads (uF).
+A **capacitor** stores charge, in proportion to the voltage across it. Its size, the **capacitance**, is measured in **farads** (F); the capacitors on a circuit board range from a few picofarads (pF, millionths of a millionth) to a few thousand microfarads (uF); a nanofarad (nF) is a thousandth of a microfarad.
 
 A capacitor charged through a resistor does not reach the supply voltage at once. The current through the resistor falls as the capacitor's voltage rises, so the voltage approaches the supply ever more slowly. The **time constant**, R x C, sets the pace: after one time constant the capacitor has reached about 63 percent of the supply voltage, and after five it is within 1 percent.
 
@@ -73,7 +73,7 @@ time constant = R x C
 10k x 100 nF = 10,000 ohms x 0.0000001 F = 0.001 s = 1 ms
 ```
 
-The same calculation describes many circuits. A resistor and capacitor on a reset pin hold a chip in reset for a few milliseconds after power is applied, until the supply is steady. A resistor and capacitor can smooth the bounce of a switch, or turn a rapidly switched digital output into a steady voltage, as described in [Talking to the World](#talking-to-the-world). They also limit how fast a signal can change: a long wire has capacitance, and with a weak pull-up it rounds the edges of a fast signal until they are too slow to be read correctly.
+The same calculation describes many circuits. A resistor and capacitor on a reset pin hold a chip in reset for a few milliseconds after power is applied, until the supply is steady. A resistor and capacitor can smooth the bounce of a switch. They can also turn a rapidly switched digital output into a steady voltage, as described in [Talking to the World](#talking-to-the-world). They also limit how fast a signal can change: a long wire has capacitance, and with a high-value pull-up resistor, described under [Floating Inputs and Pull-ups](#floating-inputs-and-pull-ups), it rounds the edges of a fast signal until they are too slow to be read correctly.
 
 ## Direct and Alternating Current
 
@@ -83,19 +83,19 @@ Electronic circuits run on low-voltage DC. A power adapter converts mains AC to 
 
 ## Power Supplies and Batteries
 
-A regulator is one of two kinds. A **linear regulator** drops the excess voltage across a transistor and turns it into heat: converting 5 V to 3.3 V at 0.3 A wastes (5 - 3.3) x 0.3 = 0.5 W, a third of the power. It is simple, cheap and electrically quiet. A **switching regulator** switches its input on and off rapidly and smooths the result with an inductor and capacitors. It wastes only 5 to 15 percent, but is more complex and produces some electrical noise. Small boards often use both: a switching regulator for the main supply, and a linear one for a circuit that needs a clean supply.
+A regulator is one of two kinds. A **linear regulator** drops the excess voltage across a transistor and turns it into heat: converting 5 V to 3.3 V at 0.3 A wastes (5 - 3.3) x 0.3 = 0.51 W, about a third of the 1.5 W drawn. It is simple, cheap and electrically quiet. A **switching regulator** switches its input on and off rapidly and smooths the result with an inductor and capacitors. It wastes only 5 to 15 percent, but is more complex and produces some electrical noise. Small boards often use both: a switching regulator for the main supply, and a linear one for a circuit that needs a clean supply.
 
-A supply can provide only a limited current. A USB 2.0 port must supply up to 0.5 A at 5 V, and a USB 3 port 0.9 A, to a device it has recognised; chargers often supply 2 A or more. A device that draws more than its supply can provide causes the voltage to sag. When the voltage falls below what a chip needs, it stops working correctly, which is a **brown-out**. Many chips detect this and hold themselves in reset until the voltage recovers. Unexplained crashes, especially when a motor starts or a card is written, are often caused by an inadequate supply or cable.
+A supply can provide only a limited current. A USB 2.0 port must be able to supply 0.5 A at 5 V, and a USB 3.0 port 0.9 A, to a device it has recognized; chargers often supply 2 A or more. A device that draws more than its supply can provide causes the voltage to sag. When the voltage falls below what a chip needs, it stops working correctly, which is a **brown-out**. Many chips detect this and hold themselves in reset until the voltage recovers. Unexplained crashes, especially when a motor starts or a card is written, are often caused by an inadequate supply or cable.
 
 A battery's capacity is usually given in milliamp-hours (mAh) at its nominal voltage. Its energy in watt-hours is capacity multiplied by voltage: a 3,000 mAh cell at 3.7 V holds about 11 Wh.
 
-| Type                   | Volts   | Recharge | Notes             |
-|------------------------|---------|----------|-------------------|
-| alkaline               | 1.5     | no       | keeps for years   |
-| nickel-metal hydride   | 1.2     | yes      | replaces AA, AAA  |
-| lithium-ion            | 3.0-4.2 | yes      | needs a protector |
-| lithium iron phosphate | 3.2     | yes      | long life         |
-| lead-acid              | 2.0     | yes      | heavy; solar      |
+| Type                   | Cell volts | Recharge | Notes             |
+|------------------------|------------|----------|-------------------|
+| alkaline               | 1.5        | no       | keeps for years   |
+| nickel-metal hydride   | 1.2        | yes      | replaces AA, AAA  |
+| lithium-ion            | 3.0-4.2    | yes      | needs a protector |
+| lithium iron phosphate | 3.2        | yes      | long life         |
+| lead-acid              | 2.0        | yes      | heavy; solar      |
 
 A battery's voltage changes as it discharges, so a regulator is still needed between the battery and the circuit. Rechargeable cells must be charged by a charger designed for their chemistry. A lithium cell in particular must never be charged above its maximum voltage or discharged below its minimum, and is used with a small protection circuit, in the cell or in the battery pack, that prevents both.
 
@@ -104,7 +104,7 @@ A battery's voltage changes as it discharges, so a regulator is still needed bet
 A few types of component make up nearly every circuit board.
 
 - **Resistors** limit current and set voltages.
-- **Capacitors** store a small amount of charge. Placed next to a chip, they supply the brief bursts of current the chip needs when it switches, and reduce noise on the power supply. These are **decoupling** capacitors, and every chip has them.
+- **Capacitors** store a small amount of charge. Placed next to a chip, they supply the brief bursts of current the chip needs when it switches, and reduce noise on the power supply. These are **decoupling** capacitors, and nearly every chip needs them.
 - **Inductors** store energy in a magnetic field and resist changes in current. They appear mainly in power supplies.
 - **Diodes** let current flow in one direction only. An LED is a diode that emits light when current flows.
 - **Crystals** and **oscillators** vibrate at a precise frequency and provide the steady timing signal, the clock, that a computer runs on.
@@ -204,7 +204,7 @@ Hazards to the equipment:
 
 - **Static electricity.** A person walking across a carpet can build up a charge of thousands of volts. The discharge may not be felt, but it can destroy a chip. Touch a grounded metal object before handling a bare circuit board, and hold boards by their edges.
 - **Short circuits.** A wire or tool that connects a supply directly to ground lets a large current flow, which can burn components and circuit board traces. Disconnect power before changing connections.
-- **Pin limits.** A chip's output can supply only a small current, often a few milliamperes. A motor, relay or long string of LEDs must be driven through a transistor or driver chip.
+- **Pin limits.** A chip's output can supply only a few milliamps. Larger loads need a driver, as described in [Talking to the World](#talking-to-the-world).
 
 The small computers described in this book run from a 5 V USB supply, and their circuit boards carry only low voltages. The mains hazards remain in the power adapter, which should be treated as a sealed unit.
 
@@ -212,7 +212,7 @@ The small computers described in this book run from a 5 V USB supply, and their 
 
 A **breadboard** is a plastic block with rows of spring contacts, into which components and wires are pushed without soldering. It is suited to trying a circuit, but its contacts loosen over time, and a circuit that is meant to last is soldered.
 
-**Soldering** joins metal parts with a melted alloy, the solder. The iron, at about 330 to 380 degrees Celsius, heats the pin and the pad together for a second or two, and the solder is fed to them rather than to the iron, so that it flows onto both. A good joint is smooth and wets both surfaces; a dull, balled joint may not conduct reliably. Solder contains flux, whose fumes should not be breathed, and leaded solder requires washing the hands afterwards. Most faults in hand-built and old equipment are bad joints and broken wires.
+**Soldering** joins metal parts with a melted alloy, the solder. The iron, at about 330 to 380 degrees Celsius, heats the pin and the pad together for a second or two, and the solder is fed to them rather than to the iron, so that it flows onto both. A good joint is smooth and wets both surfaces; a dull, balled joint may not conduct reliably. Most solder wire has a core of flux, whose fumes should not be breathed, and leaded solder requires washing the hands afterwards. Most faults in hand-built and old equipment are bad joints and broken wires.
 
 Before power is applied to a new connection, a few checks prevent most damage:
 
@@ -232,7 +232,7 @@ Faults are found most quickly in a fixed order:
 
 1. **Look.** Burnt or discoloured parts, swollen capacitors, cracked joints, corrosion and loose connectors account for many faults.
 2. **Power.** Each supply voltage is measured at the chips that use it, not only at the connector.
-3. **Clock.** The crystal or oscillator is running, at its frequency.
+3. **Clock.** The crystal or oscillator is running at its specified frequency.
 4. **Reset and configuration.** The chip has left reset; an FPGA has loaded its configuration.
 5. **Signals.** Each signal is followed from where it is produced to where it is used, with the schematic.
 

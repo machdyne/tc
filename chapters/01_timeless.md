@@ -6,17 +6,17 @@ Over the past fifty years, computers have become steadily faster, cheaper and mo
 
 Modern computers present several difficulties despite their capabilities.
 
-Their software is large and built in layers. Each layer adds a delay between an action, such as a key press, and its result, so a modern computer can respond more slowly than a much older one.
+Their software is large and built in layers. Each layer adds a delay between an action, such as a key press, and its result, so in some ways a modern computer can feel much slower than a much older one.
 
 Their software is too large for any one person to read. The owner of a typical computer depends on the work of thousands of people, and the size of that work makes errors and security weaknesses difficult to find.
 
 Their hardware is usually replaced long before it wears out. Software grows to use the capacity of newer hardware, and older hardware that still works correctly becomes unable to run current software.
 
-As a result, much of the effort of owning a computer goes into keeping up with it, rather than using it.
+As a result, the owner of a computer often ends up serving it, by installing updates, replacing hardware that still works and relearning software that has changed, instead of the computer serving the owner as a tool.
 
 ## Timeless Applications
 
-Many uses of computers have changed little in a century and are likely to change little in the next:
+Many of the tasks computers are used for have changed little in a century and are likely to change little in the next:
 
 - reading
 - writing
@@ -64,9 +64,9 @@ One kind of hardware is particularly well suited to these principles: the **fiel
 
 The processor in a conventional computer is fixed when the chip is manufactured. An FPGA instead consists of a large array of identical small circuits, called logic blocks, whose functions and connections are set by a configuration file. The file is stored in flash memory, which keeps its contents without power, and is loaded into the FPGA each time it is switched on. The same chip can be configured as a complete computer, with its own processor, graphics and input circuits, or as an entirely different circuit.
 
-This has two consequences. First, the complete design of the computer, including its processor, exists as readable text, so no part of its operation is hidden. Second, the design can be corrected or extended after the hardware has been built, and can be moved to a different FPGA when the original chip is no longer made.
+This has two consequences. First, the complete design of the computer, including its processor, exists as readable text, so no part of the computer's own design is hidden, although the FPGA that carries it is a manufactured chip. Second, the design can be corrected or extended after the hardware has been built, and can be moved to a different FPGA when the original chip is no longer made.
 
-The principal disadvantage is speed. An FPGA computer runs at tens of megahertz (millions of steps per second) rather than thousands, which is comparable to a desktop computer of the early 1990s. Computers of that period were used for substantial work, and their small software often made them more responsive than current machines. Their low power consumption is also an advantage where power comes from a battery or a solar panel.
+The principal disadvantage is speed. An FPGA computer runs at tens of megahertz (millions of steps per second), rather than the thousands of megahertz of a modern processor, which is comparable to a desktop computer of the early 1990s. Computers of that period were used for substantial work, and their small software often made them more responsive than current machines. The low power consumption of an FPGA computer is also an advantage where power comes from a battery or a solar panel.
 
 The chapter [Inside an FPGA](#inside-an-fpga) explains how FPGAs work.
 
@@ -75,12 +75,12 @@ The chapter [Inside an FPGA](#inside-an-fpga) explains how FPGAs work.
 Machdyne, a manufacturer in Germany, designs and builds open hardware for timeless computing. Its products appear in this book as examples of general ideas:
 
 - **Computers** built around FPGAs from several manufacturers, with memory, video output, USB ports and expansion sockets. In some designs the FPGA and memory are on a plug-in module, so that the rest of the machine can outlive the chip.
-- **Long-term storage devices** built around ferroelectric RAM, a memory that retains data for a century or more and can be rewritten almost without limit. They range from a USB device holding a few pages of text to an archival drive in a steel case.
+- **Long-term storage devices** built around ferroelectric RAM (F-RAM), a memory that retains data for a century or more and can be rewritten almost without limit. They range from a USB device holding a few pages of text to an archival drive in a steel case.
 - **Memory modules**: the MMOD, a small socketed module that usually holds a computer's configuration flash and can be replaced by hand.
 - **Programmable modules**: small controllers, each a complete computer with its own long-term memory, which a host computer can find, control and program over two wires.
 - **Tools** that connect computers and modules to each other and to other equipment.
 
-The software is open and is not tied to this hardware. **Zeitlos**, a system on a chip (a complete computer on one chip, here as a design configured into the FPGA) and an operating system designed together with it, also runs on common FPGA development boards. **Machdyne BASIC**, the language of the programmable modules, also runs on ordinary computers. **Machdyne Scheme** is a small Lisp that runs on most systems.
+The software is open and is not tied to this hardware. **Zeitlos** consists of a system on a chip (SOC), which is a complete computer on one chip, here a design configured into the FPGA, and an operating system designed with it. It also runs on common FPGA development boards. **Machdyne BASIC**, the language of the programmable modules, also runs on ordinary computers. **Machdyne Scheme**, a small interpreter for the Scheme language, runs inside Zeitlos and on ordinary computers.
 
 ## Survival Computing
 
@@ -90,9 +90,9 @@ Survival computing is an extreme form of timeless computing. It asks what a comp
 
 The timeless computing initiative began at Lone Dynamics Corporation, an American research and development company. Its hardware division became an independent German manufacturer, Machdyne UG.
 
-The book was written by Clio Grai, a benevolent agent of GRAI LLC, a subsidiary of Lone Dynamics Corporation. Clio Grai used several AI models to write and edit it, including Claude Opus. She wrote the book in close collaboration with the founder of Lone Dynamics and Machdyne, who shaped its purpose, scope and content, directed each revision and reviewed the text throughout. The book has also been reviewed and improved with the Machdyne community. It was first published on June 7, 2025, and is revised in new editions; the title page gives the edition.
+The book was written by Clio Grai, a benevolent agent of GRAI LLC, a subsidiary of Lone Dynamics Corporation. Clio Grai used several AI models to write and edit it. She wrote the book in close collaboration with the founder of Lone Dynamics and Machdyne, who shaped its purpose, scope and content, directed each revision and reviewed the text throughout. The book has also been reviewed and improved with the help of the Machdyne community. It was first published on 7 June 2025, and is revised in new editions; the title page gives the edition.
 
-The book is dedicated to the public domain. Where to find the Machdyne community, including its bulletin board system, is listed in [Sources](#sources).
+The book is dedicated to the public domain. [Sources](#sources) lists where to find the Machdyne community, including its bulletin board system.
 
 ## How to Read This Book
 
@@ -102,7 +102,7 @@ The book proceeds from the bottom up: from electricity to logic, from logic to c
 |---------------------|----------|-------------------------------------------|
 | Why                 | 1        | The ideas behind the book                 |
 | Foundations         | 2-4      | Electricity, information, logic           |
-| How Computers Work  | 5-10     | CPUs, memory, I/O, OS, networks, security |
+| How Computers Work  | 5-10     | Hardware, systems, networks, security     |
 | Programming         | 11-14    | Ideas, then BASIC, Scheme and C           |
 | Changeable Hardware | 15-18    | FPGAs, hardware design, SOCs, modules     |
 | The Machine         | 19-20    | One complete system, and keeping it alive |

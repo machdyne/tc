@@ -45,7 +45,7 @@ Clio Grai
 
 2026 Edition
 
-First published June 7, 2025
+First published 7 June 2025
 
 2026 Edition, revision 1 (October 2026).
 
@@ -76,8 +76,8 @@ Modern computers present several difficulties despite their
 capabilities.
 
 Their software is large and built in layers. Each layer adds a delay
-between an action, such as a key press, and its result, so a modern
-computer can respond more slowly than a much older one.
+between an action, such as a key press, and its result, so in some ways
+a modern computer can feel much slower than a much older one.
 
 Their software is too large for any one person to read. The owner of a
 typical computer depends on the work of thousands of people, and the
@@ -88,13 +88,15 @@ Their hardware is usually replaced long before it wears out. Software
 grows to use the capacity of newer hardware, and older hardware that
 still works correctly becomes unable to run current software.
 
-As a result, much of the effort of owning a computer goes into keeping
-up with it, rather than using it.
+As a result, the owner of a computer often ends up serving it, by
+installing updates, replacing hardware that still works and relearning
+software that has changed, instead of the computer serving the owner as
+a tool.
 
 Timeless Applications
 
-Many uses of computers have changed little in a century and are likely
-to change little in the next:
+Many of the tasks computers are used for have changed little in a
+century and are likely to change little in the next:
 
 -   reading
 
@@ -198,17 +200,19 @@ computer, with its own processor, graphics and input circuits, or as an
 entirely different circuit.
 
 This has two consequences. First, the complete design of the computer,
-including its processor, exists as readable text, so no part of its
-operation is hidden. Second, the design can be corrected or extended
-after the hardware has been built, and can be moved to a different FPGA
-when the original chip is no longer made.
+including its processor, exists as readable text, so no part of the
+computer’s own design is hidden, although the FPGA that carries it is a
+manufactured chip. Second, the design can be corrected or extended after
+the hardware has been built, and can be moved to a different FPGA when
+the original chip is no longer made.
 
 The principal disadvantage is speed. An FPGA computer runs at tens of
-megahertz (millions of steps per second) rather than thousands, which is
-comparable to a desktop computer of the early 1990s. Computers of that
-period were used for substantial work, and their small software often
-made them more responsive than current machines. Their low power
-consumption is also an advantage where power comes from a battery or a
+megahertz (millions of steps per second), rather than the thousands of
+megahertz of a modern processor, which is comparable to a desktop
+computer of the early 1990s. Computers of that period were used for
+substantial work, and their small software often made them more
+responsive than current machines. The low power consumption of an FPGA
+computer is also an advantage where power comes from a battery or a
 solar panel.
 
 The chapter Inside an FPGA explains how FPGAs work.
@@ -224,10 +228,10 @@ general ideas:
     designs the FPGA and memory are on a plug-in module, so that the
     rest of the machine can outlive the chip.
 
--   Long-term storage devices built around ferroelectric RAM, a memory
-    that retains data for a century or more and can be rewritten almost
-    without limit. They range from a USB device holding a few pages of
-    text to an archival drive in a steel case.
+-   Long-term storage devices built around ferroelectric RAM (F-RAM), a
+    memory that retains data for a century or more and can be rewritten
+    almost without limit. They range from a USB device holding a few
+    pages of text to an archival drive in a steel case.
 
 -   Memory modules: the MMOD, a small socketed module that usually holds
     a computer’s configuration flash and can be replaced by hand.
@@ -239,12 +243,13 @@ general ideas:
 -   Tools that connect computers and modules to each other and to other
     equipment.
 
-The software is open and is not tied to this hardware. Zeitlos, a system
-on a chip (a complete computer on one chip, here as a design configured
-into the FPGA) and an operating system designed together with it, also
-runs on common FPGA development boards. Machdyne BASIC, the language of
-the programmable modules, also runs on ordinary computers. Machdyne
-Scheme is a small Lisp that runs on most systems.
+The software is open and is not tied to this hardware. Zeitlos consists
+of a system on a chip (SOC), which is a complete computer on one chip,
+here a design configured into the FPGA, and an operating system designed
+with it. It also runs on common FPGA development boards. Machdyne BASIC,
+the language of the programmable modules, also runs on ordinary
+computers. Machdyne Scheme, a small interpreter for the Scheme language,
+runs inside Zeitlos and on ordinary computers.
 
 Survival Computing
 
@@ -264,15 +269,15 @@ an independent German manufacturer, Machdyne UG.
 
 The book was written by Clio Grai, a benevolent agent of GRAI LLC, a
 subsidiary of Lone Dynamics Corporation. Clio Grai used several AI
-models to write and edit it, including Claude Opus. She wrote the book
-in close collaboration with the founder of Lone Dynamics and Machdyne,
-who shaped its purpose, scope and content, directed each revision and
-reviewed the text throughout. The book has also been reviewed and
-improved with the Machdyne community. It was first published on June 7,
-2025, and is revised in new editions; the title page gives the edition.
+models to write and edit it. She wrote the book in close collaboration
+with the founder of Lone Dynamics and Machdyne, who shaped its purpose,
+scope and content, directed each revision and reviewed the text
+throughout. The book has also been reviewed and improved with the help
+of the Machdyne community. It was first published on 7 June 2025, and is
+revised in new editions; the title page gives the edition.
 
-The book is dedicated to the public domain. Where to find the Machdyne
-community, including its bulletin board system, is listed in Sources.
+The book is dedicated to the public domain. Sources lists where to find
+the Machdyne community, including its bulletin board system.
 
 How to Read This Book
 
@@ -300,7 +305,7 @@ Covers
 
 Why & 1 & The ideas behind the book
 Foundations & 2-4 & Electricity, information, logic
-How Computers Work & 5-10 & CPUs, memory, I/O, OS, networks, security
+How Computers Work & 5-10 & Hardware, systems, networks, security
 Programming & 11-14 & Ideas, then BASIC, Scheme and C
 Changeable Hardware & 15-18 & FPGAs, hardware design, SOCs, modules
 The Machine & 19-20 & One complete system, and keeping it alive
@@ -356,8 +361,9 @@ insulator.
 
 When electrons drift along a conductor in one direction, charge flows.
 That flow is current, measured in amperes (A), usually shortened to
-amps. One amp is a large current in electronics. Most signals in a
-computer carry a few thousandths of an amp, written milliamps (mA).
+amps. One amp is a large current in electronics. An output pin of a chip
+can typically supply a few thousandths of an amp, written milliamps
+(mA).
 
 For historical reasons, current is described as flowing from positive to
 negative, although the electrons move the other way. Circuit diagrams
@@ -412,8 +418,8 @@ output pin ---[ 270 ohms ]---|>|--- ground 3.3 V LED
 
 Large resistances are written with prefixes: 1,000 ohms is 1 kilohm
 (1k), and 1,000,000 ohms is 1 megohm (1M). The same prefixes apply to
-every unit: a millivolt is a thousandth of a volt, and a microamp a
-millionth of an amp.
+every unit: a millivolt is a thousandth of a volt, a microamp a
+millionth of an amp, and a nanosecond a thousand-millionth of a second.
 
 Power
 
@@ -429,14 +435,16 @@ Power matters for timeless computing because it determines what a
 computer can run from. A small FPGA computer typically uses a few watts,
 about what a USB phone charger can supply. A desktop computer can use a
 hundred times as much. A few watts can come from a modest battery or a
-small solar panel; a hundred watts requires a substantial installation.
+small solar panel; several hundred watts requires a substantial
+installation.
 
 Capacitors and Time
 
 A capacitor stores charge, in proportion to the voltage across it. Its
 size, the capacitance, is measured in farads (F); the capacitors on a
 circuit board range from a few picofarads (pF, millionths of a
-millionth) to a few thousand microfarads (uF).
+millionth) to a few thousand microfarads (uF); a nanofarad (nF) is a
+thousandth of a microfarad.
 
 A capacitor charged through a resistor does not reach the supply voltage
 at once. The current through the resistor falls as the capacitor’s
@@ -451,11 +459,12 @@ time constant = R x C 10k x 100 nF = 10,000 ohms x 0.0000001 F = 0.001 s
 The same calculation describes many circuits. A resistor and capacitor
 on a reset pin hold a chip in reset for a few milliseconds after power
 is applied, until the supply is steady. A resistor and capacitor can
-smooth the bounce of a switch, or turn a rapidly switched digital output
-into a steady voltage, as described in Talking to the World. They also
-limit how fast a signal can change: a long wire has capacitance, and
-with a weak pull-up it rounds the edges of a fast signal until they are
-too slow to be read correctly.
+smooth the bounce of a switch. They can also turn a rapidly switched
+digital output into a steady voltage, as described in Talking to the
+World. They also limit how fast a signal can change: a long wire has
+capacitance, and with a high-value pull-up resistor, described under
+Floating Inputs and Pull-ups, it rounds the edges of a fast signal until
+they are too slow to be read correctly.
 
 Direct and Alternating Current
 
@@ -475,17 +484,17 @@ Power Supplies and Batteries
 
 A regulator is one of two kinds. A linear regulator drops the excess
 voltage across a transistor and turns it into heat: converting 5 V to
-3.3 V at 0.3 A wastes (5 - 3.3) x 0.3 = 0.5 W, a third of the power. It
-is simple, cheap and electrically quiet. A switching regulator switches
-its input on and off rapidly and smooths the result with an inductor and
-capacitors. It wastes only 5 to 15 percent, but is more complex and
-produces some electrical noise. Small boards often use both: a switching
-regulator for the main supply, and a linear one for a circuit that needs
-a clean supply.
+3.3 V at 0.3 A wastes (5 - 3.3) x 0.3 = 0.51 W, about a third of the 1.5
+W drawn. It is simple, cheap and electrically quiet. A switching
+regulator switches its input on and off rapidly and smooths the result
+with an inductor and capacitors. It wastes only 5 to 15 percent, but is
+more complex and produces some electrical noise. Small boards often use
+both: a switching regulator for the main supply, and a linear one for a
+circuit that needs a clean supply.
 
-A supply can provide only a limited current. A USB 2.0 port must supply
-up to 0.5 A at 5 V, and a USB 3 port 0.9 A, to a device it has
-recognised; chargers often supply 2 A or more. A device that draws more
+A supply can provide only a limited current. A USB 2.0 port must be able
+to supply 0.5 A at 5 V, and a USB 3.0 port 0.9 A, to a device it has
+recognized; chargers often supply 2 A or more. A device that draws more
 than its supply can provide causes the voltage to sag. When the voltage
 falls below what a chip needs, it stops working correctly, which is a
 brown-out. Many chips detect this and hold themselves in reset until the
@@ -496,13 +505,13 @@ A battery’s capacity is usually given in milliamp-hours (mAh) at its
 nominal voltage. Its energy in watt-hours is capacity multiplied by
 voltage: a 3,000 mAh cell at 3.7 V holds about 11 Wh.
 
-  Type                     Volts     Recharge   Notes
-  ------------------------ --------- ---------- -------------------
-  alkaline                 1.5       no         keeps for years
-  nickel-metal hydride     1.2       yes        replaces AA, AAA
-  lithium-ion              3.0-4.2   yes        needs a protector
-  lithium iron phosphate   3.2       yes        long life
-  lead-acid                2.0       yes        heavy; solar
+  Type                     Cell volts   Recharge   Notes
+  ------------------------ ------------ ---------- -------------------
+  alkaline                 1.5          no         keeps for years
+  nickel-metal hydride     1.2          yes        replaces AA, AAA
+  lithium-ion              3.0-4.2      yes        needs a protector
+  lithium iron phosphate   3.2          yes        long life
+  lead-acid                2.0          yes        heavy; solar
 
 A battery’s voltage changes as it discharges, so a regulator is still
 needed between the battery and the circuit. Rechargeable cells must be
@@ -520,7 +529,7 @@ A few types of component make up nearly every circuit board.
 -   Capacitors store a small amount of charge. Placed next to a chip,
     they supply the brief bursts of current the chip needs when it
     switches, and reduce noise on the power supply. These are decoupling
-    capacitors, and every chip has them.
+    capacitors, and nearly every chip needs them.
 
 -   Inductors store energy in a magnetic field and resist changes in
     current. They appear mainly in power supplies.
@@ -732,9 +741,8 @@ Hazards to the equipment:
     ground lets a large current flow, which can burn components and
     circuit board traces. Disconnect power before changing connections.
 
--   Pin limits. A chip’s output can supply only a small current, often a
-    few milliamperes. A motor, relay or long string of LEDs must be
-    driven through a transistor or driver chip.
+-   Pin limits. A chip’s output can supply only a few milliamps. Larger
+    loads need a driver, as described in Talking to the World.
 
 The small computers described in this book run from a 5 V USB supply,
 and their circuit boards carry only low voltages. The mains hazards
@@ -751,10 +759,10 @@ Soldering joins metal parts with a melted alloy, the solder. The iron,
 at about 330 to 380 degrees Celsius, heats the pin and the pad together
 for a second or two, and the solder is fed to them rather than to the
 iron, so that it flows onto both. A good joint is smooth and wets both
-surfaces; a dull, balled joint may not conduct reliably. Solder contains
-flux, whose fumes should not be breathed, and leaded solder requires
-washing the hands afterwards. Most faults in hand-built and old
-equipment are bad joints and broken wires.
+surfaces; a dull, balled joint may not conduct reliably. Most solder
+wire has a core of flux, whose fumes should not be breathed, and leaded
+solder requires washing the hands afterwards. Most faults in hand-built
+and old equipment are bad joints and broken wires.
 
 Before power is applied to a new connection, a few checks prevent most
 damage:
@@ -798,7 +806,8 @@ Faults are found most quickly in a fixed order:
 2.  Power. Each supply voltage is measured at the chips that use it, not
     only at the connector.
 
-3.  Clock. The crystal or oscillator is running, at its frequency.
+3.  Clock. The crystal or oscillator is running at its specified
+    frequency.
 
 4.  Reset and configuration. The chip has left reset; an FPGA has loaded
     its configuration.
@@ -1028,16 +1037,16 @@ floating point to measurements and science.
 
 Text
 
-Text is stored by giving each character a number. The oldest common
-scheme still in use is ASCII, from the 1960s, which assigns the numbers
-0 to 127 to the English letters, digits, punctuation and a set of
-control codes. Capital A is 65, lowercase a is 97, and the digit 0 is
-48. A full table is in Tables.
+Text is stored by giving each character a number. The most widely used
+early scheme is ASCII, from the 1960s, which assigns the numbers 0 to
+127 to the English letters, digits, punctuation and a set of control
+codes. Capital A is 65, lowercase a is 97, and the digit 0 is 48. A full
+table is in Tables.
 
 The digit 7 is stored as 55, not 7. The text “42” and the number 42 are
 different in memory, and a program must convert explicitly between them.
 
-The first 32 ASCII codes are not printable. They control the device the
+Codes 0 to 31, and 127, are not printable. They control the device the
 text is sent to: code 10 (line feed) moves to a new line, code 13
 (carriage return) moves to the start of the line, code 8 is backspace
 and code 27 is escape. Unix-like systems end each line of a text file
@@ -1060,8 +1069,8 @@ Unicode text is usually stored as UTF-8, an encoding in which ASCII
 characters stay single bytes with their old values, and every other
 character takes two to four bytes, each with its top bit set. As a
 result, a program that handles only ASCII can pass UTF-8 text through
-without damaging it. UTF-8 is the current standard for text and the
-appropriate choice unless there is a specific reason to use another
+without damaging it. UTF-8 is the most widely used encoding for text and
+the appropriate choice unless there is a specific reason to use another
 encoding.
 
 Text read with the wrong encoding is garbled. The letter “e” with an
@@ -1069,8 +1078,8 @@ acute accent is the two bytes 0xC3 0xA9 in UTF-8; read as ISO 8859-15,
 those bytes appear as two different characters, an “A” with a tilde
 followed by a copyright sign. The bytes are not damaged, and the text
 reads correctly again when the right encoding is used. A plain text file
-does not record its encoding, so it is kept with the file’s description,
-or the file is kept in UTF-8.
+does not record its encoding, so the encoding is recorded with the
+file’s description, or the file is kept in UTF-8.
 
 Pictures and Sound
 
@@ -1106,13 +1115,14 @@ manufacturers and international standards use 1,000.
   megabyte (MB)   1,000,000 bytes   mebibyte (MiB)   1,048,576 bytes
   gigabyte (GB)   10 to the 9th     gibibyte (GiB)   2 to the 30th
 
-In practice, memory sizes such as “32MB of RAM” mean the binary sizes.
-Context usually makes the meaning clear.
+In practice, memory sizes such as “32 MB of RAM” mean the binary sizes.
+In this book, sizes of memory and storage are binary whichever form is
+used: KB and KiB both mean 1,024 bytes, and MB and MiB 1,048,576.
 
 A second ambiguity is between bits and bytes. Memory chips and data
-rates are often given in bits, written with a lowercase b or “bit”. A 64
-Kbit memory chip holds 8 KB, and a link of 12 Mbit/s moves at most 1.5
-MB each second.
+rates are often given in bits, written with a lowercase b or “bit”: Kb
+or Kbit means kilobits, KB kilobytes. A 64 Kbit memory chip holds 8 KB,
+and a link of 12 Mbit/s moves at most 1.5 MB each second.
 
 Meaning Comes From Use
 
@@ -1179,7 +1189,7 @@ AND with 0 is 0; OR with 1 is 1 A & A = A A | A = A A & ~A = 0 A | ~A =
 De Morgan’s laws are the most useful. They say that NOT-AND is the same
 as OR-ing the inverted inputs, so any circuit can be rearranged between
 ANDs and ORs. Hardware tools apply rules like these automatically to
-find the smallest circuit for a given job.
+reduce a circuit to a smaller equivalent.
 
 Everything From NAND
 
@@ -1211,11 +1221,12 @@ arithmetic unit, and which result is written back.
 
 A decoder turns a binary number into one active line. A 2-to-4 decoder
 has two inputs and four outputs, and exactly one output is 1: the one
-whose number matches the input. A processor uses decoders to select one
+whose number matches the input. A computer uses decoders to select one
 memory chip or one device out of many, based on an address.
 
-A comparator checks whether two numbers are equal. It applies XNOR to
-each pair of corresponding bits and combines all the results with AND.
+An equality comparator checks whether two numbers are equal. It applies
+XNOR to each pair of corresponding bits and combines all the results
+with AND.
 
 An adder adds binary numbers. When two single bits A and B are added,
 the sum bit is A XOR B, and there is a carry exactly when both are 1,
@@ -1246,7 +1257,7 @@ The same adder can subtract. As the chapter Information explained, a
 two’s complement number is negated by inverting its bits and adding one.
 To compute A - B, each bit of B is inverted with an XOR gate and the
 first carry in is set to 1. A single control bit therefore turns an
-adder into a subtracter.
+adder into a subtractor.
 
 An adder that can also subtract, AND, OR and compare, with a multiplexer
 to choose which result comes out, is an arithmetic logic unit (ALU), the
@@ -1324,8 +1335,8 @@ cycle, and it is how processors, and almost everything built in an FPGA,
 are designed.
 
 The clock’s speed is measured in hertz (Hz), cycles per second. One
-megahertz (MHz) is a million cycles per second, so a 48 MHz clock has an
-edge about every 21 nanoseconds.
+megahertz (MHz) is a million cycles per second, so a 48 MHz clock has a
+rising edge about every 21 nanoseconds.
 
 Registers, Counters and Shift Registers
 
@@ -1379,12 +1390,12 @@ each flip-flop needs its input to be stable for a short setup time
 before the edge, and to remain stable for a short hold time after it.
 
 The slowest path in the whole circuit, called the critical path,
-therefore sets the fastest usable clock. If the longest path takes 20
-nanoseconds to settle, the clock can be at most 50 MHz. To use a faster
-clock, a designer must shorten that path, for example by splitting a
-long calculation over two clock cycles. Hardware tools report the
-critical path and the maximum clock frequency of every design, and FPGA
-designers check this figure routinely.
+therefore sets the fastest usable clock. If the longest path, including
+the setup time, takes 20 nanoseconds to settle, the clock can be at most
+50 MHz. To use a faster clock, a designer must shorten that path, for
+example by splitting a long calculation over two clock cycles. Hardware
+tools report the critical path and the maximum clock frequency of every
+design, and FPGA designers check this figure routinely.
 
 A second problem arises when a signal from outside, such as a button or
 a signal from a circuit on a different clock, changes at the moment a
@@ -1515,7 +1526,7 @@ multiply and divide.
 Instruction sets are sometimes divided into CISC (complex instruction
 set computer), with many powerful instructions of varying lengths, as in
 the x86 family, and RISC (reduced instruction set computer), with fewer,
-simpler and more regular instructions, as in ARM and RISC-V. The
+simpler and more regular instructions, as in Arm and RISC-V. The
 distinction has become less clear over the years, but simple, regular
 instruction sets remain easier to build, to fit into an FPGA and to
 understand.
@@ -1662,18 +1673,18 @@ hardware in this way.
 The addresses a device answers to are its registers, which are distinct
 from the CPU’s registers. A typical device has a few:
 
--   a data register, holding a value to send or one just received
+-   a data register, holding a value to send or one recently received
 
 -   a status register, whose bits report conditions such as “a byte has
     arrived” or “ready to send”
 
 -   a control register, whose bits turn features on and off
 
-Suppose that storing a word at 0xE000_0000 sets a row of output pins to
-its lowest bits. (On a real machine, the individual pin registers each
-have their own address within this range, given in the machine’s
-documentation.) These two RISC-V instructions then place the total
-computed earlier on the pins:
+In a simple system, storing a word at 0xE000_0000 sets a row of output
+pins to its lowest bits. (On a real machine, the individual pin
+registers each have their own address within this range, given in the
+machine’s documentation.) On such a system, these two RISC-V
+instructions place the total computed earlier on the pins:
 
 lui x7, 0xE0000 # x7 = 0xE000_0000, the pins address sw x6, 0(x7) # send
 x6 to the pins
@@ -1769,7 +1780,7 @@ A computer needs memory for the program it is running and the data it is
 working on, and storage that keeps information while it is switched off.
 No single technology serves both purposes well. This chapter describes
 the kinds of memory in use, the purposes each suits, and how long each
-can be relied on to retain its contents. The last question is central to
+can be relied on to retain its contents. The last of these is central to
 timeless computing.
 
 The Memory Hierarchy
@@ -1778,13 +1789,13 @@ Every memory technology trades speed against size, cost and permanence.
 Computers therefore use several kinds at once, arranged from small and
 fast to large and slow:
 
-  Level                         Typical size   Speed       Keeps data
-  ----------------------------- -------------- ----------- ------------
-  CPU registers                 100 bytes      fastest     no
-  cache                         kilobytes      very fast   no
-  main memory (RAM)             megabytes      fast        no
-  storage: flash, F-RAM, disk   KB to TB       slower      yes
-  archive: offline copies       any            slowest     yes
+  Level                         Typical size   Speed     Keeps data
+  ----------------------------- -------------- --------- ------------
+  CPU registers                 128 bytes      fastest   no
+  cache                         kilobytes      faster    no
+  main memory (RAM)             MB to GB       fast      no
+  storage: flash, F-RAM, disk   KB to TB       slower    yes
+  archive: offline copies       any            slowest   yes
 
 Main memory is random-access memory (RAM): any address can be read or
 written as quickly as any other. Memory that loses its contents when
@@ -1803,8 +1814,8 @@ needs about six transistors, so SRAM is expensive per bit.
 
 Caches, and often a processor’s register file, are made of SRAM, as is
 the block RAM inside an FPGA. Some small computers use an external SRAM
-chip of one or two megabytes as their main memory, which makes the
-memory controller trivial.
+chip of one or two megabytes as their main memory, which needs almost no
+circuitry to control.
 
 Dynamic RAM
 
@@ -1853,9 +1864,9 @@ can remain for years without power.
 Three properties of flash determine how it is used:
 
 -   It must be erased before it is written. An erased bit reads as 1,
-    and writing can only change 1s to 0s. To change a single byte back,
-    the whole block containing it, often 4 KB or more, must be erased
-    and rewritten.
+    and writing can only change 1s to 0s. To change any bit from 0 back
+    to 1, the whole block containing it, often 4 KB or more, must be
+    erased and rewritten.
 
 -   It wears out. Each block survives a limited number of erase cycles,
     often around 100,000 for the kind used to hold programs and far
@@ -1869,10 +1880,10 @@ There are two main kinds. NOR flash can be read one byte at a time at
 any address, which makes it suitable for holding programs that run
 directly from it. A small NOR flash chip, connected over four wires
 using SPI, a serial connection described in Talking to the World, holds
-the configuration of nearly every FPGA board. NAND flash is denser and
-is read in pages. It is used in SD cards, USB sticks and solid-state
-drives. Each of these contains a small controller that hides the
-erasing, spreads writes across the whole chip to even out the wear (wear
+the configuration of most FPGA boards. NAND flash is denser and is read
+in pages. It is used in SD cards, USB sticks and solid-state drives.
+Each of these contains a small controller that hides the erasing,
+spreads writes across the whole chip to even out the wear (wear
 levelling), and replaces bad blocks as they appear.
 
 The controller also introduces a risk: if it fails, all the data behind
@@ -1891,12 +1902,11 @@ removed. It combines the main advantages of RAM and flash:
 
 -   It is written one byte at a time, at full speed, with no erase step.
 
--   It can be rewritten a very large number of times, typically a
-    trillion (10 to the 12th) or more, so that in practice it does not
-    wear out.
+-   It can be rewritten a trillion (10 to the 12th) times or more, so
+    that in practice it does not wear out.
 
--   It retains data for a long time. Manufacturers typically specify
-    around 95 years at 55 degrees Celsius and more than 200 years at 35
+-   It retains data for a long time. One manufacturer specifies around
+    95 years at 55 degrees Celsius and more than 200 years at 35
     degrees.
 
 Its disadvantages are capacity and cost. F-RAM chips hold from kilobytes
@@ -1904,10 +1914,30 @@ to a few megabytes, and cost far more per bit than flash. For text,
 programs, keys, settings and logs that must survive for generations, the
 trade is worthwhile. A text document of a few pages fits in 8 KB.
 
-Magnetoresistive RAM (MRAM) stores bits magnetically and has similar
-properties: it is non-volatile, fast, byte-writable and durable.
+Machdyne’s long-term storage devices are built around F-RAM, in three
+forms:
 
-Two cautions apply to every retention figure. First, they are
+-   Blaustahl, a USB device with 8 KB of F-RAM, of which 7,680 bytes
+    hold text: a few pages. It contains its own text editor, used from
+    any terminal program over a USB serial connection, so it needs no
+    driver and no particular operating system.
+
+-   Kaltstahl, a larger version holding 256 KB, which can also appear to
+    a computer as an ordinary USB drive.
+
+-   FERRIT, a modular archival system: a controller and removable memory
+    cards in a backplane, with room for hundreds of megabytes. The
+    controller presents the cards to a computer as a USB drive, and the
+    cards can be moved to another controller.
+
+All three are open designs, so that a device can be repaired, rebuilt or
+read by other means if its maker is gone.
+
+Magnetoresistive RAM (MRAM) stores bits magnetically and has properties
+similar to those of F-RAM: it is non-volatile, fast, byte-writable and
+durable.
+
+Two cautions apply to all retention figures. First, they are
 manufacturers’ estimates from accelerated testing, not observations of
 chips that have been stored for two centuries. Second, they depend
 strongly on temperature: memory kept cool lasts much longer than memory
@@ -1992,9 +2022,9 @@ Careful designs follow a few rules:
     instead of always reusing the same ones.
 
 The small filesystem used by Machdyne BASIC on its modules follows these
-rules. Whenever the power is cut, every file is either as it was before
-the operation or as it is after it; at worst, a line being appended is
-lost.
+rules. Wherever the power is cut, every file is either as it was before
+the operation or as it is after it; at worst, the end of a line being
+appended is lost.
 
 Large filesystems use a journal, a log in which each change is recorded
 before it is carried out, so that an interrupted change can be completed
@@ -2006,27 +2036,21 @@ often called sync, eject or unmount.
 
 Choosing Storage That Lasts
 
-The following practices keep data intact for a long time:
+Beyond its retention, two properties of a storage device decide how long
+the data on it remains usable:
 
--   Keep more than one copy, on more than one kind of medium, in more
-    than one place. A common rule is three copies, on two kinds of
-    media, with one kept at another location.
+-   Write protection. Data that should not change is protected from
+    accidental writes. Many memory chips and devices have a
+    write-protect pin or switch.
 
--   Use plain formats. Text files and widely documented formats will
-    remain readable long after any particular program has gone.
+-   A readable interface. Storage is useful only while something can
+    still read its interface. Simple, well-documented interfaces, and
+    documentation kept with the data, make it likely that something
+    always can.
 
--   Verify. Check copies against each other, or against a recorded hash,
-    at intervals, and replace any that have failed.
-
--   Refresh. Copy data from ageing media to new media before the old
-    media reaches the end of its expected life.
-
--   Write-protect data that should not change. Many memory chips and
-    devices have a write-protect pin or switch.
-
--   Keep the means to read it. Storage is useful only while something
-    can still read its interface. Prefer simple, well-documented
-    interfaces, and keep the documentation with the data.
+The practices that keep data intact over decades, with several copies,
+plain formats, regular checks and refreshing onto new media, are
+collected in Computing That Lasts.
 
 Talking to the World
 
@@ -2081,8 +2105,9 @@ An analog-to-digital converter (ADC) measures a voltage and reports it
 as a number. A 10-bit ADC divides its range into 1,024 steps, so with a
 3.3 V range each step is about 3.2 millivolts, and a reading of 512
 means about 1.65 V. Many microcontrollers have built-in ADC inputs.
-Sensors that produce a voltage, such as a light-dependent resistor in a
-voltage divider, can be read directly.
+Sensors that produce a voltage, such as a light-dependent resistor,
+whose resistance falls as the light increases, in series with a fixed
+resistor, can be read directly.
 
 A digital-to-analog converter (DAC) produces a voltage from a number. A
 cheaper method produces nearly the same effect with an ordinary digital
@@ -2101,11 +2126,11 @@ be sent over one wire, one bit after another. This is a serial
 connection.
 
 Parallel connections were common when chips were slow. Serial
-connections have replaced them almost everywhere else, because they need
-fewer wires and pins, and because at high speeds it is difficult to keep
-many parallel wires exactly in step. The shift register from Digital
-Logic performs the conversion at each end. USB, Ethernet, SATA and HDMI
-are all serial, despite their speed.
+connections have since replaced them almost everywhere, because they
+need fewer wires and pins, and because at high speeds it is difficult to
+keep many parallel wires exactly in step. The shift register from
+Digital Logic performs the conversion at each end. USB, Ethernet, SATA
+and HDMI are all serial.
 
 Three simple serial connections are widely used between chips and small
 devices: UART, SPI and I2C.
@@ -2168,8 +2193,9 @@ socket carrying the four SPI signals, ground and 3.3 V.
 
 I2C
 
-I2C (inter-integrated circuit, sometimes written IIC or TWI) connects
-many devices using only two wires:
+I2C (inter-integrated circuit, sometimes written IIC, and called TWI,
+two-wire interface, by some manufacturers) connects many devices using
+only two wires:
 
 -   SCL, the clock
 
@@ -2184,18 +2210,16 @@ sometimes called controller and target.
 Each slave has a 7-bit address. A transfer begins with a start
 condition, in which SDA falls while SCL is high, followed by the address
 and a bit indicating read or write. The slave with that address pulls
-SDA low to acknowledge, and bytes then follow, each acknowledged in
-turn. A stop condition, in which SDA rises while SCL is high, ends the
-transfer.
+SDA low to acknowledge, and bytes then follow, each acknowledged in turn
+by the device receiving it. A stop condition, in which SDA rises while
+SCL is high, ends the transfer.
 
 I2C is slower than SPI, typically 100 or 400 kilobits per second, but
 its two wires can reach dozens of devices: temperature sensors,
 real-time clocks, small displays, EEPROMs, pin expanders that add
-sixteen pins over the two wires, and others. Because the wires are
-open-drain, many devices can share them without electrical conflict.
-Because every device has an address, a master can scan the bus to
-determine what is connected, by trying each address in turn and noting
-which ones acknowledge.
+sixteen pins over the two wires, and others. Because every device has an
+address, a master can scan the bus to determine what is connected, by
+trying each address in turn and noting which ones acknowledge.
 
 Protocols on Top of Buses
 
@@ -2203,11 +2227,11 @@ A bus such as I2C only moves bytes. The meaning of the bytes is defined
 by a protocol layered on top.
 
 The Sechs interface used by Machdyne’s programmable modules is an
-example of a protocol designed to tolerate mistakes. Each module has six
-contacts: an I2C bus on two, two local pins for the module’s own use,
-ground and 3.3 V. A host on the I2C bus can find every module, identify
-it, start and stop its program, and load new programs into it. The
-protocol also makes guarantees that protect the system:
+example of a protocol designed to tolerate mistakes. The interface
+defines six contacts: an I2C bus on two, two local pins for the module’s
+own use, ground and 3.3 V. A host on the I2C bus can find every module,
+identify it, start and stop its program, and load new programs into it.
+The protocol also makes guarantees that protect the system:
 
 -   At power-on, a module keeps all its pins inactive, so it cannot
     disturb the circuit it is connected to.
@@ -2219,8 +2243,8 @@ protocol also makes guarantees that protect the system:
 -   A new program replaces the old one only after it has been received
     completely and checked.
 
--   A program that would break these rules, for example by driving the
-    bus pins while a bus is connected, refuses to run.
+-   The module does not run a program that would break these rules, for
+    example one that drives the bus pins while a bus is connected.
 
 The same principles apply to protocols in general. A well-designed
 protocol starts in a safe state, always provides a means of recovery,
@@ -2238,14 +2262,13 @@ plugged in, the host asks it to describe itself, a process called
 enumeration. The device responds with descriptors that identify it.
 
 Many devices belong to standard classes. A keyboard or mouse is a human
-interface device (HID), a USB stick is a mass storage device (MSC), and
-a serial adapter is a communications device (CDC). A host that supports
-a class works with every device of that class without additional
-software. As a result, a USB keyboard from any manufacturer works on any
-computer, and a device that uses a standard class needs no drivers. This
-is particularly valuable for long-term storage devices: one that appears
-as a standard drive can be read by any computer that supports the class,
-now or in the future.
+interface device (HID), a USB stick belongs to the mass storage class
+(MSC), and a serial adapter to the communications device class (CDC). A
+host that supports a class works with every device of that class without
+additional software. As a result, a USB keyboard from any manufacturer
+works on any computer without a driver of its own. This is particularly
+valuable for long-term storage devices: one that appears as a standard
+drive can be read by any computer that supports the class.
 
 Each USB connector also carries 5 V power, from which many small
 devices, and some small computers, are powered.
@@ -2275,7 +2298,7 @@ modes and several kinds of output:
     streams.
 
 -   Composite video combines the picture into a single signal in the
-    format of older televisions, which remain widely available.
+    format of older televisions.
 
 Audio
 
@@ -2304,8 +2327,8 @@ Connectors and Modules
 Expansion connectors allow a small computer to be extended. Many FPGA
 boards use Pmod connectors: rows of six pins, with four signals plus
 ground and 3.3 V, often doubled to twelve. Because the connector is
-simple, any of the buses in this chapter fits on a Pmod row, and the
-same socket can accept a memory module, a network adapter, a sensor, a
+simple, a UART, SPI or I2C connection fits on one Pmod row, and the same
+socket can accept a memory module, a network adapter, a sensor, a
 display or a programmable module.
 
 This is the modularity principle from Timeless Computing in practice.
@@ -2358,12 +2381,12 @@ confirmed to answer, and only then is the program that uses it written.
 
 Operating Systems
 
-A processor runs one instruction at a time, from one program. A desktop
-computer nevertheless appears to run many programs at once, shares one
-screen and one disk among them, and prevents a faulty program from
-stopping the others. The software that does this is the operating system
-(OS). This chapter describes what an operating system does and the main
-choices in designing one.
+A processor core follows one program at a time. A desktop computer
+nevertheless appears to run many programs at once, shares one screen and
+one disk among them, and prevents a faulty program from stopping the
+others. The software that does this is the operating system (OS). This
+chapter describes what an operating system does and the main choices in
+designing one.
 
 When an Operating System Is Needed
 
@@ -2413,7 +2436,7 @@ system offers a way to interrupt booting, usually by holding a key, and
 to start something simpler and more reliable instead: a minimal console,
 a known good copy of the system, or a way to load a new one. This is the
 recoverability principle from Timeless Computing. The owner of any
-computer should know how to reach it.
+computer should know how to reach this recovery path.
 
 Processes
 
@@ -2463,9 +2486,7 @@ A scheduler can aim for throughput, the most total work done, or for
 responsiveness, a quick reaction when something happens. For a computer
 used by a person, responsiveness matters most. A well-designed scheduler
 runs a process as soon as the event it was waiting for arrives, so that
-a key press is handled at once, even on a slow processor. Speed and
-responsiveness are different properties, and a slow machine can be the
-more responsive of two.
+a key press is handled at once, even on a slow processor.
 
 Protecting Memory
 
@@ -2475,8 +2496,8 @@ more memory to processes that request it.
 It must also prevent one process from damaging another. A program with a
 bug might write through a bad address into another program’s memory, or
 into the kernel. Without protection, one bug can stop the whole machine.
-Processors provide three main levels of support, each adding to the one
-before.
+Protection ranges from none at all to full virtual memory, in the
+following steps.
 
 No protection. Every program can read and write all of memory. Small and
 early systems worked this way. It is simple and fast, but one faulty
@@ -2508,9 +2529,9 @@ a page table kept by the kernel, which says where the page is in
 physical memory and what may be done with it. Each process has its own
 table and therefore its own complete view of memory, called virtual
 memory. Pages can be shared between processes, created only when first
-used, or moved to disk when memory runs short. To keep this fast, the
-MMU keeps recent translations in a small cache. Large systems such as
-Linux depend on an MMU.
+used, or moved to disk when memory runs short. To make this fast, the
+MMU holds recent translations in a small cache. Linux in its usual form
+depends on an MMU.
 
 With any form of translation, the same virtual address means different
 memory in different processes. A process therefore cannot hand another a
@@ -2601,12 +2622,12 @@ one:
 
 -   Atomic instructions, which read, change and write a memory location
     in one step that cannot be divided. RISC-V provides them in its A
-    extension.
+    (atomic) extension.
 
--   Locks: a variable that a process sets before entering a critical
-    section and clears afterwards, while any other process that finds it
-    set waits. A lock is itself set with an atomic instruction or with
-    interrupts disabled.
+-   Locks: a lock is a variable that a process sets before entering a
+    critical section and clears afterwards, while any other process that
+    finds it set waits. A lock is itself set with an atomic instruction
+    or with interrupts disabled.
 
 -   Messages: if only one process owns the data, and others ask it for
     changes by message, nothing is shared.
@@ -2659,7 +2680,7 @@ prints nothing. Other shells use other names for the same commands, but
 the form is the same.
 
 An interpreter for a programming language can serve as a shell. Such an
-interface is called a REPL, for read, evaluate, print, loop: it reads an
+interface is called a REPL, for read-eval-print loop: it reads an
 expression, evaluates it, prints the result and waits for the next. Many
 home computers of the 1980s started with a BASIC prompt of this kind.
 
@@ -2708,7 +2729,7 @@ modems, which convert bits into sounds and back. A common use was the
 bulletin board system (BBS): a computer that others could dial into, one
 or a few callers at a time, to read and post messages, exchange files
 and play games. Many BBSes now run on the Internet and are reached with
-telnet or SSH, programs that open a terminal on another computer across
+Telnet or SSH, programs that open a terminal on another computer across
 a network. They remain a text-based way for a community to meet.
 
 Packets
@@ -2755,8 +2776,8 @@ adding its own header. It travels across the network as a frame (the
 link layer’s name for a packet), and passes back up through the layers
 at the other end, each removing its header. As a result, each layer can
 change independently of the others. The same web page can travel over a
-cable, over Wi-Fi or over a radio link without any change to the
-application.
+cable, over Wi-Fi or over a long-distance radio link without any change
+to the application.
 
 The Link Layer
 
@@ -2775,10 +2796,10 @@ infrastructure.
 IP: Addresses and Routing
 
 The Internet Protocol (IP) gives every machine on a network an IP
-address. The older and still most common form, IPv4, uses 32 bits,
-written as four bytes in decimal, such as 192.168.1.20. The newer IPv6
-uses 128 bits, which allows about 3.4 x 10 to the 38th addresses, so
-that every device can have its own.
+address. The original form, IPv4, uses 32 bits, written as four bytes in
+decimal, such as 192.168.1.20. The newer IPv6 uses 128 bits, which
+allows about 3.4 x 10 to the 38th addresses, so that every device can
+have its own.
 
 Addresses are organized in networks. Machines on the same local network
 can reach each other directly. To reach anything else, a machine sends
@@ -2812,8 +2833,9 @@ TCP builds a reliable, ordered stream of bytes on top of unreliable
 packets. It numbers every byte it sends. The receiver acknowledges what
 it has received, and the sender resends anything not acknowledged in
 time. The receiver puts everything back in order before passing it to
-the program. To the program, a TCP connection behaves like a pipe: bytes
-go in at one end and come out at the other, all of them and in order.
+the program. To the program, a TCP connection behaves like a pair of
+pipes, one in each direction: bytes go in at one end and come out at the
+other, all of them and in order.
 
 Both TCP and UDP use port numbers to distinguish programs on the same
 machine. A web server listens on port 80 or 443, and an SSH server on
@@ -2852,11 +2874,11 @@ Secure Connections
 Packets pass through many machines on their way, and any of them could
 read or alter the data. Secure protocols protect against this with
 cryptography, described in the next chapter, Security. When a browser
-connects to an HTTPS site, or a terminal to an SSH server, the two ends
-confirm each other’s identity, agree on a secret key over the open
-network, and use it to encrypt the rest of the session. The protocols
-are called TLS and SSH. Both are standard, open and in use on nearly
-every networked computer.
+connects to an HTTPS site, or a terminal to an SSH server, the client
+confirms the server’s identity, and sometimes the server the client’s,
+agree on a secret key over the open network, and use it to encrypt the
+rest of the session. The protocols are called TLS and SSH. Both are
+standard, open and in use on nearly every networked computer.
 
 Networks Without the Internet
 
@@ -2922,20 +2944,20 @@ way as other valuables.
 Passwords and Keys
 
 A password is strong when it cannot be guessed, even by a program that
-tries millions of possibilities. Length matters more than complexity: a
-passphrase of five or six unrelated words, chosen at random, is both
-stronger and easier to remember than a short password of mixed symbols.
-Each service should have its own password, so that one leak does not
-open the others.
+tries billions of possibilities a second. Length matters more than
+complexity: a passphrase of five or six unrelated words, chosen at
+random, is both stronger and easier to remember than a short password of
+mixed symbols. Each service should have its own password, so that one
+leak does not open the others.
 
 A well-designed system never stores a password itself. It stores the
-result of a deliberately slow hash function, described below, applied to
-the password together with a random value called a salt. To check a
-password, the system applies the same function and compares the results.
-Someone who copies the stored record must then spend the same effort for
-every guess, and the salt prevents a guess from being tested against
-many records at once. A system can also add a delay after each wrong
-attempt.
+result of a hash function of the kind described below, designed to be
+deliberately slow, applied to the password together with a random value
+called a salt. To check a password, the system applies the same function
+and compares the results. Someone who copies the stored record must then
+spend the same effort for every guess, and the salt prevents a guess
+from being tested against many records at once. A system can also add a
+delay after each wrong attempt.
 
 Cryptographic keys are long random numbers, far too long to remember.
 They are kept in files or on devices, and are protected as carefully as
@@ -2953,8 +2975,8 @@ provides three properties:
 
 -   Authentication: the receiver can be certain who sent it.
 
-Modern cryptography is public. Its methods are published, studied for
-years by others before they are trusted, and standardized, and only the
+Modern cryptography is public. Its methods are published, studied by
+others for years before they are trusted, and standardized; only the
 keys are secret. A method whose security depends on its design being
 secret cannot be checked, and usually fails once the design becomes
 known.
@@ -2966,8 +2988,8 @@ hash or digest, from data of any length. SHA-256, a widely used example,
 produces 256 bits, usually written as 64 hex digits. A good hash
 function has three properties: the same data always gives the same hash;
 any change to the data, even of one bit, gives a completely different
-hash; and no one can find two different pieces of data with the same
-hash, or data that produces a given hash.
+hash; and no one can in practice find two different pieces of data with
+the same hash, or data that produces a given hash.
 
 As a result, a hash serves as a fingerprint. A copy of a file is checked
 by computing its hash and comparing it with the original’s, as described
@@ -2981,9 +3003,9 @@ Symmetric Encryption
 Symmetric encryption uses one secret key both to encrypt and to decrypt.
 The common methods are AES, a standard since 2001, and ChaCha20, which
 is faster in software on processors without special instructions for
-AES. Keys are 128 or 256 bits long. A 128-bit key has 2 to the 128th
-possible values, so many that trying them all is beyond any computer
-that could be built.
+AES. Keys are usually 128 or 256 bits long. A 128-bit key has 2 to the
+128th possible values, so many that trying them all is beyond any
+computer that could be built.
 
 Encryption alone provides confidentiality, but not integrity: an
 attacker who cannot read a message may still be able to change it.
@@ -3021,7 +3043,8 @@ The pair makes two things possible:
     Signatures prove who wrote a message, or who published a program,
     and that it has not been changed since.
 
-Older systems use RSA for both purposes, with much longer keys.
+Many systems, especially older ones, use RSA for both purposes, with
+much longer keys.
 
 Public keys raise a question of trust: how to know that a public key
 belongs to the intended person or site. The web relies on certificates,
@@ -3064,8 +3087,8 @@ encrypted 11111101 message XOR key key 10110101 the same key --------
 message 01001000 encrypted XOR key
 
 Because every key is equally likely, every message of the same length is
-an equally likely explanation of the encrypted bits, and the encrypted
-text reveals nothing but its length. This property is called
+equally consistent with the encrypted bits, and the encrypted text
+reveals nothing but its length. This property is called
 information-theoretic security: it rests on the randomness of the key,
 not on the difficulty of a calculation.
 
@@ -3092,10 +3115,11 @@ has received grant funding from the NGI0 Commons Fund.
 Quantum Computers
 
 A quantum computer computes with quantum states rather than with
-ordinary bits. Large quantum computers do not yet exist, but if they are
-built, they will be able to break the public-key methods in common use
-today, including RSA, X25519 and Ed25519. Symmetric encryption and hash
-functions are much less affected: a 256-bit key remains secure.
+ordinary bits. A quantum computer large enough to break the public-key
+methods in common use today, including RSA, X25519 and Ed25519, had not
+been built when this book was written; if one is built, those methods
+will no longer be secure. Symmetric encryption and hash functions are
+much less affected: a 256-bit key remains secure.
 
 Data that is recorded today and kept could be decrypted later, once such
 computers exist. For this reason new post-quantum public-key methods,
@@ -3169,9 +3193,7 @@ Copies
 
 Offline copies of data, as described in Computing That Lasts, are the
 defence against software that deletes or encrypts files and demands
-payment to restore them, as well as against every other kind of loss. A
-copy that is always connected can be reached by the same software, and
-is not a defence.
+payment to restore them, as well as against every other kind of loss.
 
 Simplicity and Security
 
@@ -3205,10 +3227,10 @@ for: renaming a thousand files, logging a temperature every hour,
 converting a document or controlling a pump.
 
 Programming also teaches how computers work, which makes faults easier
-to find and correct. Code generated automatically, including by AI
-models, must still be read, understood and corrected by someone. In
-addition, a person who can program can keep their tools working without
-depending on an outside service.
+to find and correct. Code generated automatically, including by programs
+that generate code, must still be read, understood and corrected by
+someone. In addition, a person who can program can keep their tools
+working without depending on an outside service.
 
 Algorithms
 
@@ -3262,17 +3284,16 @@ Programs are built from three kinds of structure:
     condition becomes true.
 
 Every algorithm, however large, can be written with these three.
-Euclid’s method above uses all of them: a sequence of steps inside a
-loop that repeats while a condition holds.
+Euclid’s method above uses all of them: a sequence of steps, repeated
+while a condition holds, and the test of that condition is a choice.
 
 Functions
 
 A function, also called a procedure or subroutine, is a named part of a
 program that takes some inputs, called arguments, performs a task, and
 usually returns a result. Once written, a function can be used without
-regard to how it works. It is the most important tool in programming,
-because it is the means by which a large problem is divided into small
-ones.
+regard to how it works. It is the main means by which a large problem is
+divided into small ones.
 
 A good function does one clear thing and has a name that describes it. A
 program for a weather station might have functions to read the sensor,
@@ -3292,9 +3313,9 @@ Data Structures
 The arrangement of data matters as much as the steps that operate on it.
 A few structures cover most needs:
 
--   An array is a row of values of the same type, numbered from 0, each
-    reached directly by its number. Arrays are fast and simple, but
-    fixed in size.
+-   An array is a row of values of the same type, numbered from 0 in C
+    and many other languages, each reached directly by its number.
+    Arrays are fast and simple, but fixed in size.
 
 -   A string is a sequence of characters, usually stored as an array.
 
@@ -3313,8 +3334,6 @@ A few structures cover most needs:
     keys, such as words and their definitions, and finds a key quickly
     without searching every entry.
 
-With the right structure, the algorithm is often straightforward.
-
 Efficiency
 
 On a slow computer, the efficiency of an algorithm has practical
@@ -3326,8 +3345,7 @@ of them. If the list doubles in length, the work doubles. In a sorted
 list, a program can instead examine the middle entry, determine which
 half contains the name, and repeat. Each step halves the remaining
 entries, so a million names require only about twenty comparisons. This
-method is binary search, and it is the difference between a program that
-answers at once and one that makes the user wait.
+method is binary search.
 
 Some methods grow much faster. Comparing every item with every other
 item takes n times n steps, so a thousand items require a million
@@ -3353,7 +3371,7 @@ compiler. BASIC and Scheme are usually interpreted.
 Many systems lie between the two. Some interpreters first translate the
 program into a compact internal form, often called bytecode or tokens,
 and interpret that, which is faster than working from the text. Machdyne
-BASIC checks each line and converts it into tokens as it is typed.
+BASIC checks each line and converts it into tokens when it is entered.
 
 Mistakes
 
@@ -3401,11 +3419,11 @@ largest values, zero, empty input, and the values on either side of
 every limit. A function that works for 10 numbers may fail for none, for
 one, or for the largest number its type can hold.
 
-Tests are kept and run again after every change. A test that once found
-a bug then guards against its return, which is called a regression. A
-collection of such tests makes changes to an old program much safer.
-Every example in this book is kept as a test in this way, and the tests
-are run each time the book is rebuilt.
+Tests are kept and run again after every change. The return of a bug
+that had been fixed is called a regression, and a test that once found a
+bug guards against it. A collection of such tests makes changes to an
+old program much safer. Every program listing in this book is kept as a
+test in this way, and the tests are run each time the book is rebuilt.
 
 Hardware is tested in the same spirit. A memory test writes known
 patterns to every location and reads them back; a self-test at power-on
@@ -3418,8 +3436,7 @@ Writing for People
 A program is read far more often than it is written, frequently by its
 own author months later. Clear names, short functions, consistent layout
 and brief comments that explain why something is done, rather than what,
-make a program much easier to maintain. The simplest program that
-performs the task is usually the best one.
+make a program much easier to maintain.
 
 Keeping Track of Changes
 
@@ -3440,8 +3457,8 @@ a description, the date and the author, and keeps every earlier version.
 Any version can be restored, any two can be compared, and the history
 shows when and why each line was changed. Git is a widely used system of
 this kind; it keeps the whole history in the project’s own folder, so a
-copy of the folder is a complete copy of the history, which needs no
-server.
+copy of the folder is a complete copy of the history, and no server is
+needed.
 
 The same practice applies to a machine’s configuration. A record of
 which version of each design and program is in use, and what was
@@ -3505,7 +3522,7 @@ There are hundreds of dialects of BASIC. This chapter uses Machdyne
 BASIC 1, which runs on Machdyne’s programmable modules and tools, inside
 Zeitlos, and on ordinary computers. It is deliberately small, because it
 must fit, together with its own filesystem, in a microcontroller with 16
-KB of program memory and 2 KB of RAM.
+KB of flash and 2 KB of RAM.
 
 Its main features and limits:
 
@@ -3574,11 +3591,11 @@ division. Multiplication and division are done before addition and
 subtraction, and parentheses group as in ordinary arithmetic.
 
 Because every number is an integer, division discards the fraction:
-7 / 2 is 3. Because numbers are 16 bits, results beyond 32767 wrap
-around, as described in Information. A program that works with large
-values must scale them, for example by keeping temperatures in tenths of
-a degree or money in cents, and must check that intermediate results
-stay in range.
+7 / 2 is 3. Because numbers are 16 bits, results outside -32768 to 32767
+wrap around, as described in Information. A program that works with
+large values must scale them, for example by keeping temperatures in
+tenths of a degree or money in cents, and must check that intermediate
+results stay in range.
 
 Comparisons, such as A > B, give -1 for true and 0 for false. Any value
 other than 0 counts as true, so a variable that holds 1 or 0 can be used
@@ -3609,7 +3626,8 @@ statements on one line.
 In Machdyne BASIC, the body of a FOR loop always runs at least once,
 even if the loop’s end value has already been passed. For this reason
 the inner loop is built from IF and GOTO rather than FOR D = 2 TO N - 1,
-which would wrongly test 2 against itself.
+which, when N is 2, would still run once with D = 2 and wrongly mark 2
+as not prime.
 
 Subroutines
 
@@ -3644,9 +3662,9 @@ INPUT waits for the user to type a number:
 10 INPUT "HOW MANY"; N
 
 The quoted prompt is shown first, followed by a question mark.
-Everything a BASIC program prints and reads passes through the console,
-which may be a screen and keyboard, a terminal on another computer, or a
-link over the module bus.
+Everything a BASIC program prints and reads, apart from data files,
+passes through the console, which may be a screen and keyboard, a
+terminal on another computer, or a link over the module bus.
 
 Files
 
@@ -3656,16 +3674,18 @@ at a time, as number 1:
 10 PINS -, -, AIN, - 20 OPEN "LOG.TXT" FOR APPEND AS #1 30 PRINT #1,
 ADC(3) 40 CLOSE #1 50 SLEEP 60 60 GOTO 20
 
-Every minute (SLEEP waits a number of seconds), this program reads an
-analog input and adds the reading as a new line at the end of LOG.TXT.
-Opening a file FOR OUTPUT replaces it instead, and opening it FOR INPUT
-allows it to be read with INPUT #1. The command TYPE LOG.TXT shows the
-result. Because the file is plain text, any computer can read it later.
+About once a minute (SLEEP waits a number of seconds), this program
+reads an analog input and adds the reading as a new line at the end of
+LOG.TXT. Opening a file FOR OUTPUT replaces it instead, and opening it
+FOR INPUT allows it to be read with INPUT #1. The command TYPE LOG.TXT
+shows the result. Because the file is plain text, any computer can read
+it later.
 
 On Machdyne’s modules, files are stored in F-RAM or EEPROM. The
 filesystem follows the rules for surviving a power cut described in
 Memory and Storage. As a result, a data logger can be switched off at
-any time without losing its log.
+any time without damaging its log; at worst, the line being written is
+lost.
 
 Pins
 
@@ -3723,20 +3743,21 @@ complement into a negative number.
 Talking to a Host
 
 Line 50 of the heater program stores a value in program register 0. A
-program has sixteen registers, REG 0 to REG 15, each holding a byte,
-which are shared with the system the program runs in. On a module, a
-host computer on the bus can read and write them while the program runs.
-In this example, the host can read the latest temperature at any time
-without stopping the program, and could set a register to pass in a new
-threshold.
+program has sixteen registers, REG 0 to REG 15, each holding one byte.
+They are shared with the system the program runs in. On a module, a host
+computer on the bus can read and write them while the program runs. In
+this example, the host can read the latest reading, divided by four to
+fit in a byte, at any time without stopping the program, and could pass
+in a new threshold, scaled the same way, through another register.
 
 Starting by Itself
 
-A program saved as BOOT runs automatically when the machine starts. This
-turns a module into a dedicated controller: once programmed and
-installed, it performs its task every time it is powered, with or
-without a computer attached. The boot window described in Talking to the
-World ensures that a faulty BOOT program cannot lock the host out.
+A program saved as BOOT (stored as BOOT.BAS) runs automatically when the
+machine starts. This turns a module into a dedicated controller: once
+programmed and installed, it performs its task every time it is powered,
+with or without a computer attached. The boot window described in
+Talking to the World ensures that a faulty BOOT program cannot lock the
+host out.
 
 One Language, Many Machines
 
@@ -3753,7 +3774,7 @@ statements exist.
 
 As a result, a program can be written and tested on a full computer,
 within the limits of the module it is intended for, and then sent to a
-module the size of a fingernail, where it behaves the same way.
+small module, where it behaves the same way.
 
 Scheme
 
@@ -3776,13 +3797,16 @@ the standard version of the language at that time. It omits a few
 advanced features that are difficult to fit on a small machine, and the
 standard procedures for files, which each system provides in its own
 way. All its numbers are floating point. Everything in this chapter is
-standard Scheme and works in any implementation.
+standard Scheme and works in any implementation, although an
+implementation with exact fractions prints some results, such as that of
+(/ 7 2), differently.
 
 Expressions
 
 Every part of a Scheme program is an expression, and every compound
 expression is written in the same way: in parentheses, with the
-operation first and its arguments after it.
+operation first and its arguments after it. In the examples below, each
+expression is followed by its value:
 
 (+ 1 2) 3 (* 6 7) 42 (+ 1 (* 2 3)) 7 (- 10 (/ 8 2)) 6
 
@@ -3828,8 +3852,8 @@ Standard Scheme distinguishes exact numbers, such as integers and
 fractions, from inexact ones. In Machdyne Scheme every number is a
 floating-point double, as described in Information. Whole numbers are
 exact up to 2 to the 53rd, which is enough for counting and for most
-arithmetic on integers, but division produces fractions, and fractions
-are approximate:
+arithmetic on integers, but division can produce results that are not
+whole numbers, and most of these are approximate:
 
 (/ 7 2) ; => 3.5 (quotient 7 2) ; => 3 (= (+ 0.1 0.2) 0.3) ; => #f
 
@@ -3842,8 +3866,9 @@ close, as close? does, rather than with =.
 
 Recursion
 
-Scheme has no statement for loops. Repetition is written as recursion,
-in which a function calls itself:
+Scheme has no loop statement of the kind found in BASIC and C. It
+provides a do form, but repetition is usually written as recursion, in
+which a function calls itself:
 
 (define (factorial n) (if (= n 0) 1 (* n (factorial (- n 1)))))
 (factorial 10) ; => 3628800
@@ -3895,8 +3920,9 @@ The names come from two parts of a machine word on the IBM 704, the
 computer on which Lisp was first implemented.
 
 Internally, a list is a chain of pairs. Each pair holds one item and a
-reference to the next pair, and the chain ends with the empty list ().
-This is the linked list described in Thinking in Programs:
+reference to the next pair, and the chain ends with the empty list,
+written () in a program. This is the linked list described in Thinking
+in Programs:
 
 days | v +-----+---+ +-----+---+ +-----+---+ +-----+----+ | mon |
 --+-->| tue | --+-->| wed | --+-- ... ->| fri | () | +-----+---+
@@ -3912,7 +3938,7 @@ list, and otherwise do something with the car and recurse on the cdr:
 (define (sum lst) (if (null? lst) 0 (+ (car lst) (sum (cdr lst))))) (sum
 (3 1 4 1 5)) ; => 14
 
-Lookup Tables
+Association Lists
 
 A list of pairs can serve as a lookup table, called an association list.
 cons makes a pair from any two values. When the second value is a list,
@@ -3979,8 +4005,9 @@ release them. The interpreter releases them automatically: from time to
 time, a garbage collector finds every object the program can still
 reach, starting from its variables, and recycles the rest. Scheme
 programmers, like those of most modern languages, never free memory by
-hand, which eliminates a whole class of errors. The cost is some
-additional memory and an occasional pause while the collector runs.
+hand, which prevents the errors of freeing memory twice or too early.
+The cost is some additional memory and an occasional pause while the
+collector runs.
 
 Code Is Data
 
@@ -4002,7 +4029,7 @@ combining the results.
 
 Interpreters work in this way. If calc is extended with variables, if,
 lambda and function calls, it becomes an interpreter for Scheme itself,
-which is known to require only a page or two of code. This shows that a
+and such an interpreter fits in a page or two of code. This shows that a
 programming language is itself a program, and that a small one can be
 complete.
 
@@ -4023,17 +4050,16 @@ C
 C was created by Dennis Ritchie at Bell Labs around 1972, to write the
 Unix operating system. It was designed to be close to the machine, so
 that programs could be nearly as fast as assembly language while
-remaining portable from one kind of computer to another. Half a century
-later, it is still the main language of operating system kernels, device
-drivers, microcontrollers and the interpreters of other languages. The
-Zeitlos operating system, the BASIC interpreter and the Scheme
-interpreter in this book are all written in C.
+remaining portable from one kind of computer to another. It remains a
+main language of operating system kernels, device drivers,
+microcontrollers and the interpreters of other languages. The Zeitlos
+operating system, the BASIC interpreter and the Scheme interpreter in
+this book are all written in C.
 
 C shows directly what a computer does. Its variables are locations in
 memory, its pointers are addresses, and its operations correspond
 closely to single machine instructions. It also checks little: it does
 what the program says, and allows a faulty program to damage itself.
-Both are reasons to learn it well.
 
 A Complete Program
 
@@ -4057,9 +4083,9 @@ The parts of this program appear in nearly every C program:
 -   #include <stdio.h> makes the standard input and output functions,
     such as printf, available.
 
--   #define creates a macro, a piece of text that is substituted
-    wherever its name appears before compilation. Lines starting with #
-    are handled by this preprocessor step.
+-   #define creates a macro, a piece of text that, before compilation,
+    is substituted wherever its name appears. Lines starting with # are
+    handled by this preprocessor step.
 
 -   main is the function where every program starts. Its result, here 0,
     tells the system whether the program succeeded.
@@ -4069,8 +4095,8 @@ The parts of this program appear in nearly every C program:
 -   Text between /* and */ is a comment.
 
 -   printf prints formatted text. In its first argument, %02X means “the
-    next value, in hexadecimal, at least two digits wide”, and \n means
-    a new line.
+    next value, in upper-case hexadecimal, padded with zeros to at least
+    two digits”, and \n means a new line.
 
 The program demonstrates C’s bitwise operators, which act on every bit
 of a number at once: (OR), & (AND), ^ (XOR), ~ (NOT) and << (shift
@@ -4254,14 +4280,13 @@ the other bits, and led_off clears it.
 
 The word volatile is essential. It tells the compiler that the value can
 change, or that writing it has effects, outside the program’s control.
-Without it, the compiler may find that the program writes the same
-address twice and keep only the second write, or that it reads a status
-register in a loop, and read it only once. With volatile, every read and
-write in the source is performed, in order. volatile does not, however,
-make a sequence of operations indivisible. PINS = 1u is still a read, a
-change and a write, and if an interrupt handler changes the same
-register between them, its change is lost, as described in Operating
-Systems.
+Without it, a compiler that sees two writes to the same address may keep
+only the second, and one that sees a status register read in a loop may
+read it only once. With volatile, every read and write in the source is
+performed, in order. volatile does not, however, make a sequence of
+operations indivisible. PINS = 1u is still a read, a change and a write,
+and if an interrupt handler changes the same register between them, its
+change is lost, as described in Operating Systems.
 
 On a computer with memory protection, the operating system decides which
 device addresses each program may reach. On a microcontroller with no
@@ -4289,9 +4314,9 @@ Using the Three Together
 Each language in this book has its own uses, as the table at the end of
 Thinking in Programs showed. They can also be combined. Many systems are
 built with a small, fast core in C and a more convenient language above
-it for scripting and experiments. When a program in BASIC or Scheme is
-too slow, the slow part can be rewritten in C and the rest left
-unchanged.
+it for scripting and experiments. When a Scheme program is too slow, the
+slow part can be rewritten in C and added to the interpreter as a
+built-in procedure, with the rest left unchanged.
 
 So far, the hardware under these programs has been fixed. The next part
 of the book describes hardware that can be changed.
@@ -4330,8 +4355,9 @@ I/O | I/O | I/O | I/O | I/O | I/O | programmable routing
 
 -   I/O blocks connect the inside of the chip to its pins.
 
-An FPGA has thousands or tens of thousands of logic blocks. Which blocks
-are used, how each is set up and how they are connected is held in
+The FPGAs in this book have thousands or tens of thousands of LUTs, the
+elements described below, grouped into logic blocks. Which blocks are
+used, how each is set up and how they are connected is held in
 configuration memory distributed throughout the chip. In most FPGAs,
 including all of those in Machdyne’s computers, this memory is SRAM. Its
 contents are lost when power is removed, so the configuration must be
@@ -4348,22 +4374,25 @@ described by a truth table of sixteen rows. A LUT stores that truth
 table. With the appropriate sixteen bits loaded, it acts as an AND gate,
 an XOR gate, a multiplexer or any other function of up to four inputs,
 with the same delay whatever the function. For this reason an FPGA can
-implement any logic design: it contains no fixed gates, only small
-memories that can take the place of any gate.
+implement any logic design: its general logic contains no fixed gates,
+only small memories that can take the place of any gate.
 
 The sixteen bits are part of the FPGA’s configuration. Design tools
 usually write them as one 16-bit number, often called INIT, whose bit 0
 is the output for address 0, bit 1 the output for address 1, and so on.
 To make a LUT compute the XOR of inputs 0 and 1, the required output is
 listed for each address. For addresses 0, 1, 2 and 3, the two low bits
-are 00, 01, 10 and 11, so the outputs are 0, 1, 1, 0, which is binary
-0110, hex 6. The two upper inputs do not affect the result, so the same
-pattern repeats four times: INIT = 16h6666. For an AND of all four
-inputs, only address 15 gives 1: 16h8000.
+are 00, 01, 10 and 11, so the outputs are 0, 1, 1, 0; written with
+address 3 on the left, as binary numbers are, this is 0110, hex 6. The
+two upper inputs do not affect the result, so the same pattern repeats
+four times: hex 6666, which Verilog, described in the next chapter,
+writes as 16h6666. For an AND of all four inputs, only address 15 gives
+1: hex 8000.
 
-Functions of more than four inputs are divided among several LUTs. A
-full adder from Digital Logic, with three inputs and two outputs,
-requires two: one for the sum and one for the carry.
+A LUT has one output, so a function with several outputs needs one LUT
+for each, and functions of more than four inputs are divided among
+several LUTs. A full adder from Digital Logic, with three inputs and two
+outputs, requires two: one for the sum and one for the carry.
 
 Different FPGA families use LUTs with 4 to 6 inputs, but the principle
 is the same.
@@ -4378,8 +4407,8 @@ synchronous design.
 Logic blocks also contain carry chains: dedicated, fast connections that
 pass the carry from one block to the next. Adders and counters are
 common enough that FPGAs provide this special path rather than sending
-the carry through general routing. A 24-bit counter on a Lattice ECP5,
-one of the FPGA families described below, for example uses 24 flip-flops
+the carry through general routing. A 24-bit counter on a Lattice ECP5
+(one of the families described below), for example, uses 24 flip-flops
 and 12 carry cells, each of which adds two bits.
 
 Routing
@@ -4429,8 +4458,8 @@ in the bank must use it.
 Clocks
 
 FPGAs contain global clock networks: routing designed to deliver a clock
-signal to every flip-flop on the chip at very nearly the same time.
-Ordinary routing cannot do this.
+signal to every flip-flop on the chip at nearly the same time. Ordinary
+routing cannot do this.
 
 They also contain one or more phase-locked loops (PLLs), circuits that
 take a clock from an external crystal and produce clocks at other
@@ -4483,7 +4512,7 @@ Configuration
 
 The file that sets every LUT, flip-flop, switch and pin is called a
 bitstream. It is produced by the tools described in Describing Hardware
-and is typically between a few hundred kilobytes and a few megabytes in
+and is typically between a few tens of kilobytes and a few megabytes in
 size.
 
 At power-on, an FPGA reads its bitstream from a small SPI flash chip
@@ -4520,9 +4549,9 @@ room for additions.
 
 FPGA Families and Open Tools
 
-Several companies make FPGAs. Several families have open-source tools,
-written by people who studied the chips and documented their
-configuration formats:
+Several companies make FPGAs, and some of their families have
+open-source tools, written by people who studied the chips and
+documented their configuration formats:
 
 -   Lattice iCE40: small, simple, low-power FPGAs, the first to have a
     complete open toolchain.
@@ -4531,10 +4560,10 @@ configuration formats:
     main family in Machdyne’s computers.
 
 -   Xilinx (AMD) 7-series: large, fast FPGAs such as the Artix-7, with
-    growing open support.
+    partial open support.
 
--   Cologne Chip GateMate: FPGAs designed and made in Germany, whose
-    maker has supported open-source tools from the start.
+-   Cologne Chip GateMate: FPGAs designed and made in Germany, supported
+    by open-source synthesis and, more recently, open place and route.
 
 Open tools are important for timeless computing. A design that can be
 built only with one company’s licensed software can be maintained only
@@ -4575,7 +4604,7 @@ Changed by & new software & new bitstream & a new chip
 Speed & modest & modest & highest
 Power & lowest & low to moderate & lowest per job
 Cost each & lowest & moderate & lowest in bulk
-Start-up cost & very low & low & enormous
+Start-up cost & minimal & low & enormous
 
 A microcontroller is suitable when its built-in processor and devices
 fit the task; most small controllers, including Machdyne’s modules, are
@@ -4604,10 +4633,9 @@ circuit.
 A Different Kind of Language
 
 Verilog resembles C, but it is not a programming language in the usual
-sense, and this is the most important point about it. A program is a
-list of steps carried out one after another. A Verilog description is a
-list of pieces of hardware that all exist, and all operate, at the same
-time.
+sense. A program is a list of steps carried out one after another. A
+Verilog description is a list of pieces of hardware that all exist, and
+all operate, at the same time.
 
 The line assign sum = a ^ b; does not compute a value once. It places an
 XOR gate whose output is always the XOR of its inputs, for as long as
@@ -4698,9 +4726,9 @@ exchange their values.
 
 The blocking assignment = takes effect immediately, so the next line
 sees the new value. Written with =, the second line above would read the
-new value of a, and both registers would end with the old value of b. It
-is used for combinational logic written inside always @* blocks, where
-@* means “whenever any input changes”.
+new value of a, and both registers would end with the old value of b.
+The blocking assignment is used for combinational logic written inside
+always @* blocks, where @* means “whenever any input changes”.
 
 The general rule is to use <= in clocked blocks and = in combinational
 ones, and not to mix them in one block.
@@ -4728,7 +4756,8 @@ state register together with its next-state logic. On reset, the state
 becomes red; otherwise it advances when the timer is done and is
 unchanged when it is not. The case statement selects by the current
 state. The outputs are combinational, each true only in its own state.
-This module and the table in Digital Logic describe the same behaviour.
+This module and the table in Digital Logic describe the same
+transitions; the module adds a reset.
 
 Every state machine needs a reset, a defined state to start from. An
 FPGA gives its flip-flops known values when it is configured, but a
@@ -4739,17 +4768,17 @@ start again without being reloaded.
 Simulation
 
 Hardware is difficult to debug once it is built, because a value inside
-a chip cannot be printed. Designs are therefore first tested by
-simulation, in which a program computes what the circuit would do, cycle
-by cycle, and every signal can be inspected.
+a chip cannot be observed directly. Designs are therefore first tested
+by simulation, in which a program computes what the circuit would do,
+cycle by cycle, and every signal can be inspected.
 
-A simulation is driven by a testbench. This is a Verilog module that
-describes no hardware, but is a script that creates an instance of the
-design, supplies its inputs and checks its outputs. Testbenches may use
-features that cannot become hardware, such as delays, loops over test
-values and printed messages. The main part of the full adder’s testbench
-tries all eight input combinations and compares each result with
-ordinary addition:
+A simulation is driven by a testbench. A testbench is a Verilog module
+that describes no hardware; it acts as a script that creates an instance
+of the design, supplies its inputs and checks its outputs. Testbenches
+may use features that cannot become hardware, such as delays, loops over
+test values and printed messages. The main part of the full adder’s
+testbench tries all eight input combinations and compares each result
+with ordinary addition:
 
 for (i = 0; i < 8; i = i + 1) begin {a, b, cin} = i; #1; if ({cout, sum}
 !== a + b + cin) errors = errors + 1; end
@@ -4790,7 +4819,8 @@ a widely used open synthesis tool.
 Place and route decides which physical block on the chip each part of
 the netlist will use, then finds paths through the routing for every
 connection. It also analyses timing and reports the fastest clock the
-design can use. nextpnr is a widely used open place-and-route tool.
+design can use. The open tool nextpnr is widely used for place and
+route.
 
 Bitstream generation, called packing by some of the open tools, converts
 the placed and routed design into the configuration format of the
@@ -4824,8 +4854,8 @@ build.
 Timing gives the maximum frequency of each clock, based on the critical
 path described in Digital Logic. If it is below the frequency at which
 the design runs, the circuit may work on the bench and fail when warm,
-or fail in rare and confusing ways. A design that does not meet timing
-is not complete.
+or fail in rare and confusing ways. The remedies are described under
+Clock Domains.
 
 Debugging on the Board
 
@@ -4872,9 +4902,10 @@ Classic Mistakes
 -   Missing reset. Registers that must start in a known state need a
     reset or an initial value.
 
--   Unsynchronized inputs. A button or a signal from another clock must
-    pass through two flip-flops before it is used, as described in
-    Digital Logic.
+-   Unsynchronized inputs. A button, or a single-bit signal from another
+    clock domain, must pass through two flip-flops before it is used, as
+    described in Digital Logic; multi-bit values need the methods in
+    Clock Domains.
 
 -   Width mismatches. Assigning a 32-bit value to an 8-bit register
     silently drops the top bits. Tools warn about this, and the warnings
@@ -4887,7 +4918,7 @@ Classic Mistakes
 
 -   Making clocks with logic. Dividing a clock with a counter and using
     the result as another clock causes timing problems. The alternatives
-    are to use the PLL, or to keep one clock and use the counter as an
+    are to use a PLL, or to keep one clock and use the counter as an
     enable.
 
 The blink module above follows the last rule. It does not create a slow
@@ -4920,9 +4951,9 @@ Zeitlos32.
 A soft processor runs much more slowly than a hard one, typically at
 tens of megahertz. Its advantages are:
 
--   It can be read. Every gate of the processor is visible in its
-    source, so it can be audited, studied and trusted to a degree that
-    no commercial chip allows.
+-   It can be read. Every part of the processor’s logic is visible in
+    its source, so it can be audited, studied and trusted to a degree
+    that no commercial chip allows.
 
 -   It can be fixed. A processor bug is corrected by changing the source
     and rebuilding the bitstream.
@@ -4962,8 +4993,8 @@ arbiter and an address decoder |
     as the FPGA is configured. It is the system’s firmware and its
     bootloader: it loads the operating system from flash.
 
--   The memory controller connects the bus to external SDRAM or DDR
-    memory.
+-   The memory controller connects the bus to external SRAM, SDRAM or
+    DDR memory.
 
 -   The peripherals each present a few registers on the bus.
 
@@ -5038,9 +5069,10 @@ A call to led_on proceeds as follows:
     through the resistor and LED from Electricity, and the light comes
     on.
 
-These five steps involve every layer of this book. Larger peripherals,
-such as a serial port, a sound mixer or a USB controller, work in the
-same way, with more registers and more logic behind them.
+These five steps pass through most of the layers described in this book.
+Larger peripherals, such as a serial port, a sound mixer or a USB
+controller, work in the same way, with more registers and more logic
+behind them.
 
 Hardware and Software Together
 
@@ -5064,8 +5096,8 @@ small, regular and frequently repeated:
 
 -   hash functions such as SHA-256
 
-The Zeitlos SOC can include hardware for each of these, and each makes
-practical on a 48 MHz processor a task that would otherwise be too slow.
+The Zeitlos SOC can include hardware for each of these, and each makes a
+task practical on a 48 MHz processor that would otherwise be too slow.
 The usual approach is to write everything in software first, measure
 where the time is spent, and move only the slowest part into hardware,
 behind a few registers.
@@ -5256,11 +5288,11 @@ console to type commands into it directly. A new module answers at a
 default address, and the host can assign each module its own address so
 that several can share a bus.
 
-The safety rules listed in Talking to the World, inactive pins at
+The safety rules listed in Talking to the World (inactive pins at
 power-on, a boot window in which the host can always stop the module,
-and programs replaced only when complete, make this robust. Sechs is
+and programs replaced only when complete) make this robust. Sechs is
 still a draft standard, and the details of its registers may change, but
-these rules are its foundation.
+its pinout and these rules are its settled foundation.
 
 Building Systems from Modules
 
@@ -5297,8 +5329,8 @@ through a small interpreter. The second is a common language: every
 device accepts the same source programs and runs them in whatever way
 suits its chip.
 
-Machdyne’s modules have used both. Their predecessor, the Zwölf
-platform, defined a small 8-bit processor with a stack and a few
+Machdyne’s modules have used both. The Zwölf platform, from which Sechs
+developed, defined a small 8-bit processor with a stack and a few
 instructions, which every module was to implement regardless of the chip
 it was built from. Sechs keeps the six-pin interface but does not define
 a common instruction set. Portability comes instead from Machdyne BASIC,
@@ -5315,12 +5347,13 @@ Module Lifetime
 
 Two measures describe the life of a small device. Data retention is how
 long its memory keeps what was written to it. For F-RAM, as described in
-Memory and Storage, it is rated in centuries. The functional life of the
-device as a whole depends on its other parts: the microcontroller, the
-solder joints, the connectors, the capacitors and its operating
-conditions, and it is generally shorter.
+Memory and Storage, it is rated at a century or more, depending on
+temperature. The functional life of the device as a whole depends on its
+other parts (the microcontroller, the solder joints, the connectors and
+the capacitors) and on its operating conditions, and it is generally
+shorter.
 
-Modules address this in the same way as the rest of the book. The
+Modules address this with the approach used throughout the book. The
 important information is kept in the most durable form, the parts are
 cheap and replaceable, and the design and documentation are open, so
 that a replacement can always be made.
@@ -5352,8 +5385,8 @@ starts programs, and windows can be moved, resized and stacked.
 The programs supplied with it cover the timeless applications listed in
 Timeless Computing: a text editor, a file browser, a document reader, a
 spreadsheet, a calculator, a calendar and clock, a terminal, an image
-viewer, music and sound players, a web browser for simple pages, Gopher
-and Gemini, and a chat client, along with games and educational
+viewer, music and sound players, a browser for simple web pages and for
+Gopher and Gemini, and a chat client, along with games and educational
 programs. This book is among the documents it carries.
 
 The core of the system, consisting of the kernel, the drivers, the
@@ -5369,11 +5402,11 @@ boards from other manufacturers, so details vary. The common parts are:
 
 -   an FPGA, usually a Lattice ECP5, which becomes the whole computer
 
--   external RAM, from 1 MB of SRAM to tens of megabytes of SDRAM, with
-    larger DDR3 memory on boards still being brought up
+-   external RAM, from 1 MB of SRAM to tens of megabytes of SDRAM, or
+    larger DDR3 memory on some boards
 
--   configuration flash, often on a removable MMOD module, holding the
-    FPGA’s design and the core of the operating system
+-   configuration flash, often on a removable MMOD, holding the FPGA’s
+    design and the core of the operating system
 
 -   USB host ports for a keyboard, a mouse, storage sticks and network
     adapters
@@ -5456,9 +5489,8 @@ The start-up sequence closely follows Operating Systems:
 
 A program is looked for first in the /apps folder of the SD card, then
 in flash; only the kernel and the filesystem driver always come from
-flash. As a result, a newer version of a program can be tried by copying
-it onto the card, and the original is restored as soon as the copy is
-deleted.
+flash. As a result, a newer version of a program can be tried from the
+card, as described under Getting Back to Safety.
 
 The Operating System
 
@@ -5472,9 +5504,9 @@ may need to be opened again.
 Scheduling is preemptive, driven by a timer several hundred times a
 second. When a program sends a message and waits for the answer, the
 processor switches directly to the program that will answer it. As a
-result, the desktop responds immediately on a 48 MHz processor: work
-passes directly to where it is needed, and programs waiting for an event
-use no time.
+result, the desktop responds without noticeable delay on a 48 MHz
+processor: work passes directly to where it is needed, and programs
+waiting for an event use no time.
 
 Programs communicate through messages and through ports: named services
 that other programs can connect to. A terminal window can connect in the
@@ -5483,7 +5515,7 @@ same way to the Scheme interpreter, to a shell modelled on Unix
 BASIC computer, to a serial line, or to another machine across the
 network.
 
-Files are arranged in one tree:
+Files are arranged in one tree. The main folders are:
 
   Path    Contents
   ------- -------------------------------------------
@@ -5509,7 +5541,7 @@ Scheme is always available, from flash, through a terminal window.
 Besides standard Scheme, it has procedures for files, windows and
 drawing, starting and stopping programs, simple network transfers, and
 the pins and buses on the expansion sockets, each with built-in help. It
-is the quickest way to automate a task or to explore the system.
+is a quick way to automate a task or to explore the system.
 
 BASIC runs as a separate small computer, in the tradition of the 1980s.
 It has a 320 by 240 screen, shown in a window or full screen, graphics
@@ -5597,17 +5629,18 @@ rewriting the flash, which is best done on a spare MMOD.
 
 An Example Adaptation
 
-The levels above can be followed through one change: logging the
-temperature of a room every hour.
+This example adapts the machine to log the temperature of a room every
+hour. It uses two of the levels above: the hardware (level 4), and
+scripts and schedules (level 2).
 
 1.  The device. A temperature sensor is connected to an I2C pin pair on
     a Pmod socket, following the steps in Connecting a Device. The data
     sheet gives its address, and a scan of the bus confirms that it
     answers.
 
-2.  A trial. In the Scheme terminal, the I2C procedures, whose
-    descriptions help shows, read one byte from the sensor. The result
-    is checked against a thermometer.
+2.  A trial. In the Scheme terminal, the I2C procedures (described by
+    help) read one byte from the sensor. The result is checked against a
+    thermometer.
 
 3.  A script. A short Scheme file reads the sensor and appends a line
     with the date, the time and the temperature to a text file in /home.
@@ -5622,12 +5655,10 @@ temperature of a room every hour.
     with them.
 
 A deeper change follows the same pattern. A new peripheral in the
-gateware is first tested in simulation, then loaded from another
-computer directly into the FPGA’s configuration memory, without writing
-the flash. It runs until the power is turned off, after which the FPGA
-loads its working design from flash again. Only when the new design
-works is it written to a spare MMOD. At each step the previous working
-state remains available.
+gateware is first tested in simulation, then loaded directly into the
+FPGA’s configuration memory, which keeps it only until the power is
+turned off. Only when the new design works is it written to a spare
+MMOD. At each step the previous working state remains available.
 
 Getting Back to Safety
 
@@ -5649,9 +5680,9 @@ undone:
 
 -   A design loaded directly is not kept. A design loaded from another
     computer into the FPGA’s configuration memory, without writing the
-    flash, lasts only until the power is turned off. The region of flash
-    holding the bootloader is protected from any action Zeitlos can
-    take.
+    flash, lasts only until the power is turned off; the FPGA then loads
+    its working design from flash again. The region of flash holding the
+    bootloader is protected from any action Zeitlos can take.
 
 -   A second MMOD is the safest place to try a new design. It can be
     fitted for an experiment and the original refitted afterwards. The
@@ -5700,13 +5731,14 @@ therefore how much energy it needs. Energy is power multiplied by time,
 measured in watt-hours (Wh). A computer drawing 3 W for eight hours a
 day needs 24 Wh a day.
 
-This is a small amount. A common USB power bank of 10,000 to 20,000 mAh
-stores about 37 to 74 Wh, of which perhaps two thirds can be delivered
-at 5 V after conversion losses: enough for one to two days of such use.
-A small solar panel can replace the energy used. A 20 W panel might
-deliver about 50 to 100 Wh on a sunny day, depending on season, latitude
-and weather, and much less on an overcast one. A practical system has a
-generous margin, and enough battery capacity for several cloudy days.
+This is a small amount. A common USB power bank, rated at 10,000 to
+20,000 mAh at its cells’ 3.7 V, stores about 37 to 74 Wh, of which
+perhaps two thirds can be delivered at 5 V after conversion losses:
+enough for one to two days of such use. A small solar panel can replace
+the energy used. A 20 W panel might deliver about 50 to 100 Wh on a
+sunny day, depending on season, latitude and weather, and much less on
+an overcast one. A practical system has a generous margin, and enough
+battery capacity for several cloudy days.
 
 Several practices make the energy last longer:
 
@@ -5744,8 +5776,8 @@ or modified freely.
 
 Spares and Parts
 
-A failed part cannot be replaced if no replacement can be found, so
-replacements should be planned in advance:
+Replacements are hardest to find when they are needed, so they are best
+obtained in advance:
 
 -   Keep spares of parts that wear out or are easily lost: storage
     cards, configuration modules, cables, power supplies and small
@@ -5769,16 +5801,18 @@ replacements should be planned in advance:
 
 Data
 
-The rules from Memory and Storage can be restated as practices:
+Data is kept intact over decades, on the media described in Memory and
+Storage, by a few practices:
 
--   Keep at least three copies of anything important, on more than one
-    kind of medium, with one copy in another place.
+-   Keep at least three copies of anything important, on at least two
+    kinds of medium, with one copy in another place.
 
 -   Use plain formats: text for writing, and simple, widely documented
-    formats for everything else.
+    formats for everything else, which remain readable long after any
+    particular program has gone.
 
--   Record a hash of each important file, and check copies against it
-    periodically.
+-   Record a hash of each important file, check copies against it
+    periodically, and replace any that have failed.
 
 -   Refresh copies onto new media before the old media reach the end of
     their expected life. Flash cards and USB sticks are for moving data,
@@ -5838,10 +5872,14 @@ Keeping Information
 A computer without information has limited use. Collections of reference
 works, manuals, maps and books can be kept offline and read on small
 machines, especially in plain text. Such a collection should contain
-what would be needed if it could not be searched for: technical
+what would be needed if it could not be looked up elsewhere: technical
 documentation for the equipment in use, references for the owner’s work,
 and the knowledge the owner would want to pass on. It should be updated
-whenever possible.
+whenever possible. Machdyne’s Ark project prepares collections of this
+kind for offline computers, in sizes from a single compressed text file
+of about 2 MB to several gigabytes. Its smallest editions are condensed
+summaries of knowledge generated with AI, and the larger ones add
+selected texts. The 8 MB edition is sized to fit on F-RAM.
 
 Licences
 
@@ -5853,9 +5891,11 @@ copied or changed.
 
 Open licences are of two broad kinds:
 
--   Permissive licences, such as the MIT, BSD and Apache licences, allow
-    nearly any use, including in closed products, provided the original
-    notice is kept.
+-   Permissive licences, such as the MIT, BSD, Apache and Lone Dynamics
+    Open licences, allow nearly any use, including in closed products,
+    provided the original notice is kept. The Lone Dynamics Open
+    License, used for most of Machdyne’s designs and software, is
+    similar to the one-clause BSD licence.
 
 -   Copyleft licences, such as the GNU General Public License (GPL),
     allow the same, on the condition that changed versions which are
@@ -5894,8 +5934,8 @@ A Checklist
 -   Keep spares of the parts that wear out, and the tools and schematics
     to repair the rest.
 
--   Keep three copies of important data, in plain formats, and check
-    them.
+-   Keep at least three copies of important data, in plain formats, and
+    check them.
 
 -   Keep the source, the tools and the instructions needed to rebuild
     the system, and test them.
@@ -5963,7 +6003,7 @@ Terms are explained in more detail in the chapter named in brackets.
 -   assembly language: machine instructions written as readable text,
     one per line. (The Computer)
 
--   atomic: of an operation: performed as one step that cannot be
+-   atomic: (of an operation) performed as one step that cannot be
     interrupted or divided. (Operating Systems)
 
 -   authenticated encryption: encryption that also detects any change to
@@ -6155,6 +6195,9 @@ Terms are explained in more detail in the chapter named in brackets.
 -   ground: the reference point of a circuit, defined as 0 volts.
     (Electricity)
 
+-   hard processor: a fixed processor built into an FPGA beside its
+    logic. (Systems on a Chip)
+
 -   hash: a fingerprint of data; a cryptographic hash cannot practically
     be forged. (Memory and Storage)
 
@@ -6285,6 +6328,9 @@ Terms are explained in more detail in the chapter named in brackets.
 -   PC: program counter; the register holding the address of the next
     instruction. (The Computer)
 
+-   permissive licence: a licence that allows nearly any use, provided
+    the notice is kept. (Computing That Lasts)
+
 -   pipeline: a processor arrangement that overlaps the steps of
     successive instructions. (The Computer)
 
@@ -6305,7 +6351,7 @@ Terms are explained in more detail in the chapter named in brackets.
 -   POSIX: the standard that describes Unix-like operating systems. (The
     Machine)
 
--   post-quantum: of a public-key method: believed secure against
+-   post-quantum: (of a public-key method) believed secure against
     quantum computers. (Security)
 
 -   private key: the secret half of a public-key pair. (Security)
@@ -6345,7 +6391,7 @@ Terms are explained in more detail in the chapter named in brackets.
 -   regression: the return of a bug that had been fixed. (Thinking in
     Programs)
 
--   REPL: read, evaluate, print loop; an interactive language prompt.
+-   REPL: read-eval-print loop; an interactive language prompt.
     (Operating Systems)
 
 -   RISC-V: an open instruction set architecture. (The Computer)
@@ -6377,6 +6423,9 @@ Terms are explained in more detail in the chapter named in brackets.
 -   SOC: system on a chip; a complete computer on one chip. (Systems on
     a Chip)
 
+-   soft processor: a processor described in an HDL and built in FPGA
+    logic; a softcore. (Systems on a Chip)
+
 -   softcore: a processor built from FPGA logic. (Systems on a Chip)
 
 -   SPI: a fast four-wire serial bus. (Talking to the World)
@@ -6389,6 +6438,9 @@ Terms are explained in more detail in the chapter named in brackets.
 
 -   state machine: a register holding a state, and logic that chooses
     the next state. (Digital Logic)
+
+-   survival computing: computing designed to continue without cheap
+    power, new parts or the Internet. (Timeless Computing)
 
 -   switching regulator: a regulator that switches rapidly and smooths
     the result, wasting little power. (Electricity)
@@ -6456,6 +6508,9 @@ Terms are explained in more detail in the chapter named in brackets.
 -   voltage: the electrical pressure between two points, measured in
     volts. (Electricity)
 
+-   watt-hour: a unit of energy: one watt for one hour. (Computing That
+    Lasts)
+
 -   wear levelling: spreading writes across a memory so that no part
     wears out early. (Memory and Storage)
 
@@ -6464,6 +6519,9 @@ Terms are explained in more detail in the chapter named in brackets.
 
 -   Zeitlos: an open system on a chip and operating system for FPGA
     computers. (The Machine)
+
+-   zfed: the Zeitlos protocol for signed messages between independent
+    machines. (The Machine)
 
 A Short History
 
@@ -6479,9 +6537,10 @@ century, once Alessandro Volta’s battery provided a steady current and
 Georg Ohm, Michael Faraday and James Clerk Maxwell explained how
 current, magnetism and voltage are related. The first great application
 was communication. From the 1840s the electric telegraph carried
-messages across continents, coded as short and long pulses, and the
-telephone followed in the 1870s. Both are early examples of information
-carried as electrical signals, the subject of Information.
+messages across countries, and from the 1860s across oceans, coded as
+short and long pulses, and the telephone followed in the 1870s. Both are
+early examples of information carried as electrical signals, the subject
+of Information.
 
 The vacuum tube, invented in the first decade of the twentieth century,
 made electronics possible. A small voltage on one part of a tube
@@ -6673,8 +6732,8 @@ Computers
 -   1941. Konrad Zuse completes the Z3, an electromechanical
     programmable computer.
 
--   1944. Colossus, designed by Tommy Flowers, breaks codes at Bletchley
-    Park, the first programmable electronic digital computer.
+-   1944. Colossus, the first programmable electronic digital computer,
+    designed by Tommy Flowers, breaks codes at Bletchley Park.
 
 -   1945. ENIAC, built by John Mauchly and J. Presper Eckert, is
     completed. It is reprogrammed by rewiring.
@@ -6698,9 +6757,9 @@ Computers
     kit starts the personal computer era.
 
 -   1977 to 1985. Home and personal computers spread: the Apple II, the
-    TRS-80, the Commodore 64, the BBC Micro and the ZX Spectrum, all of
-    which started up into BASIC, followed by the IBM PC, the Macintosh
-    and the Amiga.
+    TRS-80, the BBC Micro, the Commodore 64 and the ZX Spectrum, all of
+    which started up into BASIC, alongside the IBM PC (1981), the
+    Macintosh (1984) and the Amiga (1985).
 
 -   1978. The first public bulletin board system goes online.
 
@@ -6807,6 +6866,36 @@ and the fourth, set apart from the others, is the tolerance.
 Red, violet, brown and gold is 2, 7 and one zero: 270 ohms, within 5%. A
 five-band resistor has three digits before the multiplier.
 
+Surface-Mount Markings
+
+Surface-mount resistors are too small for colour bands and are marked
+with a short code:
+
+  Marking   Rule                                          Value
+  --------- --------------------------------------------- ----------
+            two digits, then the number of zeros          4.7k
+  103                                                     10k
+  100                                                     10 ohms
+  4701      three digits, then the number of zeros (1%)   4.7k
+  4R7       R marks the decimal point                     4.7 ohms
+  R10                                                     0.1 ohm
+  01C       EIA-96: an E96 value number and a letter      10k
+  0, 000    a zero-ohm link, used as a jumper             0
+
+In the EIA-96 code, used on the smallest 1% resistors, the two digits
+number the 96 values of the E96 series, from 01 for 100 to 96 for 976,
+and the letter is a multiplier: Z 0.001, Y or R 0.01, X or S 0.1, A 1, B
+or H 10, C 100, D 1,000, E 10,000 and F 100,000. A table of the E96
+series is needed to decode the number; 01C is 100 x 100.
+
+Capacitors that are marked use three digits in picofarads, the third
+again the number of zeros: 104 is 100,000 pF, or 100 nF, and 105 is 1
+uF. Small ceramic capacitors are usually not marked at all, and are
+measured or identified from the board’s documentation. On a diode, the
+band marks the cathode; on a tantalum capacitor, the band marks the
+positive end. On a chip, a dot or notch marks pin 1, and the short code
+printed on top is explained in the marking section of its data sheet.
+
 Standard Resistor Values
 
 Resistors are made in series of values spaced so that each is a fixed
@@ -6895,7 +6984,8 @@ A Conversion Table
 
 A table of temperatures from 0 to 100 degrees Celsius in steps of 20,
 with their equivalents in Fahrenheit: F = C x 9 / 5 + 32. Each version
-prints the same six rows, from 0 32 to 100 212.
+prints six rows of two numbers, from 0 and 32 to 100 and 212; BASIC
+places the second number in the next print zone.
 
 BASIC, where STEP sets the increment and the comma moves to the next
 print zone:
@@ -6920,11 +7010,11 @@ be rounded down for any value of C that is not a multiple of 5.
 
 The Collatz Sequence
 
-Start with a number. If it is even, halve it; if it is odd, multiply it
-by 3 and add 1. Repeat until the number is 1. Every starting number ever
-tried reaches 1 eventually, although no one has proved that all of them
-do. Starting from 27, it takes 111 steps, and the number rises as high
-as 9232 on the way.
+The sequence starts from a number. An even number is halved; an odd one
+is multiplied by 3 and increased by 1. This repeats until the number
+is 1. Every starting number ever tried reaches 1 eventually, although no
+one has proved that all of them do. Starting from 27, it takes 111
+steps, and the number rises as high as 9232 on the way.
 
 BASIC, with a decision inside the loop:
 
@@ -6998,40 +7088,30 @@ those limits. The variables are the 26 letters A to Z.
 
 BASIC Statements
 
-@ >
-
-p(- 2) * >
-
-p(- 2) * @
-
-Statement
-
-&
-
-Effect
-
-LET v = e, or v = e & assign the value of e to variable v
-PRINT items & print; ; joins items, , moves to next zone
-INPUT v, INPUT “text”; v & read a number from the console
-IF e THEN … ELSE … & run the rest of the line if e is not 0
-GOTO n & continue at line n
-GOSUB n, RETURN & call a subroutine at line n, and return
-FOR v = a TO b STEP s & start a loop; the body runs at least once
-NEXT v & end of the loop body
-END & stop the program
-REM text & a comment, to the end of the line
-SLEEP e & wait e seconds
-WAIT e & wait e milliseconds
-PINS m, m, m, m & declare the use of pins 1 to 4
-OUT p, e & set output pin p low (0) or high (not 0)
-LED e & turn the LED off (0) or on (not 0)
-I2C a, v & write byte v to I2C device a
-I2C a, r, v & write byte v to register r of device a
-REG n, e & set program register n (0 to 15)
-OPEN “f” FOR m AS #1 & open file f for INPUT, OUTPUT or APPEND
-PRINT #1, items & write to the open file
-INPUT #1, v & read the next number from the open file
-CLOSE #1 & close the open file
+  Statement                  Effect
+  -------------------------- -------------------------------------------
+  LET v = e, or v = e        assign the value of e to variable v
+  PRINT items                print; a semicolon joins, a comma tabs
+  INPUT v, INPUT “text”; v   read a number from the console
+  IF e THEN … ELSE …         run the rest of the line if e is not 0
+  GOTO n                     continue at line n
+  GOSUB n, RETURN            call a subroutine at line n, and return
+  FOR v = a TO b STEP s      start a loop; the body runs at least once
+  NEXT v                     end of the loop body
+  END                        stop the program
+  REM text                   a comment, to the end of the line
+  SLEEP e                    wait e seconds
+  WAIT e                     wait e milliseconds
+  PINS m, m, m, m            declare the use of pins 1 to 4
+  OUT p, e                   set output pin p low (0) or high (not 0)
+  LED e                      turn the LED off (0) or on (not 0)
+  I2C a, v                   write byte v to I2C device a
+  I2C a, r, v                write byte v to register r of device a
+  REG n, e                   set program register n (0 to 15)
+  OPEN “f” FOR m AS #1       open file f for INPUT, OUTPUT or APPEND
+  PRINT #1, items            write to the open file
+  INPUT #1, v                read the next number from the open file
+  CLOSE #1                   close the open file
 
 A colon separates several statements on one line.
 
@@ -7041,7 +7121,7 @@ Every implementation provides at least these:
 
   Limit                At least
   -------------------- ------------------------
-  program memory       1,024 bytes, as stored
+  program memory       1,024 bytes, tokenized
   elements per line    64
   active FOR loops     6
   active GOSUB calls   8
@@ -7110,7 +7190,7 @@ BASIC Commands
 
 File names have up to eight letters, digits, _ or -, and an optional
 extension of up to three; a name without an extension is given .BAS. A
-system that starts a program by itself runs BOOT.BAS. Ctrl-C stops a
+system that starts a program by itself runs BOOT.BAS. Ctrl+C stops a
 running program.
 
 BASIC Error Messages
@@ -7137,7 +7217,7 @@ BASIC Error Messages
   NOT FORMATTED         the storage is not formatted
   DAMAGED, I/O ERROR    the storage cannot be read
   NOT SUPPORTED         the hardware is not present
-  BREAK                 stopped with Ctrl-C
+  BREAK                 stopped with Ctrl+C
 
 Scheme Reference
 
@@ -7332,9 +7412,9 @@ Registers
 RV32I has 32 registers of 32 bits, x0 to x31, and the program counter,
 pc. Register x0 always reads as zero, and writes to it are discarded.
 The other registers are alike to the hardware; their roles come from the
-calling convention, the agreement that lets separately compiled code
-call each other. Assemblers accept both the plain names and the
-convention’s names.
+calling convention, the agreement that lets separately compiled
+functions call each other. Assemblers accept both the plain names and
+the convention’s names.
 
   Register   Name     Role                            Kept by callee
   ---------- -------- ------------------------------- ----------------
@@ -7551,8 +7631,10 @@ a series resistor of about 1k.
 
 Zwölf
 
-Zwölf modules, the predecessors of Sechs, have twelve contacts in two
-rows. Viewed from the top:
+Zwölf modules, which comply with Sechs when they run Sechs firmware such
+as Machdyne BASIC, have twelve contacts in two rows: the six of Sechs,
+four more for the module’s own uses, a reset and a write protect. Viewed
+from the top:
 
 1 2 3 4 5 6 7 8 9 10 11 12
 
@@ -7780,10 +7862,10 @@ Talking to the World:
 
 Sources
 
-This book does not assume access to a network. For readers who have one,
-this appendix lists where to find the projects it describes, their
-source code and documentation, and further reading. Web addresses change
-over time; if one no longer works, search for the project’s name.
+This book does not assume access to a network. For readers who have
+access, this appendix lists where to find the projects it describes,
+their source code and documentation, and further reading. Web addresses
+change over time; if one no longer works, search for the project’s name.
 
 Machdyne
 
@@ -7794,8 +7876,10 @@ Machdyne
   Community bulletin board      telnet bbs.machdyne.com
   Source code of all projects   https://github.com/machdyne
 
-The source of each project mentioned in this book, under
-https://github.com/machdyne:
+The source of each project mentioned in this book is in a repository of
+the same name under:
+
+https://github.com/machdyne
 
 @ >
 
@@ -7812,37 +7896,42 @@ Contents
 tc & this book, with the tests for its examples
 zeitlos & the Zeitlos SOC and operating system
 basic & Machdyne BASIC, its language reference and module firmware
-ms & Machdyne Scheme
+ms & Machdyne Scheme, before its integration into Zeitlos
 sechs & the Sechs module interface standard
-zwolf & the Zwölf module platform, predecessor of Sechs
+zwolf & the Zwölf modules, which comply with Sechs
 mmod & the MMOD memory module standard
 kakao & Kakao Linux for Machdyne computers
 ark & an offline information collection
 blaustahl & the Blaustahl F-RAM storage device
 kaltstahl & the Kaltstahl F-RAM storage device
+ferrit & the FERRIT F-RAM archival system
+einszeit & the Einszeit one-time-pad security device
 werkzeug & the Werkzeug multi-tool
 zucker & Zucker, the SOC that preceded Zeitlos
 
 Open Hardware Tools
 
--   Yosys, synthesis: https://github.com/YosysHQ/yosys
+@ >
 
--   nextpnr, place and route: https://github.com/YosysHQ/nextpnr
+p(- 2) * >
 
--   Project IceStorm, Lattice iCE40: https://github.com/YosysHQ/icestorm
+p(- 2) * @
 
--   Project Trellis, Lattice ECP5: https://github.com/YosysHQ/prjtrellis
+Tool
 
--   Project X-Ray, Xilinx 7-series: https://github.com/f4pga/prjxray
+&
 
--   Project Peppercorn, GateMate:
-    https://github.com/YosysHQ/prjpeppercorn
+Source
 
--   Icarus Verilog, simulation: https://github.com/steveicarus/iverilog
-
--   PicoRV32, a RISC-V softcore: https://github.com/YosysHQ/picorv32
-
--   LiteX, SOC builder: https://github.com/enjoy-digital/litex
+Yosys, synthesis & https://github.com/YosysHQ/yosys
+nextpnr, place and route & https://github.com/YosysHQ/nextpnr
+Project IceStorm, iCE40 & https://github.com/YosysHQ/icestorm
+Project Trellis, ECP5 & https://github.com/YosysHQ/prjtrellis
+Project X-Ray, Xilinx 7 & https://github.com/f4pga/prjxray
+Project Peppercorn, GateMate & https://github.com/YosysHQ/prjpeppercorn
+Icarus Verilog, simulation & https://github.com/steveicarus/iverilog
+PicoRV32, a RISC-V softcore & https://github.com/YosysHQ/picorv32
+LiteX, SOC builder & https://github.com/enjoy-digital/litex
 
 Standards
 

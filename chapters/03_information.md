@@ -118,19 +118,19 @@ A processor either has floating-point hardware or performs each operation in sof
 
 ## Text
 
-Text is stored by giving each character a number. The oldest common scheme still in use is **ASCII**, from the 1960s, which assigns the numbers 0 to 127 to the English letters, digits, punctuation and a set of control codes. Capital `A` is 65, lowercase `a` is 97, and the digit `0` is 48. A full table is in [Tables](#tables).
+Text is stored by giving each character a number. The most widely used early scheme is **ASCII**, from the 1960s, which assigns the numbers 0 to 127 to the English letters, digits, punctuation and a set of control codes. Capital `A` is 65, lowercase `a` is 97, and the digit `0` is 48. A full table is in [Tables](#tables).
 
 The digit `7` is stored as 55, not 7. The text "42" and the number 42 are different in memory, and a program must convert explicitly between them.
 
-The first 32 ASCII codes are not printable. They control the device the text is sent to: code 10 (line feed) moves to a new line, code 13 (carriage return) moves to the start of the line, code 8 is backspace and code 27 is escape. Unix-like systems end each line of a text file with a line feed alone; MS-DOS, Windows and some network protocols use carriage return followed by line feed. This difference still causes problems when files are moved between systems.
+Codes 0 to 31, and 127, are not printable. They control the device the text is sent to: code 10 (line feed) moves to a new line, code 13 (carriage return) moves to the start of the line, code 8 is backspace and code 27 is escape. Unix-like systems end each line of a text file with a line feed alone; MS-DOS, Windows and some network protocols use carriage return followed by line feed. This difference still causes problems when files are moved between systems.
 
 A character's number is not its appearance. A **font** gives each character a **glyph**, the shape that is drawn, so the same text can be shown in many fonts. A computer that has no glyph for a character shows a substitute, often a box or a question mark.
 
 ASCII covers only English. Extensions such as **ISO 8859-15** (Latin-9) use the upper codes, 160 to 255, for accented letters and the euro sign, which is enough for most Western European languages. **Unicode** gives a number to every character in every writing system, with more than a million possible codes.
 
-Unicode text is usually stored as **UTF-8**, an encoding in which ASCII characters stay single bytes with their old values, and every other character takes two to four bytes, each with its top bit set. As a result, a program that handles only ASCII can pass UTF-8 text through without damaging it. UTF-8 is the current standard for text and the appropriate choice unless there is a specific reason to use another encoding.
+Unicode text is usually stored as **UTF-8**, an encoding in which ASCII characters stay single bytes with their old values, and every other character takes two to four bytes, each with its top bit set. As a result, a program that handles only ASCII can pass UTF-8 text through without damaging it. UTF-8 is the most widely used encoding for text and the appropriate choice unless there is a specific reason to use another encoding.
 
-Text read with the wrong encoding is garbled. The letter "e" with an acute accent is the two bytes `0xC3 0xA9` in UTF-8; read as ISO 8859-15, those bytes appear as two different characters, an "A" with a tilde followed by a copyright sign. The bytes are not damaged, and the text reads correctly again when the right encoding is used. A plain text file does not record its encoding, so it is kept with the file's description, or the file is kept in UTF-8.
+Text read with the wrong encoding is garbled. The letter "e" with an acute accent is the two bytes `0xC3 0xA9` in UTF-8; read as ISO 8859-15, those bytes appear as two different characters, an "A" with a tilde followed by a copyright sign. The bytes are not damaged, and the text reads correctly again when the right encoding is used. A plain text file does not record its encoding, so the encoding is recorded with the file's description, or the file is kept in UTF-8.
 
 ## Pictures and Sound
 
@@ -150,9 +150,9 @@ Sizes are counted in bytes with the usual prefixes, but their meaning has long b
 | megabyte (MB) | 1,000,000 bytes | mebibyte (MiB) | 1,048,576 bytes |
 | gigabyte (GB) | 10 to the 9th   | gibibyte (GiB) | 2 to the 30th   |
 
-In practice, memory sizes such as "32MB of RAM" mean the binary sizes. Context usually makes the meaning clear.
+In practice, memory sizes such as "32 MB of RAM" mean the binary sizes. In this book, sizes of memory and storage are binary whichever form is used: KB and KiB both mean 1,024 bytes, and MB and MiB 1,048,576.
 
-A second ambiguity is between bits and bytes. Memory chips and data rates are often given in bits, written with a lowercase b or "bit". A 64 Kbit memory chip holds 8 KB, and a link of 12 Mbit/s moves at most 1.5 MB each second.
+A second ambiguity is between bits and bytes. Memory chips and data rates are often given in bits, written with a lowercase b or "bit": Kb or Kbit means kilobits, KB kilobytes. A 64 Kbit memory chip holds 8 KB, and a link of 12 Mbit/s moves at most 1.5 MB each second.
 
 ## Meaning Comes From Use
 

@@ -6,7 +6,7 @@ A program is a precise description of how to perform a task, written for a machi
 
 A computer can be used without being programmed. Programming, however, is what makes a general-purpose computer general. A person who can write short programs can make the machine perform tasks that nobody planned for: renaming a thousand files, logging a temperature every hour, converting a document or controlling a pump.
 
-Programming also teaches how computers work, which makes faults easier to find and correct. Code generated automatically, including by AI models, must still be read, understood and corrected by someone. In addition, a person who can program can keep their tools working without depending on an outside service.
+Programming also teaches how computers work, which makes faults easier to find and correct. Code generated automatically, including by programs that generate code, must still be read, understood and corrected by someone. In addition, a person who can program can keep their tools working without depending on an outside service.
 
 ## Algorithms
 
@@ -45,11 +45,11 @@ Programs are built from three kinds of structure:
 - **Choice**: if a condition is true, one step; otherwise another.
 - **Repetition**: a step repeated a fixed number of times, or until a condition becomes true.
 
-Every algorithm, however large, can be written with these three. Euclid's method above uses all of them: a sequence of steps inside a loop that repeats while a condition holds.
+Every algorithm, however large, can be written with these three. Euclid's method above uses all of them: a sequence of steps, repeated while a condition holds, and the test of that condition is a choice.
 
 ## Functions
 
-A **function**, also called a procedure or subroutine, is a named part of a program that takes some inputs, called **arguments**, performs a task, and usually returns a result. Once written, a function can be used without regard to how it works. It is the most important tool in programming, because it is the means by which a large problem is divided into small ones.
+A **function**, also called a procedure or subroutine, is a named part of a program that takes some inputs, called **arguments**, performs a task, and usually returns a result. Once written, a function can be used without regard to how it works. It is the main means by which a large problem is divided into small ones.
 
 A good function does one clear thing and has a name that describes it. A program for a weather station might have functions to read the sensor, convert the reading to degrees, decide whether it is freezing and write a line to the log. Each is short and can be checked on its own, and the main program reads almost as a description of the task.
 
@@ -59,20 +59,18 @@ A function can call itself. This is **recursion**, and it suits problems that co
 
 The arrangement of data matters as much as the steps that operate on it. A few structures cover most needs:
 
-- An **array** is a row of values of the same type, numbered from 0, each reached directly by its number. Arrays are fast and simple, but fixed in size.
+- An **array** is a row of values of the same type, numbered from 0 in C and many other languages, each reached directly by its number. Arrays are fast and simple, but fixed in size.
 - A **string** is a sequence of characters, usually stored as an array.
 - A **record**, or structure, groups a few named values that belong together, such as a name, a date and an amount.
 - A **linked list** is a chain of records, each holding a value and the address of the next. It can grow and shrink easily, but reaching the hundredth item requires passing through the first ninety-nine.
 - A **tree** is similar to a list, except that each record can point to several others. A folder of files, in which each folder can hold further files and folders, is a tree.
 - A **hash table**, also called a dictionary or map, stores values under keys, such as words and their definitions, and finds a key quickly without searching every entry.
 
-With the right structure, the algorithm is often straightforward.
-
 ## Efficiency
 
 On a slow computer, the efficiency of an algorithm has practical consequences. The useful measure is how the amount of work grows as the amount of data grows.
 
-Finding a name in an unsorted list of n names may require checking all n of them. If the list doubles in length, the work doubles. In a sorted list, a program can instead examine the middle entry, determine which half contains the name, and repeat. Each step halves the remaining entries, so a million names require only about twenty comparisons. This method is **binary search**, and it is the difference between a program that answers at once and one that makes the user wait.
+Finding a name in an unsorted list of n names may require checking all n of them. If the list doubles in length, the work doubles. In a sorted list, a program can instead examine the middle entry, determine which half contains the name, and repeat. Each step halves the remaining entries, so a million names require only about twenty comparisons. This method is **binary search**.
 
 Some methods grow much faster. Comparing every item with every other item takes n times n steps, so a thousand items require a million comparisons. A loop inside a loop over a large amount of data is often a sign that a better method exists.
 
@@ -84,7 +82,7 @@ A **compiler** translates the whole program into machine code before it runs. Th
 
 An **interpreter** reads the program and carries out each part directly, as it proceeds. It is slower, often by a factor of ten or more. In exchange, a programmer can type a line and see its effect immediately, change the program while it runs, and work on a machine that has no compiler. BASIC and Scheme are usually interpreted.
 
-Many systems lie between the two. Some interpreters first translate the program into a compact internal form, often called **bytecode** or tokens, and interpret that, which is faster than working from the text. Machdyne BASIC checks each line and converts it into tokens as it is typed.
+Many systems lie between the two. Some interpreters first translate the program into a compact internal form, often called **bytecode** or tokens, and interpret that, which is faster than working from the text. Machdyne BASIC checks each line and converts it into tokens when it is entered.
 
 ## Mistakes
 
@@ -107,13 +105,13 @@ A **test** runs part of a program with known inputs and checks that it produces 
 
 Good tests are chosen where mistakes are likely: the smallest and largest values, zero, empty input, and the values on either side of every limit. A function that works for 10 numbers may fail for none, for one, or for the largest number its type can hold.
 
-Tests are kept and run again after every change. A test that once found a bug then guards against its return, which is called a **regression**. A collection of such tests makes changes to an old program much safer. Every example in this book is kept as a test in this way, and the tests are run each time the book is rebuilt.
+Tests are kept and run again after every change. The return of a bug that had been fixed is called a **regression**, and a test that once found a bug guards against it. A collection of such tests makes changes to an old program much safer. Every program listing in this book is kept as a test in this way, and the tests are run each time the book is rebuilt.
 
 Hardware is tested in the same spirit. A memory test writes known patterns to every location and reads them back; a self-test at power-on checks that each device answers. Such tests find faults that would otherwise appear as unexplained errors in the programs that use the hardware.
 
 ## Writing for People
 
-A program is read far more often than it is written, frequently by its own author months later. Clear names, short functions, consistent layout and brief comments that explain why something is done, rather than what, make a program much easier to maintain. The simplest program that performs the task is usually the best one.
+A program is read far more often than it is written, frequently by its own author months later. Clear names, short functions, consistent layout and brief comments that explain why something is done, rather than what, make a program much easier to maintain.
 
 ## Keeping Track of Changes
 
@@ -121,7 +119,7 @@ A program, a hardware design or a document that is changed over years needs a re
 
 The simplest record is a copy of the whole project, dated, before each significant change, together with a note of what was changed and why. A **diff** program compares two versions of a text file and lists only the lines that differ, which makes the changes between two copies easy to see.
 
-A **version control system** keeps this record automatically. Each time the author records a change, the system stores the new version together with a description, the date and the author, and keeps every earlier version. Any version can be restored, any two can be compared, and the history shows when and why each line was changed. Git is a widely used system of this kind; it keeps the whole history in the project's own folder, so a copy of the folder is a complete copy of the history, which needs no server.
+A **version control system** keeps this record automatically. Each time the author records a change, the system stores the new version together with a description, the date and the author, and keeps every earlier version. Any version can be restored, any two can be compared, and the history shows when and why each line was changed. Git is a widely used system of this kind; it keeps the whole history in the project's own folder, so a copy of the folder is a complete copy of the history, and no server is needed.
 
 The same practice applies to a machine's configuration. A record of which version of each design and program is in use, and what was changed, makes it possible to rebuild the machine exactly, and to undo a change that caused a fault.
 

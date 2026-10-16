@@ -6,7 +6,7 @@
 
 The book presents timeless computing as one approach to owning a computer: a machine built to remain useful for decades, and simple enough to be understood, maintained and adapted by the person who relies on it. Machdyne's FPGA computers and the Zeitlos operating system serve as working examples.
 
-It is written for readers with no technical background, and as a coherent reference for those with experience.
+It is written for readers with no technical background, and serves as a coherent reference for those with experience.
 
 The book is dedicated to the public domain.
 
@@ -34,7 +34,7 @@ $ make cover
 $ make cover-wrap WIDTH=... HEIGHT=... SPINE=... WRAP=...
 ```
 
-`make print` builds `dist/tc-print.pdf`, the book block for printing: 13.5 x 21.5 cm, two-sided, 10 pt text and 8 pt code, black only, padded to a multiple of four pages for a thread-sewn binding. Its publisher's imprint is in `imprint.tex`. The ISBN, the barcode in `cover/barcode.png` and the imprint identify the edition published by BoD, and appear only in the print edition and its cover. The text is in the public domain, but anyone else who prints the book should remove them and use an ISBN of their own, or none. It uses the same sources as the screen edition; its layout is in `print-setup.tex`.
+`make print` builds `dist/tc-print.pdf`, the book block for printing: 13.5 x 21.5 cm, two-sided, 10 pt text and 8 pt code, black only, padded to a multiple of four pages for a thread-sewn binding. Its publisher's imprint is in `imprint.tex`. The ISBN, the barcode in `cover/barcode.png` and the imprint identify the edition published by BoD, and appear only in the print edition and its cover. The text is in the public domain, but anyone else who prints the book should remove them and use an ISBN of their own, or none. It uses the same sources as the screen edition; its layout is in `print-setup.tex`. `tools/keep.lua` keeps every diagram, and tables of up to 8 rows, from being split across two pages, and moves a heading with them; program listings and longer tables may break, as they read from top to bottom, and a table repeats its header row on the next page. Its limits trade this against the page count.
 
 The cover is drawn in `cover/cover.svg`. `make cover` builds the front cover at print size with 5 mm bleed. `make cover-wrap` builds the whole printed cover, back, spine and front, to the dimensions of the printer's cover template, which depend on the binding, page count and paper (all in mm; `WRAP` is the margin outside the visible front board: bleed, plus the turn-in on a hardcover). The ISBN barcode is printed straight on the pale artwork; `BARCODE_BG` puts it on a white or pale ground instead. The cover tools need the Python packages in `requirements.txt` (`pip install -r requirements.txt`), and three other programs: `rsvg-convert` from librsvg, `pdftocairo` from poppler (only for a barcode supplied as PDF) and the Lato font. On Debian and Ubuntu these are the packages `librsvg2-bin`, `poppler-utils` and `fonts-lato`; with Homebrew on macOS, `librsvg`, `poppler` and the Lato font from Google Fonts.
 

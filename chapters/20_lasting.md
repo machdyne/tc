@@ -8,7 +8,7 @@ Most people assume that electricity, spare parts, software updates and the Inter
 
 Planning a supply starts from how much power the equipment uses, and therefore how much energy it needs. Energy is power multiplied by time, measured in **watt-hours** (Wh). A computer drawing 3 W for eight hours a day needs 24 Wh a day.
 
-This is a small amount. A common USB power bank of 10,000 to 20,000 mAh stores about 37 to 74 Wh, of which perhaps two thirds can be delivered at 5 V after conversion losses: enough for one to two days of such use. A small solar panel can replace the energy used. A 20 W panel might deliver about 50 to 100 Wh on a sunny day, depending on season, latitude and weather, and much less on an overcast one. A practical system has a generous margin, and enough battery capacity for several cloudy days.
+This is a small amount. A common USB power bank, rated at 10,000 to 20,000 mAh at its cells' 3.7 V, stores about 37 to 74 Wh, of which perhaps two thirds can be delivered at 5 V after conversion losses: enough for one to two days of such use. A small solar panel can replace the energy used. A 20 W panel might deliver about 50 to 100 Wh on a sunny day, depending on season, latitude and weather, and much less on an overcast one. A practical system has a generous margin, and enough battery capacity for several cloudy days.
 
 Several practices make the energy last longer:
 
@@ -29,7 +29,7 @@ Electronic components age at a rate determined by their conditions.
 
 ## Spares and Parts
 
-A failed part cannot be replaced if no replacement can be found, so replacements should be planned in advance:
+Replacements are hardest to find when they are needed, so they are best obtained in advance:
 
 - Keep **spares of parts that wear out or are easily lost**: storage cards, configuration modules, cables, power supplies and small programmable modules.
 - Prefer **standard connectors and voltages**, such as USB power, Pmod sockets and common batteries, which can be replaced with whatever is available.
@@ -39,11 +39,11 @@ A failed part cannot be replaced if no replacement can be found, so replacements
 
 ## Data
 
-The rules from [Memory and Storage](#memory-and-storage) can be restated as practices:
+Data is kept intact over decades, on the media described in [Memory and Storage](#memory-and-storage), by a few practices:
 
-- Keep **at least three copies** of anything important, on more than one kind of medium, with one copy in another place.
-- Use **plain formats**: text for writing, and simple, widely documented formats for everything else.
-- Record a **hash** of each important file, and check copies against it periodically.
+- Keep **at least three copies** of anything important, on at least two kinds of medium, with one copy in another place.
+- Use **plain formats**: text for writing, and simple, widely documented formats for everything else, which remain readable long after any particular program has gone.
+- Record a **hash** of each important file, check copies against it periodically, and replace any that have failed.
 - **Refresh** copies onto new media before the old media reach the end of their expected life. Flash cards and USB sticks are for moving data, not for keeping it for decades.
 - Keep **small, vital data**, such as keys, passwords and essential notes, on media built for longevity, such as F-RAM, and on paper.
 - Keep **a list** of what is stored where, so that every copy can be found.
@@ -66,7 +66,7 @@ The most independent arrangement is a machine that can **rebuild itself**: one t
 
 ## Keeping Information
 
-A computer without information has limited use. Collections of reference works, manuals, maps and books can be kept offline and read on small machines, especially in plain text. Such a collection should contain what would be needed if it could not be searched for: technical documentation for the equipment in use, references for the owner's work, and the knowledge the owner would want to pass on. It should be updated whenever possible.
+A computer without information has limited use. Collections of reference works, manuals, maps and books can be kept offline and read on small machines, especially in plain text. Such a collection should contain what would be needed if it could not be looked up elsewhere: technical documentation for the equipment in use, references for the owner's work, and the knowledge the owner would want to pass on. It should be updated whenever possible. Machdyne's Ark project prepares collections of this kind for offline computers, in sizes from a single compressed text file of about 2 MB to several gigabytes. Its smallest editions are condensed summaries of knowledge generated with AI, and the larger ones add selected texts. The 8 MB edition is sized to fit on F-RAM.
 
 ## Licences
 
@@ -74,7 +74,7 @@ Openness, one of the principles in [Timeless Computing](#timeless-computing), is
 
 Open licences are of two broad kinds:
 
-- **Permissive** licences, such as the MIT, BSD and Apache licences, allow nearly any use, including in closed products, provided the original notice is kept.
+- **Permissive** licences, such as the MIT, BSD, Apache and Lone Dynamics Open licences, allow nearly any use, including in closed products, provided the original notice is kept. The Lone Dynamics Open License, used for most of Machdyne's designs and software, is similar to the one-clause BSD licence.
 - **Copyleft** licences, such as the GNU General Public License (GPL), allow the same, on the condition that changed versions which are distributed are released under the same licence, with their source. The CERN Open Hardware Licence applies the same choice to hardware designs, in permissive and copyleft forms.
 
 A work can also be **dedicated to the public domain**, with no conditions at all, as this book is under CC0, the Creative Commons public domain dedication. Patents and trademarks are separate from copyright: a patent can restrict building an invention whatever its licence, and a trademark protects a product's name rather than its design. For the owner of a timeless computer, the practical test is that the licences of its designs and software must allow it to be repaired, changed and rebuilt by anyone, without permission.
@@ -90,7 +90,7 @@ This book is intended to contribute to that work, and anyone may copy, print, tr
 - Know how much power the equipment needs, and have a way to supply it without the grid.
 - Keep equipment cool, dry, clean and in an enclosure.
 - Keep spares of the parts that wear out, and the tools and schematics to repair the rest.
-- Keep three copies of important data, in plain formats, and check them.
+- Keep at least three copies of important data, in plain formats, and check them.
 - Keep the source, the tools and the instructions needed to rebuild the system, and test them.
 - Keep a known good system image and a spare copy of the configuration flash.
 - Keep an offline library of the information the work depends on.

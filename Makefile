@@ -56,7 +56,7 @@ print: build
 	@for c in $(CHAPTERS); do \
 		echo "pandoc chapters/$$c.md (print)"; \
 		pandoc $(PANDOC_OPTS) -f markdown+autolink_bare_uris \
-			--top-level-division=chapter \
+			--top-level-division=chapter --lua-filter=tools/keep.lua \
 			chapters/$$c.md -o $(PRINT)/$$c.tex || exit 1; \
 	done
 	latexmk -pdf -xelatex -output-directory=$(PRINT) tc-print.tex

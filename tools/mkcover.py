@@ -262,6 +262,10 @@ def front(args):
            args.output)
 
 
+# Lato's capital height, as a fraction of its size (1433 / 2000 units).
+LATO_CAP = 0.7165
+
+
 def wrap(args):
     W, H, S, M = args.width, args.height, args.spine, args.wrap
     G = args.hinge                        # fold beside the spine
@@ -291,16 +295,18 @@ def wrap(args):
 
     # Spine: title and author, reading from top to bottom, as is usual
     # for English-language books.
+    # The capitals are centred across the spine. The baseline is placed
+    # by hand, half the cap height off centre, because SVG renderers do
+    # not all honour dominant-baseline on rotated text.
     size = min(S * 0.45, 9.0)
     for text, y, anchor, weight, scale in (
             (TITLE, M + 15, 'start', 900, 1.0),
             (AUTHOR, H - M - 15, 'end', 700, 0.75)):
+        base = sx + S / 2.0 - LATO_CAP * size * scale / 2.0
         parts.append('<text transform="translate(%g,%g) rotate(90)" '
                      'font-family="Lato" font-weight="%d" font-size="%g" '
-                     'fill="%s" text-anchor="%s" '
-                     'dominant-baseline="central">%s</text>'
-                     % (sx + S / 2.0, y, weight, size * scale, INK, anchor,
-                        text))
+                     'fill="%s" text-anchor="%s">%s</text>'
+                     % (base, y, weight, size * scale, INK, anchor, text))
 
     # Back: the description, set on the visible back board. Lines are
     # broken by the measured width of the words in Lato.

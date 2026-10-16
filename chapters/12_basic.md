@@ -6,7 +6,7 @@ BASIC remains useful. An interpreter fits in a few kilobytes, so it runs on the 
 
 ## Machdyne BASIC
 
-There are hundreds of dialects of BASIC. This chapter uses **Machdyne BASIC 1**, which runs on Machdyne's programmable modules and tools, inside Zeitlos, and on ordinary computers. It is deliberately small, because it must fit, together with its own filesystem, in a microcontroller with 16 KB of program memory and 2 KB of RAM.
+There are hundreds of dialects of BASIC. This chapter uses **Machdyne BASIC 1**, which runs on Machdyne's programmable modules and tools, inside Zeitlos, and on ordinary computers. It is deliberately small, because it must fit, together with its own filesystem, in a microcontroller with 16 KB of flash and 2 KB of RAM.
 
 Its main features and limits:
 
@@ -61,7 +61,7 @@ After these lines are typed, `RUN` prints:
 
 BASIC uses the operators `+`, `-`, `*` and `/`, and `MOD` for the remainder after division. Multiplication and division are done before addition and subtraction, and parentheses group as in ordinary arithmetic.
 
-Because every number is an integer, division discards the fraction: `7 / 2` is 3. Because numbers are 16 bits, results beyond 32767 wrap around, as described in [Information](#information). A program that works with large values must scale them, for example by keeping temperatures in tenths of a degree or money in cents, and must check that intermediate results stay in range.
+Because every number is an integer, division discards the fraction: `7 / 2` is 3. Because numbers are 16 bits, results outside -32768 to 32767 wrap around, as described in [Information](#information). A program that works with large values must scale them, for example by keeping temperatures in tenths of a degree or money in cents, and must check that intermediate results stay in range.
 
 Comparisons, such as `A > B`, give -1 for true and 0 for false. Any value other than 0 counts as true, so a variable that holds 1 or 0 can be used directly as a condition.
 
@@ -89,7 +89,7 @@ This program prints the prime numbers up to 50, those divisible only by 1 and th
 
 For each number `N`, the program assumes that it is prime (`P = 1`) and then tries dividing it by each `D` from 2 upward. Divisors come in pairs, and the smaller of a pair cannot exceed the square root of `N`. The search can therefore stop once `D * D` exceeds `N`, which removes most of the work. `REM` starts a remark, a comment for the reader, and a colon separates several statements on one line.
 
-In Machdyne BASIC, the body of a `FOR` loop always runs at least once, even if the loop's end value has already been passed. For this reason the inner loop is built from `IF` and `GOTO` rather than `FOR D = 2 TO N - 1`, which would wrongly test 2 against itself.
+In Machdyne BASIC, the body of a `FOR` loop always runs at least once, even if the loop's end value has already been passed. For this reason the inner loop is built from `IF` and `GOTO` rather than `FOR D = 2 TO N - 1`, which, when N is 2, would still run once with D = 2 and wrongly mark 2 as not prime.
 
 ## Subroutines
 
@@ -128,7 +128,7 @@ A well-organized BASIC program keeps its main loop short and near the top, and p
 10 INPUT "HOW MANY"; N
 ```
 
-The quoted prompt is shown first, followed by a question mark. Everything a BASIC program prints and reads passes through the **console**, which may be a screen and keyboard, a terminal on another computer, or a link over the module bus.
+The quoted prompt is shown first, followed by a question mark. Everything a BASIC program prints and reads, apart from data files, passes through the **console**, which may be a screen and keyboard, a terminal on another computer, or a link over the module bus.
 
 ## Files
 
@@ -143,9 +143,9 @@ A program can write and read plain text files. Only one file can be open at a ti
 60 GOTO 20
 ```
 
-Every minute (`SLEEP` waits a number of seconds), this program reads an analog input and adds the reading as a new line at the end of `LOG.TXT`. Opening a file `FOR OUTPUT` replaces it instead, and opening it `FOR INPUT` allows it to be read with `INPUT #1`. The command `TYPE LOG.TXT` shows the result. Because the file is plain text, any computer can read it later.
+About once a minute (`SLEEP` waits a number of seconds), this program reads an analog input and adds the reading as a new line at the end of `LOG.TXT`. Opening a file `FOR OUTPUT` replaces it instead, and opening it `FOR INPUT` allows it to be read with `INPUT #1`. The command `TYPE LOG.TXT` shows the result. Because the file is plain text, any computer can read it later.
 
-On Machdyne's modules, files are stored in F-RAM or EEPROM. The filesystem follows the rules for surviving a power cut described in [Memory and Storage](#memory-and-storage). As a result, a data logger can be switched off at any time without losing its log.
+On Machdyne's modules, files are stored in F-RAM or EEPROM. The filesystem follows the rules for surviving a power cut described in [Memory and Storage](#memory-and-storage). As a result, a data logger can be switched off at any time without damaging its log; at worst, the line being written is lost.
 
 ## Pins
 
@@ -196,11 +196,11 @@ I2C devices are reached with the statement `I2C`, which writes to a device, and 
 
 ## Talking to a Host
 
-Line 50 of the heater program stores a value in **program register** 0. A program has sixteen registers, `REG 0` to `REG 15`, each holding a byte, which are shared with the system the program runs in. On a module, a host computer on the bus can read and write them while the program runs. In this example, the host can read the latest temperature at any time without stopping the program, and could set a register to pass in a new threshold.
+Line 50 of the heater program stores a value in **program register** 0. A program has sixteen registers, `REG 0` to `REG 15`, each holding one byte. They are shared with the system the program runs in. On a module, a host computer on the bus can read and write them while the program runs. In this example, the host can read the latest reading, divided by four to fit in a byte, at any time without stopping the program, and could pass in a new threshold, scaled the same way, through another register.
 
 ## Starting by Itself
 
-A program saved as `BOOT` runs automatically when the machine starts. This turns a module into a dedicated controller: once programmed and installed, it performs its task every time it is powered, with or without a computer attached. The boot window described in [Talking to the World](#talking-to-the-world) ensures that a faulty `BOOT` program cannot lock the host out.
+A program saved as `BOOT` (stored as `BOOT.BAS`) runs automatically when the machine starts. This turns a module into a dedicated controller: once programmed and installed, it performs its task every time it is powered, with or without a computer attached. The boot window described in [Talking to the World](#talking-to-the-world) ensures that a faulty `BOOT` program cannot lock the host out.
 
 ## One Language, Many Machines
 
@@ -208,4 +208,4 @@ The definition of Machdyne BASIC states what a program means; each machine deter
 
 Machines may also add statements of their own. A BASIC with a screen may add drawing statements such as `PLOT`, `LINE` and `CIRCLE`, as the home computers did, and programs that use them run only where those statements exist.
 
-As a result, a program can be written and tested on a full computer, within the limits of the module it is intended for, and then sent to a module the size of a fingernail, where it behaves the same way.
+As a result, a program can be written and tested on a full computer, within the limits of the module it is intended for, and then sent to a small module, where it behaves the same way.

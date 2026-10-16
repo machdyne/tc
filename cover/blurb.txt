@@ -2,6 +2,6 @@ Timeless Computing explains how a computer works, from the flow of electricity t
 
 The book presents timeless computing as one approach to owning a computer: a machine built to remain useful for decades, and simple enough to be understood, maintained and adapted by the person who relies on it. Machdyne's FPGA computers and the Zeitlos operating system serve as working examples.
 
-It is written for readers with no technical background, and as a coherent reference for those with experience.
+It is written for readers with no technical background, and serves as a coherent reference for those with experience.
 
 The book is dedicated to the public domain.

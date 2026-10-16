@@ -4,7 +4,7 @@ This appendix lists the RV32I base instruction set and the M extension, which to
 
 ## Registers
 
-RV32I has 32 registers of 32 bits, `x0` to `x31`, and the program counter, `pc`. Register `x0` always reads as zero, and writes to it are discarded. The other registers are alike to the hardware; their roles come from the **calling convention**, the agreement that lets separately compiled code call each other. Assemblers accept both the plain names and the convention's names.
+RV32I has 32 registers of 32 bits, `x0` to `x31`, and the program counter, `pc`. Register `x0` always reads as zero, and writes to it are discarded. The other registers are alike to the hardware; their roles come from the **calling convention**, the agreement that lets separately compiled functions call each other. Assemblers accept both the plain names and the convention's names.
 
 | Register | Name   | Role                          | Kept by callee |
 |----------|--------|-------------------------------|----------------|

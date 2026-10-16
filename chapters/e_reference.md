@@ -8,30 +8,30 @@ Machdyne BASIC 1 is frozen: later versions may add to it but must not change the
 
 ### BASIC Statements
 
-| Statement                | Effect                                     |
-|--------------------------|--------------------------------------------|
-| LET v = e, or v = e      | assign the value of e to variable v        |
-| PRINT items              | print; ; joins items, , moves to next zone |
-| INPUT v, INPUT "text"; v | read a number from the console             |
-| IF e THEN ... ELSE ...   | run the rest of the line if e is not 0     |
-| GOTO n                   | continue at line n                         |
-| GOSUB n, RETURN          | call a subroutine at line n, and return    |
-| FOR v = a TO b STEP s    | start a loop; the body runs at least once  |
-| NEXT v                   | end of the loop body                       |
-| END                      | stop the program                           |
-| REM text                 | a comment, to the end of the line          |
-| SLEEP e                  | wait e seconds                             |
-| WAIT e                   | wait e milliseconds                        |
-| PINS m, m, m, m          | declare the use of pins 1 to 4             |
-| OUT p, e                 | set output pin p low (0) or high (not 0)   |
-| LED e                    | turn the LED off (0) or on (not 0)         |
-| I2C a, v                 | write byte v to I2C device a               |
-| I2C a, r, v              | write byte v to register r of device a     |
-| REG n, e                 | set program register n (0 to 15)           |
-| OPEN "f" FOR m AS #1     | open file f for INPUT, OUTPUT or APPEND    |
-| PRINT #1, items          | write to the open file                     |
-| INPUT #1, v              | read the next number from the open file    |
-| CLOSE #1                 | close the open file                        |
+| Statement                | Effect                                    |
+|--------------------------|-------------------------------------------|
+| LET v = e, or v = e      | assign the value of e to variable v       |
+| PRINT items              | print; a semicolon joins, a comma tabs    |
+| INPUT v, INPUT "text"; v | read a number from the console            |
+| IF e THEN ... ELSE ...   | run the rest of the line if e is not 0    |
+| GOTO n                   | continue at line n                        |
+| GOSUB n, RETURN          | call a subroutine at line n, and return   |
+| FOR v = a TO b STEP s    | start a loop; the body runs at least once |
+| NEXT v                   | end of the loop body                      |
+| END                      | stop the program                          |
+| REM text                 | a comment, to the end of the line         |
+| SLEEP e                  | wait e seconds                            |
+| WAIT e                   | wait e milliseconds                       |
+| PINS m, m, m, m          | declare the use of pins 1 to 4            |
+| OUT p, e                 | set output pin p low (0) or high (not 0)  |
+| LED e                    | turn the LED off (0) or on (not 0)        |
+| I2C a, v                 | write byte v to I2C device a              |
+| I2C a, r, v              | write byte v to register r of device a    |
+| REG n, e                 | set program register n (0 to 15)          |
+| OPEN "f" FOR m AS #1     | open file f for INPUT, OUTPUT or APPEND   |
+| PRINT #1, items          | write to the open file                    |
+| INPUT #1, v              | read the next number from the open file   |
+| CLOSE #1                 | close the open file                       |
 
 A colon separates several statements on one line.
 
@@ -41,7 +41,7 @@ Every implementation provides at least these:
 
 | Limit              | At least               |
 |--------------------|------------------------|
-| program memory     | 1,024 bytes, as stored |
+| program memory     | 1,024 bytes, tokenized |
 | elements per line  | 64                     |
 | active FOR loops   | 6                      |
 | active GOSUB calls | 8                      |
@@ -106,7 +106,7 @@ Division truncates towards zero, so `-7 / 2` is -3. `MOD` takes the sign of its 
 | FORMAT YES | erase all files                      |
 | HELP       | list the commands and keywords       |
 
-File names have up to eight letters, digits, `_` or `-`, and an optional extension of up to three; a name without an extension is given `.BAS`. A system that starts a program by itself runs `BOOT.BAS`. Ctrl-C stops a running program.
+File names have up to eight letters, digits, `_` or `-`, and an optional extension of up to three; a name without an extension is given `.BAS`. A system that starts a program by itself runs `BOOT.BAS`. Ctrl+C stops a running program.
 
 ### BASIC Error Messages
 
@@ -132,7 +132,7 @@ File names have up to eight letters, digits, `_` or `-`, and an optional extensi
 | NOT FORMATTED       | the storage is not formatted          |
 | DAMAGED, I/O ERROR  | the storage cannot be read            |
 | NOT SUPPORTED       | the hardware is not present           |
-| BREAK               | stopped with Ctrl-C                   |
+| BREAK               | stopped with Ctrl+C                   |
 
 ## Scheme Reference
 

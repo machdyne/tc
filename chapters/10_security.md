@@ -16,9 +16,9 @@ Data that must remain private on a machine that may be lost or stolen is therefo
 
 ## Passwords and Keys
 
-A password is strong when it cannot be guessed, even by a program that tries millions of possibilities. Length matters more than complexity: a passphrase of five or six unrelated words, chosen at random, is both stronger and easier to remember than a short password of mixed symbols. Each service should have its own password, so that one leak does not open the others.
+A password is strong when it cannot be guessed, even by a program that tries billions of possibilities a second. Length matters more than complexity: a passphrase of five or six unrelated words, chosen at random, is both stronger and easier to remember than a short password of mixed symbols. Each service should have its own password, so that one leak does not open the others.
 
-A well-designed system never stores a password itself. It stores the result of a deliberately slow hash function, described below, applied to the password together with a random value called a **salt**. To check a password, the system applies the same function and compares the results. Someone who copies the stored record must then spend the same effort for every guess, and the salt prevents a guess from being tested against many records at once. A system can also add a delay after each wrong attempt.
+A well-designed system never stores a password itself. It stores the result of a hash function of the kind described below, designed to be deliberately slow, applied to the password together with a random value called a **salt**. To check a password, the system applies the same function and compares the results. Someone who copies the stored record must then spend the same effort for every guess, and the salt prevents a guess from being tested against many records at once. A system can also add a delay after each wrong attempt.
 
 Cryptographic **keys** are long random numbers, far too long to remember. They are kept in files or on devices, and are protected as carefully as the data they protect. A key is also backed up as carefully as data, because an encrypted file whose key is lost is lost with it.
 
@@ -30,17 +30,17 @@ Cryptographic **keys** are long random numbers, far too long to remember. They a
 - **Integrity**: any change to the message is detected.
 - **Authentication**: the receiver can be certain who sent it.
 
-Modern cryptography is public. Its methods are published, studied for years by others before they are trusted, and standardized, and only the keys are secret. A method whose security depends on its design being secret cannot be checked, and usually fails once the design becomes known.
+Modern cryptography is public. Its methods are published, studied by others for years before they are trusted, and standardized; only the keys are secret. A method whose security depends on its design being secret cannot be checked, and usually fails once the design becomes known.
 
 ## Hash Functions
 
-A **cryptographic hash function** computes a short, fixed-size value, the **hash** or digest, from data of any length. SHA-256, a widely used example, produces 256 bits, usually written as 64 hex digits. A good hash function has three properties: the same data always gives the same hash; any change to the data, even of one bit, gives a completely different hash; and no one can find two different pieces of data with the same hash, or data that produces a given hash.
+A **cryptographic hash function** computes a short, fixed-size value, the **hash** or digest, from data of any length. SHA-256, a widely used example, produces 256 bits, usually written as 64 hex digits. A good hash function has three properties: the same data always gives the same hash; any change to the data, even of one bit, gives a completely different hash; and no one can in practice find two different pieces of data with the same hash, or data that produces a given hash.
 
 As a result, a hash serves as a fingerprint. A copy of a file is checked by computing its hash and comparing it with the original's, as described in [Memory and Storage](#memory-and-storage). A program downloaded from elsewhere is checked against the hash its author published. Passwords are stored as hashes, and digital signatures, described below, are made on the hash of a message rather than on the whole message.
 
 ## Symmetric Encryption
 
-**Symmetric** encryption uses one secret key both to encrypt and to decrypt. The common methods are AES, a standard since 2001, and ChaCha20, which is faster in software on processors without special instructions for AES. Keys are 128 or 256 bits long. A 128-bit key has 2 to the 128th possible values, so many that trying them all is beyond any computer that could be built.
+**Symmetric** encryption uses one secret key both to encrypt and to decrypt. The common methods are AES, a standard since 2001, and ChaCha20, which is faster in software on processors without special instructions for AES. Keys are usually 128 or 256 bits long. A 128-bit key has 2 to the 128th possible values, so many that trying them all is beyond any computer that could be built.
 
 Encryption alone provides confidentiality, but not integrity: an attacker who cannot read a message may still be able to change it. Current protocols therefore use **authenticated encryption**, which adds a short tag, computed from the message and the key, that the receiver checks before trusting the message. Each message is also encrypted with a **nonce**, a number that must never be used twice with the same key; reusing one can reveal the messages.
 
@@ -55,7 +55,7 @@ The pair makes two things possible:
 - **Key exchange.** Two machines that have not communicated before can agree on a shared secret over an open network, even while others are listening. X25519 is a common method. The shared secret then becomes the key for fast symmetric encryption.
 - **Digital signatures.** A message signed with a private key can be checked by anyone with the public key, and no one without the private key can forge the signature. Ed25519 is a common method. Signatures prove who wrote a message, or who published a program, and that it has not been changed since.
 
-Older systems use RSA for both purposes, with much longer keys.
+Many systems, especially older ones, use RSA for both purposes, with much longer keys.
 
 Public keys raise a question of trust: how to know that a public key belongs to the intended person or site. The web relies on **certificates**, which are public keys signed by organizations that browsers are configured to trust. SSH usually asks the user to confirm a server's key the first time and remembers it afterwards. Between people, keys can be compared in person, or their hashes read aloud.
 
@@ -81,7 +81,7 @@ key         10110101      the same key
 message     01001000      encrypted XOR key
 ```
 
-Because every key is equally likely, every message of the same length is an equally likely explanation of the encrypted bits, and the encrypted text reveals nothing but its length. This property is called **information-theoretic security**: it rests on the randomness of the key, not on the difficulty of a calculation.
+Because every key is equally likely, every message of the same length is equally consistent with the encrypted bits, and the encrypted text reveals nothing but its length. This property is called **information-theoretic security**: it rests on the randomness of the key, not on the difficulty of a calculation.
 
 The guarantee holds only under strict conditions. The key must be truly random, as long as all the messages it will protect, kept secret, and never used twice. If the same key is used for two messages, combining the two encrypted texts cancels the key and leaves the XOR of the two messages, from which both can often be recovered. The key must also be delivered to the receiver in advance, by some means other than the channel it protects. These costs have kept the one-time pad to uses in which the highest security justifies them.
 
@@ -89,7 +89,7 @@ Small, open hardware can make those conditions practical. **Einszeit**, an open-
 
 ## Quantum Computers
 
-A **quantum computer** computes with quantum states rather than with ordinary bits. Large quantum computers do not yet exist, but if they are built, they will be able to break the public-key methods in common use today, including RSA, X25519 and Ed25519. Symmetric encryption and hash functions are much less affected: a 256-bit key remains secure.
+A **quantum computer** computes with quantum states rather than with ordinary bits. A quantum computer large enough to break the public-key methods in common use today, including RSA, X25519 and Ed25519, had not been built when this book was written; if one is built, those methods will no longer be secure. Symmetric encryption and hash functions are much less affected: a 256-bit key remains secure.
 
 Data that is recorded today and kept could be decrypted later, once such computers exist. For this reason new **post-quantum** public-key methods, based on mathematical problems that quantum computers are not known to solve, have been developed and standardized: ML-KEM for key exchange and ML-DSA for signatures, published as United States federal standards in 2024. Because these methods are newer and less studied, careful systems use them in a **hybrid** scheme together with a classical method, so that the result is secure as long as either one holds. The message protocol of Zeitlos, described in [The Machine](#the-machine), encrypts its connections in this way, although its signatures still use a classical method alone.
 
@@ -116,7 +116,7 @@ Every program, library and tool on a machine is trusted to do what it claims, in
 
 ## Copies
 
-Offline copies of data, as described in [Computing That Lasts](#computing-that-lasts), are the defence against software that deletes or encrypts files and demands payment to restore them, as well as against every other kind of loss. A copy that is always connected can be reached by the same software, and is not a defence.
+Offline copies of data, as described in [Computing That Lasts](#computing-that-lasts), are the defence against software that deletes or encrypts files and demands payment to restore them, as well as against every other kind of loss.
 
 ## Simplicity and Security
 

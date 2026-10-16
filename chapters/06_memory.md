@@ -1,6 +1,6 @@
 # Memory and Storage
 
-A computer needs memory for the program it is running and the data it is working on, and storage that keeps information while it is switched off. No single technology serves both purposes well. This chapter describes the kinds of memory in use, the purposes each suits, and how long each can be relied on to retain its contents. The last question is central to timeless computing.
+A computer needs memory for the program it is running and the data it is working on, and storage that keeps information while it is switched off. No single technology serves both purposes well. This chapter describes the kinds of memory in use, the purposes each suits, and how long each can be relied on to retain its contents. The last of these is central to timeless computing.
 
 ## The Memory Hierarchy
 
@@ -8,9 +8,9 @@ Every memory technology trades speed against size, cost and permanence. Computer
 
 | Level                       | Typical size | Speed     | Keeps data |
 |-----------------------------|--------------|-----------|------------|
-| CPU registers               | 100 bytes    | fastest   | no         |
-| cache                       | kilobytes    | very fast | no         |
-| main memory (RAM)           | megabytes    | fast      | no         |
+| CPU registers               | 128 bytes    | fastest   | no         |
+| cache                       | kilobytes    | faster    | no         |
+| main memory (RAM)           | MB to GB     | fast      | no         |
 | storage: flash, F-RAM, disk | KB to TB     | slower    | yes        |
 | archive: offline copies     | any          | slowest   | yes        |
 
@@ -20,7 +20,7 @@ Main memory is **random-access memory** (RAM): any address can be read or writte
 
 **Static RAM** (SRAM) stores each bit in a small loop of transistors, similar to the latch in [Digital Logic](#digital-logic). It holds its value while powered, needs no maintenance, and is fast and simple to use: when an address is placed on its pins, the data appears. Its disadvantage is size. Each bit needs about six transistors, so SRAM is expensive per bit.
 
-Caches, and often a processor's register file, are made of SRAM, as is the **block RAM** inside an FPGA. Some small computers use an external SRAM chip of one or two megabytes as their main memory, which makes the memory controller trivial.
+Caches, and often a processor's register file, are made of SRAM, as is the **block RAM** inside an FPGA. Some small computers use an external SRAM chip of one or two megabytes as their main memory, which needs almost no circuitry to control.
 
 ## Dynamic RAM
 
@@ -44,11 +44,11 @@ EEPROM is still common for small amounts of data, such as settings and calibrati
 
 Three properties of flash determine how it is used:
 
-- **It must be erased before it is written.** An erased bit reads as 1, and writing can only change 1s to 0s. To change a single byte back, the whole block containing it, often 4 KB or more, must be erased and rewritten.
+- **It must be erased before it is written.** An erased bit reads as 1, and writing can only change 1s to 0s. To change any bit from 0 back to 1, the whole block containing it, often 4 KB or more, must be erased and rewritten.
 - **It wears out.** Each block survives a limited number of erase cycles, often around 100,000 for the kind used to hold programs and far fewer for the densest kinds. After that it begins to fail.
 - **It gradually loses data.** The trapped charge leaks. Typical retention is ten to twenty years, and less at high temperatures or in a worn block.
 
-There are two main kinds. **NOR flash** can be read one byte at a time at any address, which makes it suitable for holding programs that run directly from it. A small NOR flash chip, connected over four wires using SPI, a serial connection described in [Talking to the World](#talking-to-the-world), holds the configuration of nearly every FPGA board. **NAND flash** is denser and is read in pages. It is used in SD cards, USB sticks and solid-state drives. Each of these contains a small controller that hides the erasing, spreads writes across the whole chip to even out the wear (**wear levelling**), and replaces bad blocks as they appear.
+There are two main kinds. **NOR flash** can be read one byte at a time at any address, which makes it suitable for holding programs that run directly from it. A small NOR flash chip, connected over four wires using SPI, a serial connection described in [Talking to the World](#talking-to-the-world), holds the configuration of most FPGA boards. **NAND flash** is denser and is read in pages. It is used in SD cards, USB sticks and solid-state drives. Each of these contains a small controller that hides the erasing, spreads writes across the whole chip to even out the wear (**wear levelling**), and replaces bad blocks as they appear.
 
 The controller also introduces a risk: if it fails, all the data behind it can become unreachable at once, without warning. For this reason, SD cards and USB sticks are suitable for moving data but not for keeping it for decades.
 
@@ -58,14 +58,22 @@ The controller also introduces a risk: if it fails, all the data behind it can b
 
 - It is non-volatile.
 - It is written one byte at a time, at full speed, with no erase step.
-- It can be rewritten a very large number of times, typically a trillion (10 to the 12th) or more, so that in practice it does not wear out.
-- It retains data for a long time. Manufacturers typically specify around 95 years at 55 degrees Celsius and more than 200 years at 35 degrees.
+- It can be rewritten a trillion (10 to the 12th) times or more, so that in practice it does not wear out.
+- It retains data for a long time. One manufacturer specifies around 95 years at 55 degrees Celsius and more than 200 years at 35 degrees.
 
 Its disadvantages are capacity and cost. F-RAM chips hold from kilobytes to a few megabytes, and cost far more per bit than flash. For text, programs, keys, settings and logs that must survive for generations, the trade is worthwhile. A text document of a few pages fits in 8 KB.
 
-**Magnetoresistive RAM** (MRAM) stores bits magnetically and has similar properties: it is non-volatile, fast, byte-writable and durable.
+Machdyne's long-term storage devices are built around F-RAM, in three forms:
 
-Two cautions apply to every retention figure. First, they are manufacturers' estimates from accelerated testing, not observations of chips that have been stored for two centuries. Second, they depend strongly on temperature: memory kept cool lasts much longer than memory kept warm.
+- **Blaustahl**, a USB device with 8 KB of F-RAM, of which 7,680 bytes hold text: a few pages. It contains its own text editor, used from any terminal program over a USB serial connection, so it needs no driver and no particular operating system.
+- **Kaltstahl**, a larger version holding 256 KB, which can also appear to a computer as an ordinary USB drive.
+- **FERRIT**, a modular archival system: a controller and removable memory cards in a backplane, with room for hundreds of megabytes. The controller presents the cards to a computer as a USB drive, and the cards can be moved to another controller.
+
+All three are open designs, so that a device can be repaired, rebuilt or read by other means if its maker is gone.
+
+**Magnetoresistive RAM** (MRAM) stores bits magnetically and has properties similar to those of F-RAM: it is non-volatile, fast, byte-writable and durable.
+
+Two cautions apply to all retention figures. First, they are manufacturers' estimates from accelerated testing, not observations of chips that have been stored for two centuries. Second, they depend strongly on temperature: memory kept cool lasts much longer than memory kept warm.
 
 ## Other Long-Term Media
 
@@ -101,7 +109,7 @@ Careful designs follow a few rules:
 - **Commit with a single write.** Once the new version is complete and checked, make it current by changing one small value, ideally one byte, that a power cut cannot leave half-written.
 - **Spread the writes.** On memory that wears, use free blocks in rotation instead of always reusing the same ones.
 
-The small filesystem used by Machdyne BASIC on its modules follows these rules. Whenever the power is cut, every file is either as it was before the operation or as it is after it; at worst, a line being appended is lost.
+The small filesystem used by Machdyne BASIC on its modules follows these rules. Wherever the power is cut, every file is either as it was before the operation or as it is after it; at worst, the end of a line being appended is lost.
 
 Large filesystems use a **journal**, a log in which each change is recorded before it is carried out, so that an interrupted change can be completed or undone at the next start.
 
@@ -109,11 +117,9 @@ Users should likewise let the computer finish writing before removing a card or 
 
 ## Choosing Storage That Lasts
 
-The following practices keep data intact for a long time:
+Beyond its retention, two properties of a storage device decide how long the data on it remains usable:
 
-- **Keep more than one copy**, on more than one kind of medium, in more than one place. A common rule is three copies, on two kinds of media, with one kept at another location.
-- **Use plain formats.** Text files and widely documented formats will remain readable long after any particular program has gone.
-- **Verify.** Check copies against each other, or against a recorded hash, at intervals, and replace any that have failed.
-- **Refresh.** Copy data from ageing media to new media before the old media reaches the end of its expected life.
-- **Write-protect** data that should not change. Many memory chips and devices have a write-protect pin or switch.
-- **Keep the means to read it.** Storage is useful only while something can still read its interface. Prefer simple, well-documented interfaces, and keep the documentation with the data.
+- **Write protection.** Data that should not change is protected from accidental writes. Many memory chips and devices have a write-protect pin or switch.
+- **A readable interface.** Storage is useful only while something can still read its interface. Simple, well-documented interfaces, and documentation kept with the data, make it likely that something always can.
+
+The practices that keep data intact over decades, with several copies, plain formats, regular checks and refreshing onto new media, are collected in [Computing That Lasts](#computing-that-lasts).

@@ -57,8 +57,7 @@ The base RISC-V instruction set, called RV32I, has about forty instructions of a
 
 Optional **extensions** add further instructions. The M extension adds multiplication and division; others add floating point, compressed 16-bit instructions and other features. A processor's full ISA is written as a name such as RV32IM: 32-bit, base integer set, plus multiply and divide.
 
-Instruction sets are sometimes divided into **CISC** (complex instruction set computer), with many powerful instructions of varying lengths, as in the x86 family, and **RISC** (reduced instruction set computer), with fewer, simpler and more regular instructions, as in ARM and RISC-V. The distinction has become less clear over the years, but simple, regular instruction sets remain easier to build, to fit into an FPGA and to understand.
-
+Instruction sets are sometimes divided into **CISC** (complex instruction set computer), with many powerful instructions of varying lengths, as in the x86 family, and **RISC** (reduced instruction set computer), with fewer, simpler and more regular instructions, as in Arm and RISC-V. The distinction has become less clear over the years, but simple, regular instruction sets remain easier to build, to fit into an FPGA and to understand.
 
 ## Fetch, Decode, Execute
 
@@ -144,11 +143,11 @@ In the map above, the screen, the pins and the serial port are not reached with 
 
 The addresses a device answers to are its **registers**, which are distinct from the CPU's registers. A typical device has a few:
 
-- a **data** register, holding a value to send or one just received
+- a **data** register, holding a value to send or one recently received
 - a **status** register, whose bits report conditions such as "a byte has arrived" or "ready to send"
 - a **control** register, whose bits turn features on and off
 
-Suppose that storing a word at `0xE000_0000` sets a row of output pins to its lowest bits. (On a real machine, the individual pin registers each have their own address within this range, given in the machine's documentation.) These two RISC-V instructions then place the total computed earlier on the pins:
+In a simple system, storing a word at `0xE000_0000` sets a row of output pins to its lowest bits. (On a real machine, the individual pin registers each have their own address within this range, given in the machine's documentation.) On such a system, these two RISC-V instructions place the total computed earlier on the pins:
 
 ```asm
         lui  x7, 0xE0000     # x7 = 0xE000_0000, the pins' address

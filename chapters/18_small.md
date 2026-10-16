@@ -1,6 +1,6 @@
 # Small Computers
 
-Not every part of a system needs hardware that can be redesigned. Most computers in the world have no screen and no keyboard. They are built into keyboards, chargers, washing machines, cars and storage devices, and each runs one program for its whole life. These are **microcontrollers**, and they are well suited to many timeless applications, especially automation. This chapter describes them, and explains how small programmable modules can be combined with a larger computer to build systems that last.
+Not every part of a system needs hardware that can be redesigned. Most computers in the world have no screen and no keyboard. They are built into keyboards, chargers, washing machines, cars and storage devices, and each runs one program for its whole life. These are microcontrollers, and they are well suited to many timeless applications, especially automation. This chapter describes them, and explains how small programmable modules can be combined with a larger computer to build systems that last.
 
 ## Microcontrollers
 
@@ -58,7 +58,7 @@ Sechs describes three roles:
 
 Over the bus, a host can find every module by scanning addresses and ask each one what it is. It can stop and start a module's program, read and write its sixteen program registers, send it a new program, and open a console to type commands into it directly. A new module answers at a default address, and the host can assign each module its own address so that several can share a bus.
 
-The safety rules listed in [Talking to the World](#talking-to-the-world), inactive pins at power-on, a boot window in which the host can always stop the module, and programs replaced only when complete, make this robust. Sechs is still a draft standard, and the details of its registers may change, but these rules are its foundation.
+The safety rules listed in [Talking to the World](#talking-to-the-world) (inactive pins at power-on, a boot window in which the host can always stop the module, and programs replaced only when complete) make this robust. Sechs is still a draft standard, and the details of its registers may change, but its pinout and these rules are its settled foundation.
 
 ## Building Systems from Modules
 
@@ -89,14 +89,14 @@ This design follows the principles in [Timeless Computing](#timeless-computing).
 
 There are two general ways to make programs outlive the hardware they were written for. The first is a common **instruction set**, or virtual machine: every device runs the same machine code, either directly or through a small interpreter. The second is a common **language**: every device accepts the same source programs and runs them in whatever way suits its chip.
 
-Machdyne's modules have used both. Their predecessor, the Zwölf platform, defined a small 8-bit processor with a stack and a few instructions, which every module was to implement regardless of the chip it was built from. Sechs keeps the six-pin interface but does not define a common instruction set. Portability comes instead from Machdyne BASIC, which can be interpreted on some chips and could be compiled on others.
+Machdyne's modules have used both. The Zwölf platform, from which Sechs developed, defined a small 8-bit processor with a stack and a few instructions, which every module was to implement regardless of the chip it was built from. Sechs keeps the six-pin interface but does not define a common instruction set. Portability comes instead from Machdyne BASIC, which can be interpreted on some chips and could be compiled on others.
 
 A common instruction set makes compiled programs portable, and many systems have used one, from early educational computers to modern bytecode languages. A common language is simpler to build, and leaves each device free to run programs in its own way. In either case, what matters is a stable, documented layer between the programs and the hardware, so that either can change without the other.
 
 ## Module Lifetime
 
-Two measures describe the life of a small device. **Data retention** is how long its memory keeps what was written to it. For F-RAM, as described in [Memory and Storage](#memory-and-storage), it is rated in centuries. The **functional life** of the device as a whole depends on its other parts: the microcontroller, the solder joints, the connectors, the capacitors and its operating conditions, and it is generally shorter.
+Two measures describe the life of a small device. **Data retention** is how long its memory keeps what was written to it. For F-RAM, as described in [Memory and Storage](#memory-and-storage), it is rated at a century or more, depending on temperature. The **functional life** of the device as a whole depends on its other parts (the microcontroller, the solder joints, the connectors and the capacitors) and on its operating conditions, and it is generally shorter.
 
-Modules address this in the same way as the rest of the book. The important information is kept in the most durable form, the parts are cheap and replaceable, and the design and documentation are open, so that a replacement can always be made.
+Modules address this with the approach used throughout the book. The important information is kept in the most durable form, the parts are cheap and replaceable, and the design and documentation are open, so that a replacement can always be made.
 
 The next part combines this material in one complete machine.
